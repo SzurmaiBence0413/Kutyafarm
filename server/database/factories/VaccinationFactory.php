@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Dog;
+use App\Models\Medicine;
+use App\Models\Vaccination;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +19,18 @@ class VaccinationFactory extends Factory
      */
     public function definition(): array
     {
+        $dog = Dog::inRandomOrder()
+            ->first();
+        $dogId = $dog->id;
+
+        $medicine = Medicine::inRandomOrder()->first();
+        $medicineId = $medicine->id;
+
         return [
-            //
+            'dogId' => $dogId,
+            'medicineId' => $medicineId,
+            'timeOfVaccination' => fake()->dateTimeBetween('2010-01-01', 'now'),
+            'vaccinationPrice' => fake()->numberBetween(3000, 25000)
         ];
     }
 }

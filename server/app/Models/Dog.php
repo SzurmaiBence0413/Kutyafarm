@@ -9,4 +9,11 @@ class Dog extends Model
 {
     /** @use HasFactory<\Database\Factories\DogFactory> */
     use HasFactory;
+    protected function casts(): array
+    {
+        return [
+            'teeth' => 'boolean',
+
+        ];
+    }
 }

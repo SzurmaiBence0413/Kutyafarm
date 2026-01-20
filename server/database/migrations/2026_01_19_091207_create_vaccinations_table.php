@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('dogId')->constrained('dogs');
             $table->foreignId('medicineId')->constrained('medicines')->onDelete('restrict');
-            $table->timestamp('timeOfVaccination');
+            $table->date('timeOfVaccination');
             $table->unique(['dogId', 'medicineId', 'timeOfVaccination']);
             $table->integer('vaccinationPrice');
             $table->timestamps();
