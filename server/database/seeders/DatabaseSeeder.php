@@ -20,12 +20,18 @@ class DatabaseSeeder extends Seeder
 
         //Mielőtt seedelünk, minden táblát töröljünk le.
         DB::statement('DELETE FROM users');
+        DB::statement('DELETE FROM breeds');
+        DB::statement('DELETE FROM colors');
+        DB::statement('DELETE FROM medicines');
 
 
 
         //Ami Seeder osztály itt fel van sorolva, annak lefut a run() metódusa
         $this->call([
             UserSeeder::class,
+            BreedSeeder::class,
+            ColorSeeder::class,
+            MedicineSeeder::class,
         ]);
     }
 }
