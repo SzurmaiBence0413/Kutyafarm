@@ -32,9 +32,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             BreedSeeder::class,
-            ColorSeeder::class,
             MedicineSeeder::class,
+            ColorSeeder::class,
             DogSeeder::class,
+            PhotoeSeeder::class,
             VaccinationSeeder::class
         ]);
     }

@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('photoes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('dogId')->constrained('dogs')->onDelete('restrict');
-            $table->string('photo');
+            $table->string('imgUrl');
             $table->timestamps();
         });
     }
