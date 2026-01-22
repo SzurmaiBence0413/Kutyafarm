@@ -3,7 +3,7 @@
 @hostname = localhost
 @port = 8000
 @host = {{protocol}}{{hostname}}:{{port}}
-### @token = 12|ibiwTdr77o8ppToh1tBxIkckBNb8ECjIjLgaweTaa757cdef
+### @token = 2|VS3wz0uRV4UJS0t1wzLHvFc8wavo2V0dsyVobNqy24983133
 
 
 ### login
@@ -13,8 +13,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "email": "vasarlo1@example.com",
-    "password": "ronaldo"
+    "email": "admin@example.com",
+    "password": "123"
 }
 
 ###
@@ -37,7 +37,7 @@ Accept: application/json
 Authorization: Bearer {{token}}
 
 ### post user
-POST {{host}}/api/users 
+POST {{host}}/api/users
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}
@@ -160,3 +160,36 @@ Authorization: Bearer {{token}}
     "price": 1002,
     "stock": "eee"
 }
+
+
+
+
+### get Breeds
+GET  {{host}}/api/breeds
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### get breeds by id
+get {{host}}/api/breeds/1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### post breeds
+POST  {{host}}/api/breeds
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+"breed":"Test"
+}
+
+### delete breed by id
+delete {{host}}/api/breeds/1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+

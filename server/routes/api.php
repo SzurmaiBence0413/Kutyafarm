@@ -112,7 +112,7 @@ Route::delete('photoes/{id}', [PhotoeController::class, 'destroy'])
     ->middleware(['auth:sanctum', 'ability:photoes:delete']);
 //endregion
 
-//region Photoes
+//region Vaccinations
 Route::get('vaccinations', [VaccinationController::class, 'index']);
 Route::get('vaccinations/{id}', [VaccinationController::class, 'show']);
 Route::post('vaccinations', [VaccinationController::class, 'store'])
