@@ -3,6 +3,7 @@
 use App\Http\Controllers\BreedController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\DogController;
+use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -86,3 +87,15 @@ Route::patch('colors/{id}', [ColorController::class, 'update'])
 Route::delete('colors/{id}', [ColorController::class, 'destroy'])
     ->middleware(['auth:sanctum', 'ability:colors:delete']);
 //endregion
+
+//region Medicines
+Route::get('medicines', [MedicineController::class, 'index']);
+Route::get('medicines/{id}', [MedicineController::class, 'show']);
+Route::post('medicines', [MedicineController::class, 'store'])
+    ->middleware(['auth:sanctum', 'ability:medicines:post']);
+Route::patch('medicines/{id}', [MedicineController::class, 'update'])
+    ->middleware(['auth:sanctum','ability:medicines:patch']);
+Route::delete('medicines/{id}', [MedicineController::class, 'destroy'])
+    ->middleware(['auth:sanctum', 'ability:medicines:delete']);
+//endregion
+
