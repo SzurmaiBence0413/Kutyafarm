@@ -7,6 +7,7 @@ use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\PhotoeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VaccinationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -109,5 +110,16 @@ Route::patch('photoes/{id}', [PhotoeController::class, 'update'])
     ->middleware(['auth:sanctum', 'ability:photoes:patch']);
 Route::delete('photoes/{id}', [PhotoeController::class, 'destroy'])
     ->middleware(['auth:sanctum', 'ability:photoes:delete']);
+//endregion
+
+//region Photoes
+Route::get('vaccinations', [VaccinationController::class, 'index']);
+Route::get('vaccinations/{id}', [VaccinationController::class, 'show']);
+Route::post('vaccinations', [VaccinationController::class, 'store'])
+    ->middleware(['auth:sanctum', 'ability:vaccinations:post']);
+Route::patch('vaccinations/{id}', [VaccinationController::class, 'update'])
+    ->middleware(['auth:sanctum', 'ability:vaccinations:patch']);
+Route::delete('vaccinations/{id}', [VaccinationController::class, 'destroy'])
+    ->middleware(['auth:sanctum', 'ability:vaccinations:delete']);
 //endregion
 
