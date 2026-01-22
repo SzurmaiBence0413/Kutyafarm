@@ -305,7 +305,7 @@ class UserController extends Controller
     {
         //Kivesszük a törlendő user-t
         $userToDestroy = $request->user();
-        // A Policy-t használjuk: 
+        // A Policy-t használjuk:
         $this->authorize('delete', $userToDestroy);
         // ... törlés logika
         //A user tokenjeinek törlése
@@ -328,7 +328,7 @@ class UserController extends Controller
 
         //Kivesszük a módosítandó user-t
         $userToUpdate = $request->user();
-        // A Policy-t használjuk: 
+        // A Policy-t használjuk:
         $this->authorize('update', $userToUpdate);
 
         $status = 200;
@@ -351,7 +351,7 @@ class UserController extends Controller
         /** @var \App\Models\User $user */
         $user = $request->user();
 
-        // Frissítjük a jelszót (a Laravel 10+ automatikusan hasheli, 
+        // Frissítjük a jelszót (a Laravel 10+ automatikusan hasheli,
         // ha a model-ben a 'password' mező 'hashed' cast-ot kapott)
         $user->update([
             'password' => Hash::make($request->newpassword)
@@ -375,7 +375,7 @@ class UserController extends Controller
     {
         //Kivesszük a megmutatandó usert
         $userToGet = $request->user();
-        // A Policy-t használjuk: 
+        // A Policy-t használjuk:
         $this->authorize('view', $userToGet);
         $status = 200;
         $data = [
