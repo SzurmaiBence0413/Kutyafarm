@@ -193,3 +193,30 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 
+### get color
+GET  {{host}}/api/colors
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### get color by id
+get {{host}}/api/colors/1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### post color
+POST  {{host}}/api/colors
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+"colorName":"Test color"
+}
+
+### delete color by id
+delete {{host}}/api/colors/1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
