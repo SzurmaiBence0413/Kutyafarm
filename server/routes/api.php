@@ -4,6 +4,7 @@ use App\Http\Controllers\BreedController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\DogController;
 use App\Http\Controllers\MedicineController;
+use App\Http\Controllers\PhotoeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 
 //endpoint
-Route::get('/x', function(){
+Route::get('/x', function () {
     return 'API';
 });
 
@@ -35,20 +36,20 @@ Route::get('users/{id}', [UserController::class, 'show'])
     ->middleware('auth:sanctum', 'ability:admin');
 //User adatok módosítása
 Route::patch('users/{id}', [UserController::class, 'update'])
-->middleware('auth:sanctum', 'ability:admin');
+    ->middleware('auth:sanctum', 'ability:admin');
 //User törlés
 Route::delete('users/{id}', [UserController::class, 'destroy'])
-->middleware('auth:sanctum', 'ability:admin');
+    ->middleware('auth:sanctum', 'ability:admin');
 
 //User self (Amit a user önmagával csinálhat) parancsok
 Route::delete('usersme', [UserController::class, 'destroySelf'])
-->middleware('auth:sanctum', 'ability:usersme:delete');
+    ->middleware('auth:sanctum', 'ability:usersme:delete');
 
 Route::patch('usersme', [UserController::class, 'updateSelf'])
-->middleware('auth:sanctum', 'ability:usersme:patch');
+    ->middleware('auth:sanctum', 'ability:usersme:patch');
 
 Route::patch('usersmeupdatepassword', [UserController::class, 'updatePassword'])
-->middleware('auth:sanctum', 'ability:usersme:updatePassword');
+    ->middleware('auth:sanctum', 'ability:usersme:updatePassword');
 
 Route::get('usersme', [UserController::class, 'indexSelf'])
     ->middleware('auth:sanctum', 'ability:usersme:get');
@@ -60,7 +61,7 @@ Route::get('dogs/{id}', [DogController::class, 'show']);
 Route::post('dogs', [DogController::class, 'store'])
     ->middleware(['auth:sanctum', 'ability:dogs:post']);
 Route::patch('dogs/{id}', [DogController::class, 'update'])
-    ->middleware(['auth:sanctum','ability:dogs:patch']);
+    ->middleware(['auth:sanctum', 'ability:dogs:patch']);
 Route::delete('dogs/{id}', [DogController::class, 'destroy'])
     ->middleware(['auth:sanctum', 'ability:dogs:delete']);
 //endregion
@@ -71,7 +72,7 @@ Route::get('breeds/{id}', [BreedController::class, 'show']);
 Route::post('breeds', [BreedController::class, 'store'])
     ->middleware(['auth:sanctum', 'ability:breeds:post']);
 Route::patch('breeds/{id}', [BreedController::class, 'update'])
-    ->middleware(['auth:sanctum','ability:breeds:patch']);
+    ->middleware(['auth:sanctum', 'ability:breeds:patch']);
 Route::delete('breeds/{id}', [BreedController::class, 'destroy'])
     ->middleware(['auth:sanctum', 'ability:breeds:delete']);
 
@@ -83,7 +84,7 @@ Route::get('colors/{id}', [ColorController::class, 'show']);
 Route::post('colors', [ColorController::class, 'store'])
     ->middleware(['auth:sanctum', 'ability:colors:post']);
 Route::patch('colors/{id}', [ColorController::class, 'update'])
-    ->middleware(['auth:sanctum','ability:colors:patch']);
+    ->middleware(['auth:sanctum', 'ability:colors:patch']);
 Route::delete('colors/{id}', [ColorController::class, 'destroy'])
     ->middleware(['auth:sanctum', 'ability:colors:delete']);
 //endregion
@@ -94,8 +95,19 @@ Route::get('medicines/{id}', [MedicineController::class, 'show']);
 Route::post('medicines', [MedicineController::class, 'store'])
     ->middleware(['auth:sanctum', 'ability:medicines:post']);
 Route::patch('medicines/{id}', [MedicineController::class, 'update'])
-    ->middleware(['auth:sanctum','ability:medicines:patch']);
+    ->middleware(['auth:sanctum', 'ability:medicines:patch']);
 Route::delete('medicines/{id}', [MedicineController::class, 'destroy'])
     ->middleware(['auth:sanctum', 'ability:medicines:delete']);
+//endregion
+
+//region Photoes
+Route::get('photoes', [PhotoeController::class, 'index']);
+Route::get('photoes/{id}', [PhotoeController::class, 'show']);
+Route::post('photoes', [PhotoeController::class, 'store'])
+    ->middleware(['auth:sanctum', 'ability:photoes:post']);
+Route::patch('photoes/{id}', [PhotoeController::class, 'update'])
+    ->middleware(['auth:sanctum', 'ability:photoes:patch']);
+Route::delete('photoes/{id}', [PhotoeController::class, 'destroy'])
+    ->middleware(['auth:sanctum', 'ability:photoes:delete']);
 //endregion
 
