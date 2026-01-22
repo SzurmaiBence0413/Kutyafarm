@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BreedController;
+use App\Http\Controllers\ColorController;
 use App\Http\Controllers\DogController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -72,4 +73,16 @@ Route::patch('breeds/{id}', [BreedController::class, 'update'])
     ->middleware(['auth:sanctum','ability:breeds:patch']);
 Route::delete('breeds/{id}', [BreedController::class, 'destroy'])
     ->middleware(['auth:sanctum', 'ability:breeds:delete']);
+
+//endregion
+
+//region Colors
+Route::get('colors', [ColorController::class, 'index']);
+Route::get('colors/{id}', [ColorController::class, 'show']);
+Route::post('colors', [ColorController::class, 'store'])
+    ->middleware(['auth:sanctum', 'ability:colors:post']);
+Route::patch('colors/{id}', [ColorController::class, 'update'])
+    ->middleware(['auth:sanctum','ability:colors:patch']);
+Route::delete('colors/{id}', [ColorController::class, 'destroy'])
+    ->middleware(['auth:sanctum', 'ability:colors:delete']);
 //endregion
