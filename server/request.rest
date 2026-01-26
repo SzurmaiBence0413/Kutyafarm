@@ -13,7 +13,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "email": "admin@example.com",
+    "email": "vasarlo1@example.com",
     "password": "123"
 }
 
@@ -183,7 +183,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-"breed":"Test"
+"breed":"Test1"
 }
 
 ### delete breed by id
@@ -212,7 +212,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-"colorName":"Test color"
+"colorName":"Test color2"
 }
 
 ### delete color by id
