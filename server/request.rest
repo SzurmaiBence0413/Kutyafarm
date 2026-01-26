@@ -183,14 +183,27 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-"breed":"Test1"
+"breed":"Test2"
 }
+
+###Patch breed by id
+PATCH  {{host}}/api/breeds/31
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "colorName": "tesztbreed"
+}
+
 
 ### delete breed by id
 delete {{host}}/api/breeds/1
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+
 
 
 ### get color
@@ -200,7 +213,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### get color by id
-get {{host}}/api/colors/1
+GET  {{host}}/api/colors/1
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -215,16 +228,55 @@ Authorization: Bearer {{token}}
 "colorName":"Test color3"
 }
 
-###Post color
-PATCH {{host}}/api/colors/20
+###Patch color by id
+PATCH  {{host}}/api/colors/20
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "colorName": "teszt5"
+}
+
+### delete color by id
+delete {{host}}/api/colors/1
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 
+
+
+### get medicines
+GET  {{host}}/api/medicines
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### get medicine by id
+GET  {{host}}/api/medicines/1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### post medicine
+POST  {{host}}/api/medicines
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
 {
-    "price": 1002,
-    "stock": "eee"
+"medicineName":"Test1"
+}
+
+###Patch medicines by id
+PATCH  {{host}}/api/colors/19
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "medicineName": "teszt5"
 }
 
 ### delete color by id
