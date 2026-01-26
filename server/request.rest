@@ -3,7 +3,7 @@
 @hostname = localhost
 @port = 8000
 @host = {{protocol}}{{hostname}}:{{port}}
-### @token = 2|VS3wz0uRV4UJS0t1wzLHvFc8wavo2V0dsyVobNqy24983133
+### @token = 3|k8WwtftPvGIiH8EqtPpvUMGpfVlAA4ZjJeoJvgtx2252a726
 
 
 ### login
@@ -13,7 +13,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "email": "@example.com",
+    "email": "vasarlo1@example.com",
     "password": "123"
 }
 
@@ -162,7 +162,7 @@ Authorization: Bearer {{token}}
 }
 
 
-
+###-----Breeds----------------------------------------------------------------------
 
 ### get Breeds
 GET  {{host}}/api/breeds
@@ -183,15 +183,28 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-"breed":"Test1"
+"breed":"Test22"
 }
 
-### delete breed by id
-delete {{host}}/api/breeds/1
+###Patch breed by id
+PATCH  {{host}}/api/breeds/31
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
+{
+    "colorName": "tesztbreed"
+}
+
+
+### delete breed by id
+delete {{host}}/api/breeds/34
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+###------Colors----------------------------------------------------------------------
 
 ### get color
 GET  {{host}}/api/colors
@@ -200,7 +213,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### get color by id
-get {{host}}/api/colors/1
+GET  {{host}}/api/colors/1
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -212,14 +225,109 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-"colorName":"Test color2"
+"colorName":"Test color3"
+}
+
+###Patch color by id
+PATCH  {{host}}/api/colors/20
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "colorName": "teszt1"
 }
 
 ### delete color by id
+delete {{host}}/api/colors/21
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+
+###-------Medicines---------------------------------------------------------------------
+### get medicines
+GET  {{host}}/api/medicines
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### get medicine by id
+GET  {{host}}/api/medicines/1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### post medicine
+POST  {{host}}/api/medicines
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+"medicineName":"Test1"
+}
+
+###Patch medicines by id
+PATCH  {{host}}/api/medicines/21
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "medicineName": "teszt5"
+}
+
+### delete medicines by id
 delete {{host}}/api/colors/1
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+###------Dogs----------------------------------------------------------------------
+
+
+### get dogs
+GET  {{host}}/api/dogs
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### get dog by id
+GET  {{host}}/api/dogs/1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### post dog
+POST  {{host}}/api/dogs
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+"dogName":"Test kutya",
+"dateOfBirth":"2006.03.01",
+
+}
+
+###Patch dog by id
+PATCH  {{host}}/api/dogs/20
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "dogName": "teszt kutya"
+}
+
+### delete dog by id
+delete {{host}}/api/dogs/1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
 
 
 ### Get all medicines

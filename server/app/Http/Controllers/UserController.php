@@ -61,7 +61,7 @@ class UserController extends Controller
                 $abilities = ['*'];
                 break;
             case 2:
-                //Raktáros
+                //Hirdető
                 $abilities = [
                     'usersme:delete',
                     'usersme:patch',
@@ -73,7 +73,7 @@ class UserController extends Controller
                 ];
                 break;
             default:
-                //Vásárló
+                //Látogató
                 $abilities = [
                     'usersme:delete',
                     'usersme:patch',
