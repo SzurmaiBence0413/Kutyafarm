@@ -13,7 +13,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "email": "vasarlo1@example.com",
+    "email": "@example.com",
     "password": "123"
 }
 
@@ -220,3 +220,65 @@ delete {{host}}/api/colors/1
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+
+### Get all medicines
+GET {{host}}/api/medicines
+Authorization: Bearer {{token}}
+
+### Get medicine by id
+GET {{host}}/api/medicines/1
+Authorization: Bearer {{token}}
+
+### Post medicines
+POST {{host}}/api/medicines
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "medicineName": "Kombinált oltás"
+}
+
+### Delete medicine by id
+DELETE {{host}}/api/medicines/1
+Authorization: Bearer {{token}}
+
+### Patch medicine by id
+PATCH {{host}}/api/medicines/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "medicineName": "Módosított oltás név"
+}
+
+### Get all photos
+GET {{host}}/api/photoes
+Authorization: Bearer {{token}}
+
+### Get photo by id
+GET {{host}}/api/photoes/1
+Authorization: Bearer {{token}}
+
+### Post photo
+POST {{host}}/api/photoes
+Content-Type: application/json 
+Authorization: Bearer {{token}}
+
+{
+    "dogId": 1,
+    "imgUrl": "https://valami.hu/kep.jpg"
+}
+
+### Delete photo by id
+DELETE {{host}}/api/photoes/1
+Authorization: Bearer {{token}}
+
+### Patch photo by id
+PATCH {{host}}/api/photoes/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "imgUrl": "https://valami.hu/uj_kep.jpg"
+}
