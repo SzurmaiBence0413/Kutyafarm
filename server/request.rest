@@ -13,7 +13,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "email": "vasarlo1@example.com",
+    "email": "admin@example.com",
     "password": "123"
 }
 
@@ -212,7 +212,19 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-"colorName":"Test color2"
+"colorName":"Test color3"
+}
+
+###Post color
+PATCH {{host}}/api/colors/20
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+{
+    "price": 1002,
+    "stock": "eee"
 }
 
 ### delete color by id
