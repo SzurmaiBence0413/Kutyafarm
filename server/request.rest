@@ -319,7 +319,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "dogName": "teszt kutya"
+    "dogName": "teszt kutya1"
 }
 
 ### delete dog by id
