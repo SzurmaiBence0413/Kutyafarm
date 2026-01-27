@@ -45,14 +45,13 @@ class DogController extends Controller
             return response()->json($data, 201, options: JSON_UNESCAPED_UNICODE);
 
         } catch (QueryException $e) {
-            if ($e->getCode() == 23000 || str_contains($e->getMessage(), 'Duplicate entery')) {
-                $data = [
-                    'message' => 'Insert error: The given name alrady exist, please choose another one',
+            if ($e->errorInfo[1] == 1062) {
+                return response()->json([
+                    'message' => 'Insert error: This chip number already exists',
                     'data' => [
-                        'chipNumber' => $request->input('chipNumber')
+                        'chipNumber' => $request->chipNumber
                     ]
-                ];
-                return response()->json($data, 409, options: JSON_UNESCAPED_UNICODE);
+                ], 409, options: JSON_UNESCAPED_UNICODE);
             }
             throw $e;
         }
@@ -124,7 +123,7 @@ class DogController extends Controller
             $status = 404;
             $data = [
                 'message' => "Delete error. Not found id: $id",
-                'data=' => null
+                'data' => null
             ];
         }
         return response()->json($data, $status, options: JSON_UNESCAPED_UNICODE);

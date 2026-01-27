@@ -22,7 +22,15 @@ class StoreDogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'breedId' => 'required|integer|exists:breeds,id',  // breedId nem kötelező, ha megadva van, akkor validálja
+            'dogName' => 'required|string|max:255',
+            'userId' => 'required|integer|exists:users,id',
+            'dateOfBirth' => 'required|date',
+            'chipNumber' => 'required|string|max:15|unique:dogs,chipNumber',
+            'gender' => 'required|boolean',
+            'colorId' => 'required|integer|exists:colors,id',
+            'weight' => 'nullable|numeric',
+            'teeth' => 'required|boolean',
         ];
     }
 }
