@@ -108,7 +108,7 @@ class MedicineController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(int $id)
+public function destroy(int $id)
     {
         $row = Medicine::find($id);
         if ($row) {
@@ -125,9 +125,8 @@ class MedicineController extends Controller
             $status = 404;
             $data = [
                 'message' => "Delete error. Not found id: $id",
-                'data=' => null
+                'data' => null
             ];
         }
         return response()->json($data, $status, options: JSON_UNESCAPED_UNICODE);
-    }
-}
+    }}

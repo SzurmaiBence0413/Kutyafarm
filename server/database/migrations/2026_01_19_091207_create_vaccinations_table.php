@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Container\Attributes\DB;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +15,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('dogId')->constrained('dogs');
             $table->foreignId('medicineId')->constrained('medicines')->onDelete('restrict');
-            $table->date('timeOfVaccination');
+            $table->date('timeOfVaccination')->default('2000-01-01');
             $table->unique(['dogId', 'medicineId', 'timeOfVaccination']);
             $table->integer('vaccinationPrice');
             $table->timestamps();

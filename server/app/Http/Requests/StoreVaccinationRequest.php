@@ -22,7 +22,10 @@ class StoreVaccinationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'dogId',
+            'medicineId',
+            'timeOfVaccination',
+            'vaccinationPrice'
         ];
     }
 }

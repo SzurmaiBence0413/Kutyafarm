@@ -3,7 +3,7 @@
 @hostname = localhost
 @port = 8000
 @host = {{protocol}}{{hostname}}:{{port}}
-### @token = 1|8xQcLpWKXmQniiGV7t8lJVwNNOhTecRRG5u43Zly22a7bbc1
+### @token =2|4870lH49Na2nZ1W14SjOjSRW8vW2FSVtSXmEN86W13e71c1d"
 
 
 ### login
@@ -162,8 +162,8 @@ Authorization: Bearer {{token}}
 }
 
 
-###-----Breeds----------------------------------------------------------------------
 
+###-----Breeds----------------------------------------------------------------------
 ### get Breeds
 GET  {{host}}/api/breeds
 Accept: application/json
@@ -187,7 +187,7 @@ Authorization: Bearer {{token}}
 }
 
 ###Patch breed by id
-PATCH  {{host}}/api/breeds/31
+PATCH  {{host}}/api/breeds/30
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -198,14 +198,14 @@ Authorization: Bearer {{token}}
 
 
 ### delete breed by id
-delete {{host}}/api/breeds/34
+delete {{host}}/api/breeds/31
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 
-###------Colors----------------------------------------------------------------------
 
+###------Colors----------------------------------------------------------------------
 ### get color
 GET  {{host}}/api/colors
 Accept: application/json
@@ -229,7 +229,7 @@ Authorization: Bearer {{token}}
 }
 
 ###Patch color by id
-PATCH  {{host}}/api/colors/20
+PATCH  {{host}}/api/colors/19
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -239,11 +239,10 @@ Authorization: Bearer {{token}}
 }
 
 ### delete color by id
-delete {{host}}/api/colors/21
+delete {{host}}/api/colors/19
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
-
 
 
 ###-------Medicines---------------------------------------------------------------------
@@ -276,16 +275,14 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "medicineName": "teszt5"
+    "medicineName": "teszt3"
 }
 
 ### delete medicines by id
-delete {{host}}/api/medicnes/22
+delete {{host}}/api/medicines/22
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}
-
-
 
 
 
@@ -338,4 +335,86 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 
+###------Vaccinations---------------------------------------------------------------
+### get all vaccination
+GET  {{host}}/api/vaccinations
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
+### get vaccination by id
+GET  {{host}}/api/vaccinations/2
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### post vaccination
+POST  {{host}}/api/vaccinations
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "dogId": "1",
+    "medicineId":"1",
+    "timeOfVaccination":"2020-01-01",
+    "vaccinationPrice":"1000000"
+}
+
+###Patch vaccination by id
+PATCH  {{host}}/api/vaccinations/1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+"vaccinationPrice":5555
+}
+
+### delete vaccination by id
+delete {{host}}/api/vaccinations/201
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+
+###------Photos---------------------------------------------------------------
+### get all photos
+GET  {{host}}/api/photos
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### get photo by id
+GET  {{host}}/api/photos/2
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### post photo
+POST  {{host}}/api/photos
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+"dogId":2,
+"imgUrl":"https://fbggerg"
+}
+
+###Patch photo by id
+PATCH  {{host}}/api/photos/1
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+"imgUrl":"patch teszt"
+}
+
+### delete photo by id
+delete {{host}}/api/photos/201
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}

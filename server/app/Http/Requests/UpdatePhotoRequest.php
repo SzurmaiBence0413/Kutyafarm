@@ -22,7 +22,8 @@ class UpdatePhotoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'dogId',
+            'imgUrl'
         ];
     }
 }
