@@ -3,7 +3,7 @@
 @hostname = localhost
 @port = 8000
 @host = {{protocol}}{{hostname}}:{{port}}
-### @token = 2|9IaNJ2bxPJYvsZWjwAxV8Q6dBRkaodbiTfdCgGjS9da6ecad
+### @token = 1|8xQcLpWKXmQniiGV7t8lJVwNNOhTecRRG5u43Zly22a7bbc1
 
 
 ### login
@@ -283,19 +283,21 @@ Authorization: Bearer {{token}}
 delete {{host}}/api/medicnes/22
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer {{token}}
+Authorization: Bearer {{token}
+
+
+
+
 
 ###------Dogs----------------------------------------------------------------------
-
-
-### get dogs
+### get all dogs
 GET  {{host}}/api/dogs
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### get dog by id
-GET  {{host}}/api/dogs/201
+GET  {{host}}/api/dogs/200
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -308,7 +310,7 @@ Authorization: Bearer {{token}}
 
 {
 "breedId":"11",
-"dogName":"peugeot 407",
+"dogName":"Buksi",
 "userId":"3",
 "dateOfBirth":"2026-01-27",
 "chipNumber":"676767676767676",
