@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('photoes', function (Blueprint $table) {
+        Schema::create('photos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('dogId')->constrained('dogs')->onDelete('restrict');
             $table->string('imgUrl');
@@ -23,6 +23,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('photoes');
+        Schema::dropIfExists('photos');
     }
 };

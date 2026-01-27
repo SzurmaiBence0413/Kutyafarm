@@ -3,7 +3,7 @@
 @hostname = localhost
 @port = 8000
 @host = {{protocol}}{{hostname}}:{{port}}
-### @token = 1|6assfhlPAyzOTVXefnQLMxwOBxtWKlv40Nhdd8gy092a6b49
+### @token = 2|9IaNJ2bxPJYvsZWjwAxV8Q6dBRkaodbiTfdCgGjS9da6ecad
 
 
 ### login
@@ -266,11 +266,11 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-"medicineName":"Test1"
+"medicineName":"Test2"
 }
 
 ###Patch medicines by id
-PATCH  {{host}}/api/medicines/21
+PATCH  {{host}}/api/medicines/22
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -280,7 +280,7 @@ Authorization: Bearer {{token}}
 }
 
 ### delete medicines by id
-delete {{host}}/api/colors/1
+delete {{host}}/api/medicnes/22
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -295,7 +295,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### get dog by id
-GET  {{host}}/api/dogs/1
+GET  {{host}}/api/dogs/201
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -320,7 +320,7 @@ Authorization: Bearer {{token}}
 
 
 ###Patch dog by id
-PATCH  {{host}}/api/dogs/20
+PATCH  {{host}}/api/dogs/201
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -330,7 +330,7 @@ Authorization: Bearer {{token}}
 }
 
 ### delete dog by id
-delete {{host}}/api/dogs/1
+delete {{host}}/api/dogs/201
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}

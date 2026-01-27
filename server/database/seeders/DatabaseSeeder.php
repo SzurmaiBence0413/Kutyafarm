@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Photo;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -20,7 +21,7 @@ class DatabaseSeeder extends Seeder
 
         //Mielőtt seedelünk, minden táblát töröljünk le.
         DB::statement('DELETE FROM vaccinations');
-        DB::statement('DELETE FROM photoes');
+        DB::statement('DELETE FROM photos');
         DB::statement('DELETE FROM dogs');
         DB::statement('DELETE FROM medicines');
         DB::statement('DELETE FROM breeds');
@@ -35,7 +36,7 @@ class DatabaseSeeder extends Seeder
             MedicineSeeder::class,
             ColorSeeder::class,
             DogSeeder::class,
-            PhotoeSeeder::class,
+            PhotoSeeder::class,
             VaccinationSeeder::class
         ]);
     }

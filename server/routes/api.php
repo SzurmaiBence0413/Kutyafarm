@@ -4,6 +4,7 @@ use App\Http\Controllers\BreedController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\DogController;
 use App\Http\Controllers\MedicineController;
+use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PhotoeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -101,15 +102,15 @@ Route::delete('medicines/{id}', [MedicineController::class, 'destroy'])
     ->middleware(['auth:sanctum', 'ability:medicines:delete']);
 //endregion
 
-//region Photoes
-Route::get('photoes', [PhotoeController::class, 'index']);
-Route::get('photoes/{id}', [PhotoeController::class, 'show']);
-Route::post('photoes', [PhotoeController::class, 'store'])
-    ->middleware(['auth:sanctum', 'ability:photoes:post']);
-Route::patch('photoes/{id}', [PhotoeController::class, 'update'])
-    ->middleware(['auth:sanctum', 'ability:photoes:patch']);
-Route::delete('photoes/{id}', [PhotoeController::class, 'destroy'])
-    ->middleware(['auth:sanctum', 'ability:photoes:delete']);
+//region Photos
+Route::get('photos', [PhotoController::class, 'index']);
+Route::get('photos/{id}', [PhotoController::class, 'show']);
+Route::post('photos', [PhotoController::class, 'store'])
+    ->middleware(['auth:sanctum', 'ability:photos:post']);
+Route::patch('photos/{id}', [PhotoController::class, 'update'])
+    ->middleware(['auth:sanctum', 'ability:photos:patch']);
+Route::delete('photos/{id}', [PhotoController::class, 'destroy'])
+    ->middleware(['auth:sanctum', 'ability:photos:delete']);
 //endregion
 
 //region Vaccinations

@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Photoe;
 use App\Http\Requests\StorePhotoeRequest;
+use App\Http\Requests\StorePhotoRequest;
 use App\Http\Requests\UpdatePhotoeRequest;
+use App\Http\Requests\UpdatePhotoRequest;
+use App\Models\Photo;
 use Illuminate\Database\QueryException;
 
-class PhotoeController extends Controller
+class PhotoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +18,7 @@ class PhotoeController extends Controller
     public function index()
     {
         try {
-            $rows = Photoe::all();
+            $rows = Photo::all();
             $status = 200;
             $data = [
                 'message' => 'OK',
@@ -34,10 +37,10 @@ class PhotoeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePhotoeRequest $request)
+    public function store(StorePhotoRequest $request)
     {
         try {
-            $row = Photoe::create($request->all());
+            $row = Photo::create($request->all());
             $data = [
                 'message' => 'OK',
                 'data' => $row
@@ -63,7 +66,7 @@ class PhotoeController extends Controller
      */
     public function show(int $id)
     {
-        $row = Photoe::find($id);
+        $row = Photo::find($id);
         if ($row) {
             $status = 200;
             $data = [
@@ -83,9 +86,9 @@ class PhotoeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePhotoeRequest $request, int $id)
+    public function update(UpdatePhotoRequest $request, int $id)
     {
-        $row = Photoe::find($id);
+        $row = Photo::find($id);
         if ($row) {
             $row->update($request->all());
 
@@ -109,7 +112,7 @@ class PhotoeController extends Controller
      */
     public function destroy(int $id)
     {
-        $row = Photoe::find($id);
+        $row = Photo::find($id);
         if ($row) {
             $row->delete();
 
