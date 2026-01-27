@@ -16,4 +16,15 @@ class Dog extends Model
 
         ];
     }
+    protected $fillable = [
+        'breedid' ,
+        'dogName',
+        'userId',
+        'dateOfBirth',
+        'chipNumber',
+        'gender',
+        'colorId',
+        'weight',
+        'teeth',
+    ];
 }

@@ -13,7 +13,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "email": "vasarlo1@example.com",
+    "email": "admin@example.com",
     "password": "123"
 }
 
@@ -307,9 +307,15 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-"dogName":"Test kutya",
-"dateOfBirth":"2006.03.01",
-
+"breedId":"11",
+"dogName":"segglyuk destroyer",
+"userId":"3",
+"dateOfBirth":"2026-01-27",
+"chipNumber":"123456789123456",
+"gender":"0",
+"colorId":"11",
+"weight":"30",
+"teeth":"1"
 }
 
 ###Patch dog by id
@@ -319,7 +325,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "dogName": "teszt kutya"
+    "dogName": "teszt kutya1"
 }
 
 ### delete dog by id

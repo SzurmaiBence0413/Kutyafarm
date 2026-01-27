@@ -12,15 +12,16 @@ return new class extends Migration {
     {
         Schema::create('dogs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('breedId')->constrained('breeds')->onDelete('restrict');
+            $table->foreignId('breedId')->nullable()->constrained('breeds')->onDelete('restrict');
             $table->string('dogName');
             $table->foreignId('userId')->nullable()->constrained('breeds')->onDelete('restrict');
             $table->date('dateOfBirth');
-            $table->string('chipNumber', 15)->unique();
+            $table->string('chipNumber', 15);
             $table->boolean('gender');
             $table->foreignId('colorId')->constrained('colors')->onDelete('restrict');
             $table->double('weight');
             $table->boolean('teeth');
+            $table->unique('chipNumber');
             $table->timestamps();
         });
     }
