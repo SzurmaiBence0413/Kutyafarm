@@ -9,4 +9,9 @@ class Vaccination extends Model
 {
     /** @use HasFactory<\Database\Factories\VaccinationFactory> */
     use HasFactory;
+    protected $fillable = [
+        'dogId',
+        'medicineId',
+        'vaccinationPrice'
+    ];
 }
