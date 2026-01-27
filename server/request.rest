@@ -308,10 +308,10 @@ Authorization: Bearer {{token}}
 
 {
 "breedId":"11",
-"dogName":"segglyuk destroyer",
+"dogName":"peugeot 407",
 "userId":"3",
 "dateOfBirth":"2026-01-27",
-"chipNumber":"123456789123456",
+"chipNumber":"676767676767676",
 "gender":"0",
 "colorId":"11",
 "weight":"30",
