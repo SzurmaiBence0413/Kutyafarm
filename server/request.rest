@@ -3,7 +3,7 @@
 @hostname = localhost
 @port = 8000
 @host = {{protocol}}{{hostname}}:{{port}}
-### @token = 3|k8WwtftPvGIiH8EqtPpvUMGpfVlAA4ZjJeoJvgtx2252a726
+### @token = 1|6assfhlPAyzOTVXefnQLMxwOBxtWKlv40Nhdd8gy092a6b49
 
 
 ### login
@@ -308,7 +308,7 @@ Authorization: Bearer {{token}}
 
 {
 "breedId":"11",
-"dogName":"segglyuk destroyer",
+"dogName":"segglyuk destroyer1",
 "userId":"3",
 "dateOfBirth":"2026-01-27",
 "chipNumber":"123456789123456",

@@ -17,7 +17,7 @@ class Dog extends Model
         ];
     }
     protected $fillable = [
-        'breedid' ,
+        'breedId' ,
         'dogName',
         'userId',
         'dateOfBirth',
