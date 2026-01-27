@@ -308,15 +308,7 @@ Authorization: Bearer {{token}}
 
 {
 "breedId":"11",
-<<<<<<< HEAD
-"dogName":"buksi",
-=======
-<<<<<<< HEAD
 "dogName":"peugeot 407",
-=======
-"dogName":"segglyuk destroyer1",
->>>>>>> e554c7c5c5065f7f9a5d251f57c486d22aa81353
->>>>>>> 04ed1335e38dcad6615eb94c46836ef035adfcf7
 "userId":"3",
 "dateOfBirth":"2026-01-27",
 "chipNumber":"676767676767676",
