@@ -312,6 +312,7 @@ Authorization: Bearer {{token}}
 
 }
 
+
 ###Patch dog by id
 PATCH  {{host}}/api/dogs/20
 Accept: application/json
