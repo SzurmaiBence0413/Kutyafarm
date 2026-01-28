@@ -21,8 +21,19 @@ class UpdateDogRequest extends FormRequest
      */
     public function rules(): array
     {
+        // Az 'id' paraméter lekérése a route-ból
+        $dogId = $this->route('dog'); // A route paraméterben elvárjuk a kutya ID-t.
+
         return [
-            //
+            'breedId' => 'required|integer|exists:breeds,id',
+            'dogName' => 'required|string|max:255',
+            'userId' => 'required|integer|exists:users,id',
+            'dateOfBirth' => 'required|date',
+            'chipNumber' => 'required|string|max:15|unique:dogs,chipNumber,' . $dogId,  // A chipNumber nem lehet már létező, ha az nem ugyanaz
+            'gender' => 'required|boolean',
+            'colorId' => 'required|integer|exists:colors,id',
+            'weight' => 'nullable|numeric',
+            'teeth' => 'required|boolean',
         ];
     }
 }

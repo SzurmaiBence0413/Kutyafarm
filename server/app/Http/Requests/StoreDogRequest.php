@@ -33,4 +33,5 @@ class StoreDogRequest extends FormRequest
             'teeth' => 'required|boolean',
         ];
     }
+
 }
