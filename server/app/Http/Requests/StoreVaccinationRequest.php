@@ -22,10 +22,10 @@ class StoreVaccinationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'dogId',
-            'medicineId',
-            'timeOfVaccination',
-            'vaccinationPrice'
+            'dogId' => 'required|integer|exists:dogs,id', // A kutyának léteznie kell
+            'medicineId' => 'required|integer|exists:medicines,id', // A gyógyszernek léteznie kell
+            'timeOfVaccination' => 'required|date', // Az oltás időpontja kötelező és érvényes dátumnak kell lennie
+            'vaccinationPrice' => 'required|integer|min:0', // Az oltás ára egész szám és legalább 0
         ];
     }
 }
