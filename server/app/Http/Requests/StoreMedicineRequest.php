@@ -22,7 +22,7 @@ class StoreMedicineRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'medicineName' => 'required|string|max:100|unique:medicines,medicineName', // A gyógyszer neve kötelező, max 100 karakter, és egyedi
         ];
     }
 }

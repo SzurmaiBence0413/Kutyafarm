@@ -21,8 +21,11 @@ class UpdateMedicineRequest extends FormRequest
      */
     public function rules(): array
     {
+        // Az 'id' paraméter lekérése a route-ból
+        $medicineId = $this->route('medicine'); // A route paraméterben elvárjuk a gyógyszer ID-t.
+
         return [
-            //
+            'medicineName' => 'required|string|max:100|unique:medicines,medicineName,' . $medicineId, // Kivéve, ha a jelenlegi rekordról van szó
         ];
     }
 }
