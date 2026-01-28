@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Vaccination;
-use App\Http\Requests\StoreVaccinationRequest;
-use App\Http\Requests\UpdateVaccinationRequest;
+use App\Models\Vaccination as CurrentModel;
+use App\Http\Requests\StoreVaccinationRequest as StoreCurrentModelRequest;
+use App\Http\Requests\UpdateVaccinationRequest as UpdateCurrentModelRequest;
 use Illuminate\Database\QueryException;
 
 class VaccinationController extends Controller
@@ -14,48 +14,23 @@ class VaccinationController extends Controller
      */
     public function index()
     {
-        try {
-            $rows = Vaccination::all();
-            $status = 200;
-            $data = [
-                'message' => 'OK',
-                'data' => $rows
-            ];
-        } catch (\Exception $e) {
-            $status = 500;
-            $data = [
-                'message' => "Server error {$e->getCode()}",
-                'data' => []
-            ];
-        }
-        return response()->json($data, $status, options: JSON_UNESCAPED_UNICODE);
+        return $this->apiResponse(
+            function () {
+                return CurrentModel::all();
+            }
+        );
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreVaccinationRequest $request)
+    public function store(StoreCurrentModelRequest $request)
     {
-        try {
-            $row = Vaccination::create($request->all());
-            $data = [
-                'message' => 'OK',
-                'data' => $row
-            ];
-            return response()->json($data, 201, options: JSON_UNESCAPED_UNICODE);
-
-        } catch (QueryException $e) {
-            if ($e->getCode() == 23000 || str_contains($e->getMessage(), 'Duplicate entery')) {
-                $data = [
-                    'message' => 'Insert error: The given name alrady exist, please choose another one',
-                    'data' => [
-                        'id' => $request->input('id')
-                    ]
-                ];
-                return response()->json($data, 409, options: JSON_UNESCAPED_UNICODE);
+        return $this->apiResponse(
+            function () use ($request) {
+                return CurrentModel::create($request->validated());
             }
-            throw $e;
-        }
+        );
     }
 
     /**
@@ -63,45 +38,21 @@ class VaccinationController extends Controller
      */
     public function show(int $id)
     {
-        $row = Vaccination::find($id);
-        if ($row) {
-            $status = 200;
-            $data = [
-                'message' => 'OK',
-                'data' => $row,
-            ];
-        } else {
-            $status = 404;
-            $data = [
-                'message' => "Not found id: $id",
-                'data' => null
-            ];
-        }
-        return response()->json($data, $status, options: JSON_UNESCAPED_UNICODE);
+        return $this->apiResponse(function () use ($id) {
+            return CurrentModel::findOrFail($id);
+        });
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateVaccinationRequest $request, int $id)
+    public function update(UpdateCurrentModelRequest $request, int $id)
     {
-        $row = Vaccination::find($id);
-        if ($row) {
-            $row->update($request->all());
-
-            $status = 200;
-            $data = [
-                'message' => 'OK',
-                'data' => $row
-            ];
-        } else {
-            $status = 404;
-            $data = [
-                'message' => "Patch error. Not found id: $id",
-                'data' => null
-            ];
-        }
-        return response()->json($data, $status, options: JSON_UNESCAPED_UNICODE);
+        return $this->apiResponse(function () use ($request, $id) {
+            $row = CurrentModel::findOrFail($id);
+            $row->update($request->validated());
+            return $row;
+        });
     }
 
     /**
@@ -109,24 +60,9 @@ class VaccinationController extends Controller
      */
     public function destroy(int $id)
     {
-        $row = Vaccination::find($id);
-        if ($row) {
-            $row->delete();
-
-            $status = 200;
-            $data = [
-                'message' => "OK",
-                'data' => [
-                    'id' => $id
-                ]
-            ];
-        } else {
-            $status = 404;
-            $data = [
-                'message' => "Delete error. Not found id: $id",
-                'data=' => null
-            ];
-        }
-        return response()->json($data, $status, options: JSON_UNESCAPED_UNICODE);
+        return $this->apiResponse(function () use ($id) {
+            CurrentModel::findOrFail($id)->delete();
+            return ['id' => $id];
+        });
     }
 }
