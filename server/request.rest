@@ -183,17 +183,17 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-"breed":"Test22"
+"breed":"Test222"
 }
 
 ###Patch breed by id
-PATCH  {{host}}/api/breeds/30
+PATCH  {{host}}/api/breeds/31
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "colorName": "tesztbreed"
+    "breed": "tesztbreed"
 }
 
 
