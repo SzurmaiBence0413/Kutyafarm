@@ -22,7 +22,17 @@ class StoreColorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'colorName' => 'required|string|max:50|unique:colors,colorName',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'colorName.required' => 'A színnevet meg kell adni.',
+            'colorName.string' => 'A szín neve csak szöveges érték lehet.',
+            'colorName.max' => 'A szín neve nem lehet hosszabb, mint 50 karakter.',
+            'colorName.unique' => 'Ez a szín már létezik.',
         ];
     }
 }
