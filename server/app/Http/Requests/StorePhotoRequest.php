@@ -21,9 +21,9 @@ class StorePhotoRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'dogId',
-            'imgUrl'
+         return [
+            'dogId' => 'required|integer|exists:dogs,id', // A kutyának léteznie kell
+            'imgUrl' => 'required|url|max:255', // Az imgUrl szükséges és valid URL kell hogy legyen
         ];
     }
 }

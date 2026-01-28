@@ -21,9 +21,12 @@ class UpdatePhotoRequest extends FormRequest
      */
     public function rules(): array
     {
+        // Az 'id' paraméter lekérése a route-ból
+        $photoId = $this->route('photo'); // A route paraméterben elvárjuk a photo ID-t.
+
         return [
-            'dogId',
-            'imgUrl'
+            'dogId' => 'required|integer|exists:dogs,id', // A kutyának léteznie kell
+            'imgUrl' => 'required|url|max:255|unique:photos,imgUrl,' . $photoId, // A kép URL-je érvényes URL, és nem lehet duplikált
         ];
     }
 }
