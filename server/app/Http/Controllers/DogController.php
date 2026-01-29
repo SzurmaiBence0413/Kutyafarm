@@ -26,14 +26,13 @@ class DogController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCurrentModelRequest $request)
-    {
-        return $this->apiResponse(
-            function () use ($request) {
-                return CurrentModel::create($request->validated());
-            }
-        );
-    }
+public function store(StoreCurrentModelRequest $request)
+{
+    return $this->apiResponse(function () use ($request) {
+        return CurrentModel::create($request->validated());
+    });
+}
+
 
     /**
      * Display the specified resource.

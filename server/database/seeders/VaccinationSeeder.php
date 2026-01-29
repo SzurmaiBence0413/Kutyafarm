@@ -15,6 +15,6 @@ class VaccinationSeeder extends Seeder
     public function run(): void
     {
         //100 véletlen termék generálása
-        Vaccination::factory()->count(15)->create();
+        Vaccination::factory()->count(400)->create();
     }
 }

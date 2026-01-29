@@ -43,19 +43,20 @@ Accept: application/json
 Authorization: Bearer {{token}}
 
 {
-    "name":  "Vásárló2",
-    "email": "vasarlo2@example.com",
-    "password": "123"
+    "name":  "Admin3",
+    "email": "admin3@example.com",
+    "password": "123",
+    "role":1
 }
 
 ### patch user
-PATCH {{host}}/api/users/2
+PATCH {{host}}/api/users/6
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}
 
 {
-    "name": "No Boss"
+    "role":1
 }
 
 ### delete user
@@ -110,60 +111,12 @@ Accept: application/json
 Authorization: Bearer {{token}}
 
 
-
 ### teszt
 get {{host}}/api/x
 
-### get products
-get {{host}}/api/products
-Accept: application/json
-Content-Type: application/json
-Authorization: Bearer {{token}}
 
 
-### get product by id
-get {{host}}/api/products/1
-Accept: application/json
-Content-Type: application/json
-Authorization: Bearer {{token}}
-
-### post products
-POST  {{host}}/api/products
-Accept: application/json
-Content-Type: application/json
-Authorization: Bearer {{token}}
-
-{
-    "category": "Bogyós",
-    "name": "f3333xx",
-    "description": "Kézzel termelt egészség",
-    "picture": "https:\/\/hur.webmania.cc\/img\/malna.jpg",
-    "price": 8000,
-    "stock": 22
-}
-
-### delete product by id
-delete {{host}}/api/products/104
-Accept: application/json
-Content-Type: application/json
-Authorization: Bearer {{token}}
-
-
-### post products
-PATCH {{host}}/api/products/1
-Accept: application/json
-Content-Type: application/json
-Authorization: Bearer {{token}}
-
-
-{
-    "price": 1002,
-    "stock": "eee"
-}
-
-
-
-###-----Breeds----------------------------------------------------------------------
+###---Breeds----------------------------------------------------------------------
 ### get Breeds
 GET  {{host}}/api/breeds
 Accept: application/json
@@ -205,7 +158,7 @@ Authorization: Bearer {{token}}
 
 
 
-###------Colors----------------------------------------------------------------------
+###---Colors----------------------------------------------------------------------
 ### get color
 GET  {{host}}/api/colors
 Accept: application/json
@@ -245,7 +198,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 
-###-------Medicines---------------------------------------------------------------------
+###---Medicines---------------------------------------------------------------------
 ### get medicines
 GET  {{host}}/api/medicines
 Accept: application/json
@@ -265,28 +218,29 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-"medicineName":"Test2"
+"medicineName":"Test22"
 }
 
 ###Patch medicines by id
-PATCH  {{host}}/api/medicines/22
+PATCH  {{host}}/api/medicines/23
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "medicineName": "teszt3"
+    "medicineName": "teszt1"
 }
+
+
 
 ### delete medicines by id
 delete {{host}}/api/medicines/22
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer {{token}
+Authorization: Bearer {{token}}
 
 
-
-###------Dogs----------------------------------------------------------------------
+###---Dogs----------------------------------------------------------------------
 ### get all dogs
 GET  {{host}}/api/dogs
 Accept: application/json
@@ -307,7 +261,7 @@ Authorization: Bearer {{token}}
 
 {
 "breedId":"11",
-"dogName":"Buksi",
+"dogName":"Buksi2",
 "userId":"3",
 "dateOfBirth":"2026-01-27",
 "chipNumber":"676767676767676",
@@ -317,7 +271,6 @@ Authorization: Bearer {{token}}
 "teeth":"1"
 }
 
-
 ###Patch dog by id
 PATCH  {{host}}/api/dogs/201
 Accept: application/json
@@ -325,7 +278,15 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "dogName": "teszt kutya1"
+"breedId":"11",
+"dogName":"Buksi kutya",
+"userId":"3",
+"dateOfBirth":"2026-01-27",
+"chipNumber":"676767676767676",
+"gender":"0",
+"colorId":"11",
+"weight":"30",
+"teeth":"1"
 }
 
 ### delete dog by id
@@ -334,8 +295,7 @@ Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
-
-###------Vaccinations---------------------------------------------------------------
+###---Vaccinations---------------------------------------------------------------
 ### get all vaccination
 GET  {{host}}/api/vaccinations
 Accept: application/json
@@ -347,6 +307,7 @@ GET  {{host}}/api/vaccinations/2
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
 
 ### post vaccination
 POST  {{host}}/api/vaccinations
@@ -362,24 +323,28 @@ Authorization: Bearer {{token}}
 }
 
 ###Patch vaccination by id
-PATCH  {{host}}/api/vaccinations/1
+PATCH  {{host}}/api/vaccinations/401
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-"vaccinationPrice":5555
+
+    "dogId": "2",
+    "medicineId":"1",
+    "timeOfVaccination":"2020-01-01",
+    "vaccinationPrice":"1000000"
 }
 
 ### delete vaccination by id
-delete {{host}}/api/vaccinations/201
+delete {{host}}/api/vaccinations/401
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 
 
-###------Photos---------------------------------------------------------------
+###---Photos---------------------------------------------------------------
 ### get all photos
 GET  {{host}}/api/photos
 Accept: application/json
@@ -404,13 +369,14 @@ Authorization: Bearer {{token}}
 }
 
 ###Patch photo by id
-PATCH  {{host}}/api/photos/1
+PATCH  {{host}}/api/photos/201
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-"imgUrl":"patch teszt"
+"dogId":1,
+"imgUrl":"https://bmbmbb"
 }
 
 ### delete photo by id

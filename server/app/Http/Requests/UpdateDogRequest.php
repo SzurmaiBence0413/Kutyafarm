@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateDogRequest extends FormRequest
 {
@@ -29,7 +30,10 @@ class UpdateDogRequest extends FormRequest
             'dogName' => 'required|string|max:255',
             'userId' => 'required|integer|exists:users,id',
             'dateOfBirth' => 'required|date',
-            'chipNumber' => 'required|string|max:15|unique:dogs,chipNumber,' . $dogId,  // A chipNumber nem lehet már létező, ha az nem ugyanaz
+            'chipNumber' => [
+                'required',
+                Rule::unique('dogs', 'chipNumber')->ignore($this->route('id')),
+            ],
             'gender' => 'required|boolean',
             'colorId' => 'required|integer|exists:colors,id',
             'weight' => 'nullable|numeric',
