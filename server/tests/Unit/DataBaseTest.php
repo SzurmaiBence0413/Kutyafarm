@@ -36,12 +36,13 @@ class DataBaseTest extends TestCase
     public static function tablesProvider(): array
     {
         return [
-            // 'breeds table' => 'breeds',
+            'breeds table' => ['breeds'],
             'colors table' => ['colors'],
             'medicines table' => ['medicines'],
             'dogs table' => ['dogs'],
             'vaccinations table' => ['vaccinations'],
             'photos table' => ['photos'],
+            'users table' => ['users'],
         ];
     }
 
@@ -70,6 +71,7 @@ class DataBaseTest extends TestCase
     #[DataProvider('dogsColumnsProvider')]
     public function test_dogs_table_has_columns(string $column): void
     {
+
         $this->assertTrue(
             Schema::hasColumn('dogs', $column),
             "A dogs táblából hiányzik a(z) {$column} oszlop"
@@ -87,10 +89,10 @@ class DataBaseTest extends TestCase
             ['chipNumber', 'string'],
             ['gender', 'boolean'],
             ['colorId', 'integer'],
-            ['weight', 'float'],
+            ['weight', 'double'],
             ['teeth', 'boolean'],
-            ['created_at', 'datetime'],
-            ['updated_at', 'datetime'],
+            ['created_at', 'timestamp'],
+            ['updated_at', 'timestamp'],
         ];
     }
 
