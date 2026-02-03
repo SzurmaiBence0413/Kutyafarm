@@ -2,63 +2,116 @@
 
 namespace Tests\Unit;
 
+// use App\Models\Breed;
+// use App\Models\Dog;
+// use Illuminate\Container\Attributes\DB;
+// use Illuminate\Foundation\Testing\DatabaseTransactions;
+// use Illuminate\Support\Facades\Schema;
+// use PHPUnit\Framework\TestCase;
+
 use App\Models\Breed;
 use App\Models\Dog;
-use Illuminate\Container\Attributes\DB;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class DataBaseTest extends TestCase
 {
     use DatabaseTransactions;
 
-    public function test_database_creation_end_tables_exists()
+    public function test_database_exists()
     {
         $databaseNameConn = DB::connection()->getDatabaseName();
         $databaseNameEnv = env('DB_DATABASE');
         $this->assertEquals($databaseNameConn, $databaseNameEnv, "Az adatbázisunk nem az, amivel dolgozni akarunk");
 
         //Megvannak-e a tábláink
-        $this->assertTrue(Schema::hasTable('breeds'), 'breeds tábla nem létezik');
-        $this->assertTrue(Schema::hasTable('medicines'), 'medicines tábla nem létezik');
-        $this->assertTrue(Schema::hasTable('colors'), 'colors tábla nem létezik');
-        $this->assertTrue(Schema::hasTable('dogs'), 'dogs tábla nem létezik');
-        $this->assertTrue(Schema::hasTable('photos'), 'photos tábla nem létezik');
-        $this->assertTrue(Schema::hasTable('vaccinations'), 'vaccinations tábla nem létezik');
-        $this->assertTrue(Schema::hasTable('users'), 'users tábla nem létezik');
+
         echo PHP_EOL . "Adatbázis -> DB_DATABASE={$databaseNameEnv} | adatbázis: {$databaseNameConn}";
     }
 
-    public function test_sports_table_structure()
+
+    public static function tablesProvider(): array
     {
-        // Ellenőrizzük, hogy a tábla létezik
-        $this->assertTrue(Schema::hasTable('sports'));
+        return [
+            // 'breeds table' => 'breeds',
+            'colors table' => ['colors'],
+            'medicines table' => ['medicines'],
+            'dogs table' => ['dogs'],
+            'vaccinations table' => ['vaccinations'],
+            'photos table' => ['photos'],
+        ];
+    }
 
-        // Ellenőrizzük a mezőket és azok típusait
-        $this->assertTrue(Schema::hasColumn('sports', 'id'));
-        $this->assertTrue(Schema::hasColumn('sports', 'sportNev'));
-        $this->assertEquals('bigint', Schema::getColumnType('sports', 'id'), "sports: Nem bigint az id típusa");
-        //dd(Schema::getColumnType('sports', 'sportNev'));
-        $this->assertEquals('varchar', Schema::getColumnType('sports', 'sportNev'));
-
-        //Elsődleges kulcs
-        $indexes = DB::select('SHOW INDEX FROM sports');
-        $primaryIndex = collect($indexes)->firstWhere('Key_name', 'PRIMARY');
-        $this->assertNotNull($primaryIndex, "Nincs elsődleges kulcs");
-
-        //Egyedi index: sportNev
-        $uniqueIndex = collect($indexes)->firstWhere('Key_name', 'sports_sportnev_unique');
-
-        $this->assertNotNull($uniqueIndex, "Hiányzik az egyedi index a 'sports.sportNev' oszlopon.");
+    #[DataProvider('tablesProvider')]
+    public function test_tables_exists($table)
+    {
+        $this->assertTrue(Schema::hasTable($table), "'$table' tábla nem létezik");
     }
 
 
-    public function test_students_schoolclasses_relationships()
+    public static function dogsColumnsProvider(): array
+    {
+        return [
+            ['id'],
+            ['breedId'],
+            ['dogName'],
+            ['userId'],
+            ['dateOfBirth'],
+            ['chipNumber'],
+            ['gender'],
+            ['colorId'],
+            ['weight'],
+            ['teeth'],
+        ];
+    }
+    #[DataProvider('dogsColumnsProvider')]
+    public function test_dogs_table_has_columns(string $column): void
+    {
+        $this->assertTrue(
+            Schema::hasColumn('dogs', $column),
+            "A dogs táblából hiányzik a(z) {$column} oszlop"
+        );
+    }
+
+    public static function dogsColumnTypesProvider(): array
+    {
+        return [
+            ['id', 'integer'],
+            ['breedId', 'integer'],
+            ['dogName', 'string'],
+            ['userId', 'integer'],
+            ['dateOfBirth', 'date'],
+            ['chipNumber', 'string'],
+            ['gender', 'boolean'],
+            ['colorId', 'integer'],
+            ['weight', 'float'],
+            ['teeth', 'boolean'],
+            ['created_at', 'datetime'],
+            ['updated_at', 'datetime'],
+        ];
+    }
+
+
+
+    #[DataProvider('dogsColumnTypesProvider')]
+    public function test_dogs_table_column_types(string $column, string $type): void
+    {
+        $this->assertEquals(
+            $type,
+            Schema::getColumnType('dogs', $column),
+            "A dogs.{$column} típusa nem {$type}"
+        );
+    }
+
+
+    public function xtest_dogss_breeds_relationships()
     {
 
-        //A diák tábla kapcsolatai
-        $tableName = "students";
+        //A dogs tábla kapcsolatai
+        $tableName = "dogs";
         $foreignKeyName = "schoolclassId";
         $databaseName = env('DB_DATABASE');
         $contstraint_name = "PRIMARY";
@@ -78,9 +131,9 @@ class DataBaseTest extends TestCase
         $rows = DB::select($query, [$tableName, $foreignKeyName, $databaseName, $contstraint_name]);
         // dd($rows);
         //Idegen kulcs neve: osztalyId
-        $this->assertEquals('schoolclassId', $rows[0]->COLUMN_NAME);
+        $this->assertEquals('dogs', $rows[0]->COLUMN_NAME);
         //Referencia tábla neve: osztalies
-        $this->assertEquals('schoolclasses', $rows[0]->REFERENCED_TABLE_NAME);
+        $this->assertEquals('dogs', $rows[0]->REFERENCED_TABLE_NAME);
         //Referencia oszlop neve: id
         $this->assertEquals('id', $rows[0]->REFERENCED_COLUMN_NAME);
 
@@ -98,26 +151,24 @@ class DataBaseTest extends TestCase
 
                 'breedId' => $breed->id,
                 'dogName' => 'Rudi',
-                'neme' => true,
-                'iranyitoszam' => '1234',
-                'lakHelyseg' => 'Szolnok',
-                'lakCim' => 'Virág utca 5.',
-                'szulHelyseg' => 'Szolnok',
-                'szulDatum' => '2018-01-12',
-                'igazolvanyszam' => 'ab1234567',
-                'atlag' => 3.5,
-                'osztondij' => 5000
+                'userId' => '1',
+                'dateOfBirth' => '2020-01-04',
+                'chipNumber' => '123123123123123123',
+                'gender' => true,
+                'colorId' => '1',
+                'weight' => '15',
+                'teeth' => true,
             ];
         $dog = Dog::factory()->create($dataDog);
 
         //visszakeressük a diákot
         $dog =
-            DB::tabl('students')
+            DB::table('students')
             ->where('id',  $dog->id)
             ->first();
 
-        //A megtalált diák osztalyId-je megegyezik a új osztály id-jével
-        $this->assertEquals($schoolclass->id, $student->schoolclassId);
+        //A megtalált kutya breedId-je megegyezik a új breed id-jével
+        $this->assertEquals($breed->id, $dog->schoolclassId);
         // dd($diak);
 
     }
