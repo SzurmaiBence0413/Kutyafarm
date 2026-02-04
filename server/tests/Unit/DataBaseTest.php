@@ -2,12 +2,6 @@
 
 namespace Tests\Unit;
 
-// use App\Models\Breed;
-// use App\Models\Dog;
-// use Illuminate\Container\Attributes\DB;
-// use Illuminate\Foundation\Testing\DatabaseTransactions;
-// use Illuminate\Support\Facades\Schema;
-// use PHPUnit\Framework\TestCase;
 
 use App\Models\Breed;
 use App\Models\Dog;
@@ -118,6 +112,7 @@ class DataBaseTest extends TestCase
         $databaseName = env('DB_DATABASE');
         $contstraint_name = "PRIMARY";
 
+        
         $query = "
             SELECT
                 TABLE_NAME,
