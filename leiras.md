@@ -22,7 +22,7 @@ Látogató: kutyák megtekintése
 -------------------------------------------------------------------------------------------------------------
 Jövőbeli fejlesztési ötletek
 
--Kutya családfa bevezetése (visszavezethető egy adoot kutya származása pl dijnyertes szulok)
+
 
 
 
