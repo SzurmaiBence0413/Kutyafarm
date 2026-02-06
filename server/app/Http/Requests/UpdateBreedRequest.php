@@ -19,14 +19,25 @@ class UpdateBreedRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    { // Az 'id' a route-ból fog jönni, a $this->route('breed') kinyeri a breed id-t.
-        $breedId = $this->route('breed'); // A route paraméterben elvárjuk az 'breed' id-t.
+  public function rules(): array
+{
+    // A route-ból kinyerjük a fajta ID-ját a kivételhez
+    $breedId = $this->route('breed');
 
-        return [
-            // Breed validációs szabályok
-            'breed' => 'required|string|max:50|unique:breeds,breed,' . $breedId, // Kivéve, ha a jelenlegi rekordról van szó
-        ];
-    }
+    return [
+        // Fajta neve validáció sometimes-szal
+        'breed' => 'sometimes|required|string|max:50|unique:breeds,breed,' . $breedId,
+    ];
+}
+
+public function messages(): array
+{
+    return [
+        'breed.required' => 'A fajta megnevezése kötelező, ha módosítani kívánod!',
+        'breed.string'   => 'A fajta nevének szöveges formátumúnak kell lennie!',
+        'breed.max'      => 'A fajta neve nem lehet hosszabb 50 karakternél!',
+        'breed.unique'   => 'Ez a fajta már szerepel az adatbázisunkban!',
+    ];
+}
 
 }

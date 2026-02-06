@@ -19,13 +19,24 @@ class UpdateMedicineRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
-        // Az 'id' paraméter lekérése a route-ból
-        $medicineId = $this->route('medicine'); // A route paraméterben elvárjuk a gyógyszer ID-t.
+  public function rules(): array
+{
+    // A route paraméterből kinyerjük az ID-t az egyediség vizsgálatához
+    $medicineId = $this->route('medicine');
 
-        return [
-            'medicineName' => 'required|string|max:100|unique:medicines,medicineName,' . $medicineId, // Kivéve, ha a jelenlegi rekordról van szó
-        ];
-    }
+    return [
+        // Gyógyszer neve validáció sometimes-szal
+        'medicineName' => 'sometimes|required|string|max:100|unique:medicines,medicineName,' . $medicineId,
+    ];
+}
+
+public function messages(): array
+{
+    return [
+        'medicineName.required' => 'A gyógyszer nevének megadása kötelező módosításkor!',
+        'medicineName.string'   => 'A gyógyszer neve csak szöveg lehet!',
+        'medicineName.max'      => 'A gyógyszer neve nem lehet hosszabb 100 karakternél!',
+        'medicineName.unique'   => 'Ez a gyógyszernév már szerepel a nyilvántartásban!',
+    ];
+}
 }

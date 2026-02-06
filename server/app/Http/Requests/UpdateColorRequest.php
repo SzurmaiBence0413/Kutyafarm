@@ -30,5 +30,15 @@ class UpdateColorRequest extends FormRequest
         ];
     }
 
+    public function messages()
+{
+    return [
+        'colorName.required' => 'A szín nevének megadása kötelező módosításkor is!',
+        'colorName.string'   => 'A szín neve csak szöveges formátumú lehet!',
+        'colorName.max'      => 'A szín neve túl hosszú, maximum 50 karakter engedélyezett!',
+        'colorName.unique'   => 'Ez a színnév már foglalt, kérlek válassz másikat!',
+    ];
+}
+
 
 }

@@ -19,13 +19,24 @@ class UpdatePhotoRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
-        // Az 'id' paraméter lekérése a route-ból
-        $photoId = $this->route('photo'); // A route paraméterben elvárjuk a photo ID-t.
+public function rules(): array
+{
+    // A route-ból kinyerjük a fotó ID-ját az egyediség vizsgálatához
+    $photoId = $this->route('photo');
 
-        return [
-            'imgUrl' => 'required|url|max:255|unique:photos,imgUrl,' . $photoId, // A kép URL-je érvényes URL, és nem lehet duplikált
-        ];
-    }
+    return [
+        // Kép URL validáció sometimes-szal
+        'imgUrl' => 'sometimes|required|url|max:255|unique:photos,imgUrl,' . $photoId,
+    ];
+}
+
+public function messages(): array
+{
+    return [
+        'imgUrl.required' => 'A kép URL címének megadása kötelező!',
+        'imgUrl.url'      => 'Kérlek, érvényes internetes címet (URL) adj meg!',
+        'imgUrl.max'      => 'A kép címe nem lehet hosszabb 255 karakternél!',
+        'imgUrl.unique'   => 'Ez a kép URL már szerepel az adatbázisban!',
+    ];
+}
 }
