@@ -25,4 +25,15 @@ class StoreMedicineRequest extends FormRequest
             'medicineName' => 'required|string|max:100|unique:medicines,medicineName', // A gyógyszer neve kötelező, max 100 karakter, és egyedi
         ];
     }
+
+    public function messages()
+{
+    return [
+        'medicineName.required' => 'A gyógyszer nevének megadása kötelező.',
+        'medicineName.string'   => 'A gyógyszer neve csak szöveg lehet.',
+        'medicineName.max'      => 'A gyógyszer neve legfeljebb 100 karakter hosszú lehet.',
+        'medicineName.unique'   => 'Ez a gyógyszer már szerepel a rendszerben.',
+    ];
+}
+
 }

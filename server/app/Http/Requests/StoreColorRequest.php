@@ -13,7 +13,7 @@ class StoreColorRequest extends FormRequest
     {
         return true;
     }
-
+             
     /**
      * Get the validation rules that apply to the request.
      *
@@ -25,5 +25,16 @@ class StoreColorRequest extends FormRequest
             'colorName' => 'required|string|max:50|unique:colors,colorName',
         ];
     }
+        
+public function messages()
+{
+    return [
+        'colorName.required' => 'A szín megadása kötelező.',
+        'colorName.string'   => 'A szín csak szöveg lehet.',
+        'colorName.max'      => 'A szín legfeljebb 50 karakter hosszú lehet.',
+        'colorName.unique'   => 'Ez a szín már létezik az adatbázisban.',
+    ];
+}
+
 
 }
