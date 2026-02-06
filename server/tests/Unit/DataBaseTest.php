@@ -71,7 +71,7 @@ class DataBaseTest extends TestCase
             "A dogs táblából hiányzik a(z) {$column} oszlop"
         );
     }
-
+   
     public static function dogsColumnTypesProvider(): array
     {
         return [
@@ -89,9 +89,8 @@ class DataBaseTest extends TestCase
             ['updated_at', 'timestamp'],
         ];
     }
-
-
-
+      
+    
     #[DataProvider('dogsColumnTypesProvider')]
     public function test_dogs_table_column_types(string $column, string $type): void
     {
