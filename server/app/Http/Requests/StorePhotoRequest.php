@@ -26,4 +26,18 @@ class StorePhotoRequest extends FormRequest
             'imgUrl' => 'required|url|max:255', // Az imgUrl szükséges és valid URL kell hogy legyen
         ];
     }
+
+    public function messages()
+{
+    return [
+        'dogId.required' => 'A kutya megadása kötelező.',
+        'dogId.integer'  => 'A kutya azonosítója csak egész szám lehet.',
+        'dogId.exists'   => 'A megadott kutya nem létezik.',
+
+        'imgUrl.required' => 'A kép URL megadása kötelező.',
+        'imgUrl.url'      => 'A megadott kép URL nem érvényes.',
+        'imgUrl.max'      => 'A kép URL legfeljebb 255 karakter hosszú lehet.',
+    ];
+}
+
 }

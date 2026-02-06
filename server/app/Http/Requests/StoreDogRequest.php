@@ -34,4 +34,42 @@ class StoreDogRequest extends FormRequest
         ];
     }
 
+    public function messages()
+{
+    return [
+        'breedId.required' => 'A fajta megadása kötelező.',
+        'breedId.integer'  => 'A fajta azonosítója csak egész szám lehet.',
+        'breedId.exists'   => 'A megadott fajta nem létezik.',
+
+        'dogName.required' => 'A kutya nevének megadása kötelező.',
+        'dogName.string'   => 'A kutya neve csak szöveg lehet.',
+        'dogName.max'      => 'A kutya neve legfeljebb 255 karakter hosszú lehet.',
+
+        'userId.required'  => 'A gazda megadása kötelező.',
+        'userId.integer'   => 'A gazda azonosítója csak egész szám lehet.',
+        'userId.exists'    => 'A megadott gazda nem létezik.',
+
+        'dateOfBirth.required' => 'A születési dátum megadása kötelező.',
+        'dateOfBirth.date'     => 'A születési dátum nem érvényes dátum.',
+
+        'chipNumber.required' => 'A chip szám megadása kötelező.',
+        'chipNumber.string'   => 'A chip szám csak szöveg lehet.',
+        'chipNumber.max'      => 'A chip szám legfeljebb 15 karakter hosszú lehet.',
+        'chipNumber.unique'   => 'Ez a chip szám már szerepel a rendszerben.',
+
+        'gender.required' => 'A nem megadása kötelező.',
+        'gender.boolean'  => 'A nem értéke csak igaz vagy hamis lehet.',
+
+        'colorId.required' => 'A szín megadása kötelező.',
+        'colorId.integer'  => 'A szín azonosítója csak egész szám lehet.',
+        'colorId.exists'   => 'A megadott szín nem létezik.',
+
+        'weight.numeric' => 'A súly csak szám lehet.',
+
+        'teeth.required' => 'A fogazat megadása kötelező.',
+        'teeth.boolean'  => 'A fogazat értéke csak igaz vagy hamis lehet.',
+    ];
+}
+
+
 }

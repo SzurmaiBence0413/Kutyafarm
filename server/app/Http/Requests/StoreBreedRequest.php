@@ -21,7 +21,7 @@ class StoreBreedRequest extends FormRequest
      */
     public function rules(): array
     {
-
+        
         return [
             'breed' => 'required|string|max:50|unique:breeds,breed',
         ];

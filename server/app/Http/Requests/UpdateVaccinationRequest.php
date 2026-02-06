@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateVaccinationRequest extends FormRequest
 {
@@ -19,18 +20,31 @@ class UpdateVaccinationRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
-        // Az 'id' paraméter lekérése a route-ból
-        $vaccinationId = $this->route('vaccination'); // A route paraméterben elvárjuk az oltás ID-t.
+public function rules(): array
+{
+    $vaccinationId = $this->route('vaccination');
 
-        return [
-            'dogId' => 'required|integer|exists:dogs,id', // A kutyának léteznie kell
-            'medicineId' => 'required|integer|exists:medicines,id', // A gyógyszernek léteznie kell
-            'timeOfVaccination' => 'required|date', // Az oltás időpontja kötelező és érvényes dátumnak kell lennie
-            'vaccinationPrice' => 'required|integer|min:0', // Az oltás ára egész szám és legalább 0
-            // A három mező egyedisége szükséges, ha más oltásról van szó
-            'dogId,medicineId,timeOfVaccination' => 'unique:vaccinations,dogId,medicineId,timeOfVaccination,' . $vaccinationId,
-        ];
-    }
-}
+    return [
+        'dogId' => ['required', 'integer', 'exists:dogs,id'],
+        'medicineId' => ['required', 'integer', 'exists:medicines,id'],
+        'timeOfVaccination' => [
+            'required',
+            'date',
+            function ($attribute, $value, $fail) use ($vaccinationId) {
+                $exists = \DB::table('vaccinations')
+                    ->where('dogId', $this->input('dogId'))
+                    ->where('medicineId', $this->input('medicineId'))
+                    ->where('timeOfVaccination', $value)
+                    ->when($vaccinationId, function($query) use ($vaccinationId) {
+                        $query->where('id', '<>', $vaccinationId);
+                    })
+                    ->exists();
+
+                if ($exists) {
+                    $fail('Ez az oltás már létezik ugyanazzal a kutyával, gyógyszerrel és időponttal.');
+                }
+            },
+        ],
+        'vaccinationPrice' => ['required', 'integer', 'min:0'],
+    ];
+}}

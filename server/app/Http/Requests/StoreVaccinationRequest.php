@@ -28,4 +28,25 @@ class StoreVaccinationRequest extends FormRequest
             'vaccinationPrice' => 'required|integer|min:0', // Az oltás ára egész szám és legalább 0
         ];
     }
+
+    public function messages()
+{
+    return [
+        'dogId.required' => 'A kutya megadása kötelező.',
+        'dogId.integer'  => 'A kutya azonosítója csak egész szám lehet.',
+        'dogId.exists'   => 'A megadott kutya nem létezik.',
+
+        'medicineId.required' => 'A gyógyszer megadása kötelező.',
+        'medicineId.integer'  => 'A gyógyszer azonosítója csak egész szám lehet.',
+        'medicineId.exists'   => 'A megadott gyógyszer nem létezik.',
+
+        'timeOfVaccination.required' => 'Az oltás időpontjának megadása kötelező.',
+        'timeOfVaccination.date'     => 'Az oltás időpontja nem érvényes dátum.',
+
+        'vaccinationPrice.required' => 'Az oltás árának megadása kötelező.',
+        'vaccinationPrice.integer'  => 'Az oltás ára csak egész szám lehet.',
+        'vaccinationPrice.min'      => 'Az oltás ára nem lehet negatív.',
+    ];
+}
+
 }

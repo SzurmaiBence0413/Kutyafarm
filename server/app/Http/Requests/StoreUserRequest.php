@@ -28,4 +28,18 @@ class StoreUserRequest extends FormRequest
 
         ];
     }
+
+    public function messages()
+{
+    return [
+        'name.required' => 'A név megadása kötelező.',
+        'name.string'   => 'A név csak szöveg lehet.',
+
+        'email.required' => 'Az email cím megadása kötelező.',
+        'email.email'    => 'Az email cím formátuma nem megfelelő.',
+
+        'password.required' => 'A jelszó megadása kötelező.',
+    ];
+}
+
 }
