@@ -3,7 +3,7 @@
 @hostname = localhost
 @port = 8000
 @host = {{protocol}}{{hostname}}:{{port}}
-### @token =2|4870lH49Na2nZ1W14SjOjSRW8vW2FSVtSXmEN86W13e71c1d"
+### @token = 4|3IwhaQmSX52HEKr1kL687bkJVFyuM554OLLN6q0r1e749e0c
 
 
 ### login
@@ -261,10 +261,10 @@ Authorization: Bearer {{token}}
 
 {
 "breedId":"11",
-"dogName":"Buksi2",
+"dogName":"Tibor kutya",
 "userId":"3",
 "dateOfBirth":"2026-01-27",
-"chipNumber":"676767676767676",
+"chipNumber":"691243254364567",
 "gender":"0",
 "colorId":"11",
 "weight":"30",
@@ -272,7 +272,7 @@ Authorization: Bearer {{token}}
 }
 
 ###Patch dog by id
-PATCH  {{host}}/api/dogs/201
+PATCH  {{host}}/api/dogs/202
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}

@@ -67,9 +67,10 @@ class UserController extends Controller
                     'usersme:patch',
                     'usersme:updatePassword',
                     'usersme:get',
-                    'dogs:create',
+                    'dogs:post',
                     'dogs:delete',
                     'dogs:update',
+                
                 ];
                 break;
             default:
