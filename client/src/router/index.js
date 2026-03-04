@@ -62,17 +62,17 @@ const router = createRouter({
             roles: [1],
           },
         },
-        {
-          path: "schoolclass",
-          name: "schoolclass",
-          component: () => import("@/views/SchoolClasssView.vue"),
-          beforeEnter: [checkIfNotLogged],
-          meta: {
-            title: (route) => "Osztály",
-            breadcrumb: "Osztály",
-            roles: [1],
-          },
-        },
+        // {
+        //   path: "schoolclass",
+        //   name: "schoolclass",
+        //   component: () => import("@/views/SchoolClasssView.vue"),
+        //   beforeEnter: [checkIfNotLogged],
+        //   meta: {
+        //     title: (route) => "Osztály",
+        //     breadcrumb: "Osztály",
+        //     roles: [1],
+        //   },
+        // },
         {
           path: "student",
           name: "student",

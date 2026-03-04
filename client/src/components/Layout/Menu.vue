@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-md bg-primary" data-bs-theme="dark">
+    <nav class="navbar navbar-expand-md  " style="background-color: whitesmoke !important;" data-bs-theme="light">
       <div class="container-fluid">
         <!-- <a class="navbar-brand" href="#">Navbar</a> -->
         <button
@@ -15,6 +15,16 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a class="navbar-brand" href="#">
+          <img
+            src="../../../public/dogIcon.png"
+            alt="Logo"
+            width="40"
+            height="34"
+            class="d-inline-block align-text-top"
+          />
+          DogShelter
+        </a>
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <RouterLink class="nav-link" to="/">Home</RouterLink>
@@ -38,31 +48,20 @@
               <ul class="dropdown-menu">
                 <li v-if="hasMenuAccess('/adatok/sport')">
                   <RouterLink class="dropdown-item" to="/adatok/sport"
-                    >Sportok</RouterLink
+                    >Medicines</RouterLink
                   >
                 </li>
                 <li v-if="hasMenuAccess('/adatok/schoolclass')">
                   <RouterLink class="dropdown-item" to="/adatok/schoolclass"
-                    >Osztályok</RouterLink
+                    >Vaccinations</RouterLink
                   >
                 </li>
                 <li v-if="hasMenuAccess('/adatok/student')">
                   <RouterLink class="dropdown-item" to="/adatok/student"
-                    >Tanulók</RouterLink
+                    >Users</RouterLink
                   >
                 </li>
-                <li><hr class="dropdown-divider" /></li>
-                <li v-if="hasMenuAccess('/adatok/plaingsport')">
-                  <RouterLink class="dropdown-item" to="/adatok/plaingsport"
-                    >Sportolás</RouterLink
-                  >
-                </li>
-                <li><hr class="dropdown-divider" /></li>
-                <li v-if="hasMenuAccess('/adatok/users')">
-                  <RouterLink class="dropdown-item" to="/adatok/users"
-                    >Userek</RouterLink
-                  >
-                </li>
+        
               </ul>
             </li>
             <li class="nav-item">
@@ -104,6 +103,7 @@
         </div>
       </div>
     </nav>
+
 
 
   </div>
@@ -149,14 +149,14 @@ export default {
   },
   computed: {
     ...mapState(useSearchStore, ["searchWord"]),
-    ...mapState(useUserLoginLogoutStore, ['isLoggedIn','userNameWithRole'])
+    ...mapState(useUserLoginLogoutStore, ["isLoggedIn", "userNameWithRole"]),
   },
   methods: {
     ...mapActions(useSearchStore, ["resetSearchWord", "setSearchWord"]),
     onClickSearchButton() {
       this.setSearchWord(this.searchWordInput);
     },
-    ...mapActions(useUserLoginLogoutStore, ['logout']),
+    ...mapActions(useUserLoginLogoutStore, ["logout"]),
     hasMenuAccess(targetPath) {
       //A jogosultsági szintnek megfelelően engedélyezi, vagy tiltja a menüt
       const userStore = useUserLoginLogoutStore();
@@ -173,14 +173,13 @@ export default {
         return userStore.canAccess(requiredRoles);
       });
     },
-    async onClickLogut(){
+    async onClickLogut() {
       try {
         await this.logout();
-        this.$router.push('/');
+        this.$router.push("/");
       } catch (error) {
-        console.log('Kijelentkezési hiba!');
+        console.log("Kijelentkezési hiba!");
       }
-
     },
   },
 };
@@ -190,17 +189,17 @@ export default {
 /* 1. A sima .active ÉS a router által adott osztály is legyen sárga */
 .nav-link.active,
 .nav-link.router-link-exact-active {
-  color: #ffff00 !important;
+  color: #ff6900 !important;
   font-weight: bold;
-  border-bottom: 2px solid yellow;
+  border-bottom: 2px solid #ff6900;
 }
 
 /* 2. Az "Adatok" gomb sárgítása, ha az alatta lévő listában van aktív elem */
 /* Azt mondjuk: "Színezd a .nav-item-et, ha van benne aktív router-link" */
 .nav-item:has(.dropdown-item.router-link-active) .nav-link.dropdown-toggle {
-  color: #ffff00 !important;
+  color: #ff6900 !important;
   font-weight: bold;
-  border-bottom: 2px solid yellow;
+  border-bottom: 2px solid #ff6900;
 }
 
 /* 3. A lenyíló menüben a konkrét aktív elem (pl. Sportok) kijelölése */
@@ -208,7 +207,7 @@ export default {
   /* background-color: #ffff00 !important; */
   /* color: #000 !important; */
   background-color: transparent !important; /* Levesszük a teli hátteret */
-  color: #ffff00 !important; /* Csak a szöveg lesz sárga */
+  color: #ff6900 !important; /* Csak a szöveg lesz sárga */
   font-weight: bold;
 }
 

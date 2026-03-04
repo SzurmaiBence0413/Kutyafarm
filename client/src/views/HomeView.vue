@@ -1,15 +1,21 @@
 <template>
   <div>
-    <h1>Home</h1>
-    <div class="alert alert-primary" role="alert">
-      <i class="bi bi-airplane-engines"></i>
-        A simple primary alert—check it out!
-    </div>
+    <!-- Hero Section -->
+    <Hero/>
+    <Carousel/>
+  
   </div>
 </template>
 
 <script>
-export default {};
+import Hero from '../components/Layout/Hero.vue'; 
+import Carousel from '@/components/Layout/Carousel.vue';
+export default {
+  components: {
+    Hero,
+    Carousel  
+  }
+};
 </script>
 
 <style>
