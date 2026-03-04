@@ -17,10 +17,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <RouterLink class="nav-link" to="/">Főoldal</RouterLink>
+              <RouterLink class="nav-link" to="/">Home</RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink class="nav-link" to="/about">Rólunk</RouterLink>
+              <RouterLink class="nav-link" to="/about">About us</RouterLink>
+            </li>
+            <li class="nav-item">
+              <RouterLink class="nav-link" to="/dogs">Browse Dogs</RouterLink>
             </li>
             <li class="nav-item dropdown" v-if="hasMenuAccess('/adatok')">
               <a
@@ -101,6 +104,8 @@
         </div>
       </div>
     </nav>
+
+
   </div>
 </template>
 

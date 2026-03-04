@@ -33,6 +33,15 @@ const router = createRouter({
       },
     },
     {
+      path: "/dogs",
+      name: "dogs",
+      component: () => import("@/views/DogsView.vue"),
+      meta: {
+        title: (route) => "Dogs",
+        breadcrumb: "Dogs",
+      },
+    },
+    {
       path: "/adatok",
       name: "adatok",
       component: () => import("@/views/EmptyWrapperView.vue"),

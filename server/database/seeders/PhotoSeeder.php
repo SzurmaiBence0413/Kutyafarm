@@ -14,12 +14,11 @@ class PhotoSeeder extends Seeder
      */
     public function run(): void
     {
-        Photo::factory()->count(Dog::count())->create();
-        // $response = Http::withoutVerifying()->get('https://dog.ceo/api/breed/dane/images/random');
-        // $imgUrl = $response->json()['message'];
-        // dd($imgUrl);
-        // die;
-
+         Dog::all()->each(function ($dog) {
+        Photo::factory()->create([
+            'dogId' => $dog->id,
+        ]);
+    });
 
     }
 }
