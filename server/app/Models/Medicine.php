@@ -11,5 +11,12 @@ class Medicine extends Model
     use HasFactory;
     protected $fillable = [
         'medicineName',
+        'shortName',
+        'badge',
+        'description',
+        'recommendedAge',
+        'frequency',
+        'sideEffects',
+        'displayOrder',
     ];
 }

@@ -22,18 +22,22 @@ class StoreMedicineRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'medicineName' => 'required|string|max:100|unique:medicines,medicineName', // A gyógyszer neve kötelező, max 100 karakter, és egyedi
+            'medicineName' => 'required|string|max:100|unique:medicines,medicineName',
+            'shortName' => 'nullable|string|max:120',
+            'badge' => 'nullable|string|max:50',
+            'description' => 'nullable|string|max:1000',
+            'recommendedAge' => 'nullable|string|max:120',
+            'frequency' => 'nullable|string|max:180',
+            'sideEffects' => 'nullable|string|max:180',
+            'displayOrder' => 'nullable|integer|min:1|max:9999',
         ];
     }
 
-    public function messages()
-{
-    return [
-        'medicineName.required' => 'A gyógyszer nevének megadása kötelező.',
-        'medicineName.string'   => 'A gyógyszer neve csak szöveg lehet.',
-        'medicineName.max'      => 'A gyógyszer neve legfeljebb 100 karakter hosszú lehet.',
-        'medicineName.unique'   => 'Ez a gyógyszer már szerepel a rendszerben.',
-    ];
-}
-
+    public function messages(): array
+    {
+        return [
+            'medicineName.required' => 'A gyogyszer neve kotelezo.',
+            'medicineName.unique' => 'Ez a gyogyszer mar letezik.',
+        ];
+    }
 }

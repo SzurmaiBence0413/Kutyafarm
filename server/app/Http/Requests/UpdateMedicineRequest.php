@@ -19,24 +19,27 @@ class UpdateMedicineRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-  public function rules(): array
-{
-    // A route paraméterből kinyerjük az ID-t az egyediség vizsgálatához
-    $medicineId = $this->route('medicine');
+    public function rules(): array
+    {
+        $medicineId = $this->route('id') ?? $this->route('medicine');
 
-    return [
-        // Gyógyszer neve validáció sometimes-szal
-        'medicineName' => 'sometimes|required|string|max:100|unique:medicines,medicineName,' . $medicineId,
-    ];
-}
+        return [
+            'medicineName' => 'sometimes|required|string|max:100|unique:medicines,medicineName,' . $medicineId,
+            'shortName' => 'sometimes|nullable|string|max:120',
+            'badge' => 'sometimes|nullable|string|max:50',
+            'description' => 'sometimes|nullable|string|max:1000',
+            'recommendedAge' => 'sometimes|nullable|string|max:120',
+            'frequency' => 'sometimes|nullable|string|max:180',
+            'sideEffects' => 'sometimes|nullable|string|max:180',
+            'displayOrder' => 'sometimes|nullable|integer|min:1|max:9999',
+        ];
+    }
 
-public function messages(): array
-{
-    return [
-        'medicineName.required' => 'A gyógyszer nevének megadása kötelező módosításkor!',
-        'medicineName.string'   => 'A gyógyszer neve csak szöveg lehet!',
-        'medicineName.max'      => 'A gyógyszer neve nem lehet hosszabb 100 karakternél!',
-        'medicineName.unique'   => 'Ez a gyógyszernév már szerepel a nyilvántartásban!',
-    ];
-}
+    public function messages(): array
+    {
+        return [
+            'medicineName.required' => 'A gyogyszer neve kotelezo modositaskor.',
+            'medicineName.unique' => 'Ez a gyogyszernev mar szerepel.',
+        ];
+    }
 }
