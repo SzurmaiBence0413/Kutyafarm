@@ -42,6 +42,15 @@ const router = createRouter({
       },
     },
     {
+      path: "/vaccination-guide",
+      name: "vaccination-guide",
+      component: () => import("@/views/VaccinationGuideView.vue"),
+      meta: {
+        title: (route) => "Vaccination Guide",
+        breadcrumb: "Vaccination Guide",
+      },
+    },
+    {
       path: "/adatok",
       name: "adatok",
       component: () => import("@/views/EmptyWrapperView.vue"),

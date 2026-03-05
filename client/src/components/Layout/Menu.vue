@@ -35,6 +35,11 @@
             <li class="nav-item">
               <RouterLink class="nav-link" to="/dogs">Browse Dogs</RouterLink>
             </li>
+            <li class="nav-item">
+              <RouterLink class="nav-link" to="/vaccination-guide">
+                Vaccination Guide
+              </RouterLink>
+            </li>
             <li class="nav-item dropdown" v-if="hasMenuAccess('/adatok')">
               <a
                 class="nav-link dropdown-toggle"
