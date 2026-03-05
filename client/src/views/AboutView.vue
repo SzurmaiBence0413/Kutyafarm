@@ -8,6 +8,7 @@
     </div>
     
     <ul>
+      
       <li>
         Dog Shelter started with a simple idea between two friends in Hungary. We both loved dogs and often talked about how many of them live on the streets without care, safety, or a home. One day we decided that instead of only talking about it, we would try to help.
       </li>
