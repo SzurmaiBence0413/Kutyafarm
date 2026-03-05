@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import service from "@/api/dogBrowseService";
+import { useUserLoginLogoutStore } from "@/stores/userLoginLogoutStore";
 
 const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=900&q=80";
 
@@ -39,7 +40,10 @@ function buildDescription(dog, breedName, age) {
 export const useDogBrowseStore = defineStore("dogBrowse", {
   state: () => ({
     dogs: [],
+    breeds: [],
+    colors: [],
     loading: false,
+    formLoading: false,
     error: null,
     searchText: "",
     selectedBreed: "all",
@@ -76,15 +80,19 @@ export const useDogBrowseStore = defineStore("dogBrowse", {
       this.error = null;
 
       try {
-        const [dogsResponse, breedsResponse, photosResponse] = await Promise.all([
+        const [dogsResponse, breedsResponse, colorsResponse, photosResponse] = await Promise.all([
           service.getDogs(),
           service.getBreeds(),
+          service.getColors(),
           service.getPhotos(),
         ]);
 
         const dogs = dogsResponse?.data ?? [];
         const breeds = breedsResponse?.data ?? [];
+        const colors = colorsResponse?.data ?? [];
         const photos = photosResponse?.data ?? [];
+        this.breeds = breeds;
+        this.colors = colors;
 
         const breedMap = Object.fromEntries(
           breeds.map((breed) => [breed.id, breed.breed])
@@ -104,7 +112,16 @@ export const useDogBrowseStore = defineStore("dogBrowse", {
           return {
             id: dog.id,
             name: dog.dogName,
+            dogName: dog.dogName,
+            breedId: dog.breedId,
             breed: breedName,
+            userId: dog.userId,
+            dateOfBirth: dog.dateOfBirth,
+            chipNumber: dog.chipNumber,
+            gender: Number(dog.gender),
+            colorId: dog.colorId,
+            weight: dog.weight,
+            teeth: Number(dog.teeth),
             image: photoMap[dog.id] || FALLBACK_IMAGE,
             featured: dog.id % 2 === 0,
             location: "Budapest, Hungary",
@@ -117,6 +134,107 @@ export const useDogBrowseStore = defineStore("dogBrowse", {
         this.error = error;
       } finally {
         this.loading = false;
+      }
+    },
+
+    async createDog(formData) {
+      const userStore = useUserLoginLogoutStore();
+      if (!userStore.item?.id) {
+        throw new Error("You must be logged in.");
+      }
+
+      this.formLoading = true;
+      this.error = null;
+      try {
+        const payload = {
+          breedId: Number(formData.breedId),
+          dogName: formData.dogName,
+          userId: Number(userStore.item.id),
+          dateOfBirth: formData.dateOfBirth,
+          chipNumber: formData.chipNumber,
+          gender: Number(formData.gender),
+          colorId: Number(formData.colorId),
+          weight:
+            formData.weight === "" || formData.weight === null
+              ? null
+              : Number(formData.weight),
+          teeth: Number(formData.teeth),
+        };
+
+        const created = await service.createDog(payload);
+        const newDogId = created?.data?.id;
+
+        if (newDogId) {
+          try {
+            const imageUrl = await service.getRandomDogImage();
+            if (imageUrl) {
+              await service.createPhoto({
+                dogId: Number(newDogId),
+                imgUrl: imageUrl,
+              });
+            }
+          } catch (photoError) {
+            // Keep dog creation successful even if photo generation fails.
+          }
+        }
+
+        await this.fetchDogs();
+      } catch (error) {
+        this.error = error;
+        throw error;
+      } finally {
+        this.formLoading = false;
+      }
+    },
+
+    async updateDog(dogId, formData) {
+      this.formLoading = true;
+      this.error = null;
+      try {
+        const payload = {
+          breedId: Number(formData.breedId),
+          dogName: formData.dogName,
+          userId: Number(formData.userId),
+          dateOfBirth: formData.dateOfBirth,
+          chipNumber: formData.chipNumber,
+          gender: Number(formData.gender),
+          colorId: Number(formData.colorId),
+          weight:
+            formData.weight === "" || formData.weight === null
+              ? null
+              : Number(formData.weight),
+          teeth: Number(formData.teeth),
+        };
+
+        await service.updateDog(dogId, payload);
+        await this.fetchDogs();
+      } catch (error) {
+        this.error = error;
+        throw error;
+      } finally {
+        this.formLoading = false;
+      }
+    },
+
+    async deleteDog(dogId) {
+      this.formLoading = true;
+      this.error = null;
+      try {
+        const photosResponse = await service.getPhotos();
+        const photos = photosResponse?.data ?? [];
+        const dogPhotos = photos.filter((photo) => Number(photo.dogId) === Number(dogId));
+
+        for (const photo of dogPhotos) {
+          await service.deletePhoto(photo.id);
+        }
+
+        await service.deleteDog(dogId);
+        await this.fetchDogs();
+      } catch (error) {
+        this.error = error;
+        throw error;
+      } finally {
+        this.formLoading = false;
       }
     },
 

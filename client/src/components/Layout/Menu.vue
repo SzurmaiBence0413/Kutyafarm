@@ -36,11 +36,14 @@
               <RouterLink class="nav-link" to="/dogs">Browse Dogs</RouterLink>
             </li>
             <li class="nav-item">
+              <RouterLink class="nav-link" to="/favorites">Favorites</RouterLink>
+            </li>
+            <li class="nav-item">
               <RouterLink class="nav-link" to="/vaccination-guide">
                 Vaccination Guide
               </RouterLink>
             </li>
-            <li class="nav-item dropdown" v-if="hasMenuAccess('/adatok')">
+            <!-- <li class="nav-item dropdown" v-if="hasMenuAccess('/adatok')">
               <a
                 class="nav-link dropdown-toggle"
                 href="#"
@@ -68,7 +71,7 @@
                 </li>
         
               </ul>
-            </li>
+            </li> -->
             <li class="nav-item">
               <RouterLink class="nav-link" to="/login" v-if="!isLoggedIn">
                 Login
@@ -88,7 +91,7 @@
               </div>
             </li>
           </ul>
-          <form class="d-flex" role="search">
+          <!-- <form class="d-flex" role="search">
             <input
               id="search"
               class="form-control me-2"
@@ -104,7 +107,7 @@
                 class="bi bi-search fs-4 my-pointer"
               ></i>
             </label>
-          </form>
+          </form> -->
         </div>
       </div>
     </nav>

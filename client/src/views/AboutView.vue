@@ -1,100 +1,69 @@
 <template>
-  <div class="about">
-    <h1>About Us</h1>
-    
-
-    <div class="image-container">
-      <img src="/shelterkep.png" alt="Dog Shelter" class="shelter-img" />
+  <section class="about-page">
+    <div v-if="loading" class="container py-5 text-center">
+      <div class="spinner-border text-warning" role="status"></div>
     </div>
-    
-    <ul>
-      
-      <li>
-        Dog Shelter started with a simple idea between two friends in Hungary. We both loved dogs and often talked about how many of them live on the streets without care, safety, or a home. One day we decided that instead of only talking about it, we would try to help.
-      </li>
-      <li>
-        At first it was small. We rescued one dog, then another, giving them food, shelter, and time to recover. Slowly our small effort grew into something bigger, and Dog Shelter was born. 
-      </li>
-      <li>
-        Today we still run the shelter together as friends with the same goal we started with: giving abandoned dogs a safe place, care, and a second chance to find a loving home.
-      </li>
-    </ul>
-    
-    <hr>
-    
-    <ul>
-      <li>{{ title }}</li>
-      <li>Version: {{ ver }}</li>
-      <li>API url: {{ apiUrl }}</li>
-    </ul>
-  </div>
+
+    <div v-else-if="error" class="container py-5">
+      <div class="alert alert-danger">Could not load About page content.</div>
+    </div>
+
+    <template v-else-if="page">
+      <AboutHero :title="page.hero.title" :subtitle="page.hero.subtitle" />
+      <AboutMission
+        :title="page.mission.title"
+        :paragraphs="page.mission.paragraphs"
+        :image="page.mission.image"
+      />
+      <AboutValues :items="page.values" />
+      <AboutStory :title="page.story.title" :paragraphs="page.story.paragraphs" />
+      <AboutImpact :items="page.impact" />
+      <AboutTeam
+        :title="page.team.title"
+        :subtitle="page.team.subtitle"
+        :members="page.team.members"
+      />
+      <AboutCommunity :title="page.community.title" :text="page.community.text" />
+    </template>
+  </section>
 </template>
 
 <script>
+import { mapActions, mapState } from "pinia";
+import { useAboutStore } from "@/stores/aboutStore";
+import AboutHero from "@/components/About/AboutHero.vue";
+import AboutMission from "@/components/About/AboutMission.vue";
+import AboutValues from "@/components/About/AboutValues.vue";
+import AboutStory from "@/components/About/AboutStory.vue";
+import AboutImpact from "@/components/About/AboutImpact.vue";
+import AboutTeam from "@/components/About/AboutTeam.vue";
+import AboutCommunity from "@/components/About/AboutCommunity.vue";
+
 export default {
-  data() {
-    return {
-      dev: import.meta.env.DEV,
-      prod: import.meta.env.PROD,
-      ssr: import.meta.env.SSR,
-      mode: import.meta.env.MODE,
-      title: import.meta.env.VITE_APP_TITLE,
-      ver: import.meta.env.VITE_APP_VER,
-      apiUrl: import.meta.env.VITE_API_URL
-    }
-  }
-}
+  name: "AboutView",
+  components: {
+    AboutHero,
+    AboutMission,
+    AboutValues,
+    AboutStory,
+    AboutImpact,
+    AboutTeam,
+    AboutCommunity,
+  },
+  computed: {
+    ...mapState(useAboutStore, ["page", "loading", "error"]),
+  },
+  methods: {
+    ...mapActions(useAboutStore, ["fetchAboutPage"]),
+  },
+  async mounted() {
+    await this.fetchAboutPage();
+  },
+};
 </script>
 
 <style scoped>
-
-.about {
-  font-family: Arial, sans-serif;
-  color: #333;
-  text-align: center;
-  padding: 20px;
-  background: linear-gradient(to right, #000000, #FFA500); 
-  border-radius: 10px;
-}
-
-
-h1 {
-  color: #FFA500;
-}
-
-
-.image-container {
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
-}
-
-.shelter-img {
-  max-width: 80%; 
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 20px 0;
-  color: #ddd;
-}
-
-ul li {
-  margin-bottom: 10px;
-  font-size: 1.1rem;
-}
-
-hr {
-  margin: 30px 0;
-  border: 1px solid #ddd;
-}
-
-ul li:last-child {
-  font-weight: bold;
-  color: #555;
+.about-page {
+  background: #f4f6f8;
 }
 </style>

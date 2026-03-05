@@ -70,6 +70,8 @@ class UserController extends Controller
                     'dogs:post',
                     'dogs:delete',
                     'dogs:update',
+                    'photos:post',
+                    'photos:delete',
                 
                 ];
                 break;

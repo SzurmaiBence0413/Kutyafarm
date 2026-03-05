@@ -3,8 +3,6 @@
     <div class="dog-image-wrap">
       <img :src="dog.image" :alt="dog.name" class="dog-image" />
 
-      <span class="badge-featured" v-if="dog.featured">Featured</span>
-
       <button
         class="favorite-btn"
         :class="{ active: isFavorite }"
@@ -27,6 +25,15 @@
         <i class="bi bi-geo-alt"></i>
         {{ dog.location }}
       </p>
+
+      <div v-if="canManage" class="manage-actions mt-3">
+        <button class="btn btn-sm btn-outline-warning" @click="$emit('edit', dog)">
+          Edit
+        </button>
+        <button class="btn btn-sm btn-outline-danger" @click="$emit('delete', dog.id)">
+          Delete
+        </button>
+      </div>
     </div>
   </article>
 </template>
@@ -43,8 +50,12 @@ export default {
       type: Boolean,
       required: true,
     },
+    canManage: {
+      type: Boolean,
+      default: false,
+    },
   },
-  emits: ["toggle-favorite"],
+  emits: ["toggle-favorite", "edit", "delete"],
 };
 </script>
 
@@ -65,18 +76,6 @@ export default {
   width: 100%;
   height: 250px;
   object-fit: cover;
-}
-
-.badge-featured {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background: #ff6a00;
-  color: #fff;
-  border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  padding: 5px 10px;
 }
 
 .favorite-btn {
@@ -138,6 +137,11 @@ export default {
   display: flex;
   align-items: center;
   gap: 6px;
+}
+
+.manage-actions {
+  display: flex;
+  gap: 8px;
 }
 
 @media (max-width: 768px) {

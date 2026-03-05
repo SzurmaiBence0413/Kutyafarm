@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dog as CurrentModel;
+use App\Models\Photo;
+use App\Models\Vaccination;
 use App\Http\Requests\StoreDogRequest as StoreCurrentModelRequest;
 use App\Http\Requests\UpdateDogRequest as UpdateCurrentModelRequest;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class DogController extends Controller
@@ -63,7 +66,12 @@ public function store(StoreCurrentModelRequest $request)
     public function destroy(int $id)
     {
         return $this->apiResponse(function () use ($id) {
-            CurrentModel::findOrFail($id)->delete();
+            DB::transaction(function () use ($id) {
+                Vaccination::where('dogId', $id)->delete();
+                Photo::where('dogId', $id)->delete();
+                CurrentModel::findOrFail($id)->delete();
+            });
+
             return ['id' => $id];
         });
     }
