@@ -2,14 +2,14 @@ export default {
   async getAboutPageData() {
     return {
       hero: {
-        title: "About KutyaMarket",
+        title: "About DogShelter",
         subtitle:
           "Connecting loving families with their perfect canine companions since 2020",
       },
       mission: {
         title: "Our Mission",
         paragraphs: [
-          "At KutyaMarket, we believe every dog deserves a loving home and every family deserves a loyal companion. We are committed to ethical breeding, transparency, and responsible pet ownership.",
+          "At DogShelter, we believe every dog deserves a loving home and every family deserves a loyal companion. We are committed to ethical breeding, transparency, and responsible pet ownership.",
           "Our platform connects trusted breeders, verified shelters, and caring dog lovers in one place. We make the process of finding a healthy, happy dog simple and reliable.",
         ],
         image:
@@ -44,7 +44,7 @@ export default {
       story: {
         title: "Our Story",
         paragraphs: [
-          "KutyaMarket was founded in 2020 by a group of passionate dog lovers who saw the need for a transparent and ethical dog marketplace.",
+          "DogShelter was founded in 2020 by a group of passionate dog lovers who saw the need for a transparent and ethical dog marketplace.",
           "From our early days as a small community project, we have grown into a trusted platform helping thousands of families find healthy companions.",
           "We remain dedicated to creating meaningful connections between responsible breeders and pet-loving families through care, education, and trust.",
         ],
@@ -58,7 +58,7 @@ export default {
       team: {
         title: "Meet Our Team",
         subtitle:
-          "Our dedicated team of dog lovers and professionals work around the clock to ensure KutyaMarket remains the trusted marketplace.",
+          "Our dedicated team of dog lovers and professionals work around the clock to ensure DogShelter remains the trusted marketplace.",
         members: [
           {
             id: 1,
@@ -87,7 +87,7 @@ export default {
       },
       community: {
         title: "Join Our Community",
-        text: "Whether you are looking for a loyal friend, trusted support, or want to share your love for dogs, KutyaMarket is here to help every step of the way.",
+        text: "Whether you are looking for a loyal friend, trusted support, or want to share your love for dogs, DogShelter is here to help every step of the way.",
       },
     };
   },
