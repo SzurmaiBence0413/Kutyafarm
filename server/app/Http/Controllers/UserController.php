@@ -53,14 +53,14 @@ class UserController extends Controller
 
 
         $expirationTime = Carbon::now()->addDays(1);
-        $role = $user->role;
+        $role = (int) $user->role;
         $name = "1day-role:$role";
         switch ($role) {
-            case 1:
+            case User::ROLE_ADMIN:
                 //Admin
                 $abilities = ['*'];
                 break;
-            case 2:
+            case User::ROLE_OWNER:
                 //Hirdető
                 $abilities = [
                     'usersme:delete',
@@ -69,7 +69,7 @@ class UserController extends Controller
                     'usersme:get',
                     'dogs:post',
                     'dogs:delete',
-                    'dogs:update',
+                    'dogs:patch',
                     'photos:post',
                     'photos:delete',
                 
@@ -185,7 +185,10 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         try {
-            $row = User::create($request->all());
+            $payload = $request->validated();
+            $payload['role'] = User::ROLE_ADOPTER;
+
+            $row = User::create($payload);
 
             $data = [
                 'message' => 'ok',

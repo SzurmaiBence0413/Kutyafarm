@@ -22,10 +22,21 @@ class DogFactory extends Factory
 
     public function definition(): array
     {
-        $user = User::where('role', 2)
+        $user = User::where('role', User::ROLE_OWNER)
             ->inRandomOrder()
             ->first();
-        $userId = $user->id;
+
+        if (!$user) {
+            $user = User::where('role', User::ROLE_ADOPTER)
+                ->inRandomOrder()
+                ->first();
+        }
+
+        if (!$user) {
+            $user = User::inRandomOrder()->first();
+        }
+
+        $userId = $user?->id;
 
         $breeds = Breed::inRandomOrder()->first();
         $breedId = $breeds->id;

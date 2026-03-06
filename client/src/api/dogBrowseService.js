@@ -17,6 +17,10 @@ export default {
     return await apiClient.get("/photos");
   },
 
+  async getUsers() {
+    return await apiClient.get("/users");
+  },
+
   async createDog(data) {
     return await apiClient.post("/dogs", data);
   },

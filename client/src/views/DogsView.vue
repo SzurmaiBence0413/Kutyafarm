@@ -41,6 +41,12 @@
         @confirm="confirmDeleteDog"
       />
 
+      <DogDetailsModal
+        :isOpen="isDetailsModalOpen"
+        :dog="selectedDog"
+        @close="closeDetailsModal"
+      />
+
       <DogBrowseFilters
         :searchText="searchText"
         :selectedBreed="selectedBreed"
@@ -73,6 +79,7 @@
               @toggle-favorite="toggleFavorite"
               @edit="openEditForm"
               @delete="openDeleteModal"
+              @open-details="openDetailsModal"
             />
           </div>
         </div>
@@ -93,6 +100,7 @@ import DogCard from "@/components/Dogs/DogCard.vue";
 import AddDogForm from "@/components/Dogs/AddDogForm.vue";
 import DogDeleteConfirmModal from "@/components/Dogs/DogDeleteConfirmModal.vue";
 import DogEditModal from "@/components/Dogs/DogEditModal.vue";
+import DogDetailsModal from "@/components/Dogs/DogDetailsModal.vue";
 
 export default {
   name: "DogsView",
@@ -102,10 +110,13 @@ export default {
     AddDogForm,
     DogDeleteConfirmModal,
     DogEditModal,
+    DogDetailsModal,
   },
   data() {
     return {
       isAddFormOpen: false,
+      isDetailsModalOpen: false,
+      selectedDog: null,
     };
   },
 
@@ -186,6 +197,14 @@ export default {
         await this.deleteDog(this.deleteDogId);
         this.closeDeleteModal();
       } catch (error) {}
+    },
+    openDetailsModal(dog) {
+      this.selectedDog = dog;
+      this.isDetailsModalOpen = true;
+    },
+    closeDetailsModal() {
+      this.isDetailsModalOpen = false;
+      this.selectedDog = null;
     },
   },
 

@@ -15,7 +15,7 @@ class ForeignKeyConstraintsTest extends TestCase
         $foreignKeys = $this->getForeignKeysForTable('dogs');
 
         $this->assertSame('breeds.id', $foreignKeys['breedId'] ?? null);
-        $this->assertSame('breeds.id', $foreignKeys['userId'] ?? null);
+        $this->assertSame('users.id', $foreignKeys['userId'] ?? null);
         $this->assertSame('colors.id', $foreignKeys['colorId'] ?? null);
     }
 
@@ -64,4 +64,3 @@ class ForeignKeyConstraintsTest extends TestCase
         return $map;
     }
 }
-

@@ -23,6 +23,13 @@
           :dogs="favoriteDogs"
           :isFavorite="isFavorite"
           @toggle-favorite="toggleFavorite"
+          @open-details="openDetailsModal"
+        />
+
+        <DogDetailsModal
+          :isOpen="isDetailsModalOpen"
+          :dog="selectedDog"
+          @close="closeDetailsModal"
         />
       </template>
     </div>
@@ -34,11 +41,19 @@ import { mapActions, mapState } from "pinia";
 import { useDogBrowseStore } from "@/stores/dogBrowseStore";
 import { useFavoritesStore } from "@/stores/favoritesStore";
 import FavoriteDogsGrid from "@/components/Dogs/FavoriteDogsGrid.vue";
+import DogDetailsModal from "@/components/Dogs/DogDetailsModal.vue";
 
 export default {
   name: "FavoritesView",
   components: {
     FavoriteDogsGrid,
+    DogDetailsModal,
+  },
+  data() {
+    return {
+      isDetailsModalOpen: false,
+      selectedDog: null,
+    };
   },
   computed: {
     ...mapState(useDogBrowseStore, ["dogs", "loading", "error"]),
@@ -51,6 +66,14 @@ export default {
   methods: {
     ...mapActions(useDogBrowseStore, ["fetchDogs"]),
     ...mapActions(useFavoritesStore, ["initFavorites", "toggleFavorite", "isFavorite"]),
+    openDetailsModal(dog) {
+      this.selectedDog = dog;
+      this.isDetailsModalOpen = true;
+    },
+    closeDetailsModal() {
+      this.isDetailsModalOpen = false;
+      this.selectedDog = null;
+    },
   },
   async mounted() {
     this.initFavorites();
@@ -83,4 +106,3 @@ export default {
   padding: 20px;
 }
 </style>
-

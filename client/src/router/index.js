@@ -19,8 +19,8 @@ const router = createRouter({
       name: "home",
       component: HomeView,
       meta: {
-        title: (route) => "Főoldal",
-        breadcrumb: "Főoldal",
+        title: (route) => "Home",
+        breadcrumb: "Home",
       },
     },
     {
@@ -28,8 +28,8 @@ const router = createRouter({
       name: "about",
       component: () => import("@/views/AboutView.vue"),
       meta: {
-        title: (route) => "Rólunk",
-        breadcrumb: "Rólunk",
+        title: (route) => "About Us ",
+        breadcrumb: "About Us",
       },
     },
     {
@@ -159,7 +159,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
  
-  document.title = "Iskola - " + to.meta.title(to);
+  document.title = "DogShelter - " + to.meta.title(to);
   //mehetsz tovább az oldalra
 
   // Megkeressük az összes meta.roles beállítást az útvonal láncban

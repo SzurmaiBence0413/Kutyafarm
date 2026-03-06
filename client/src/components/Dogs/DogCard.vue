@@ -1,12 +1,19 @@
 <template>
-  <article class="dog-card h-100">
+  <article
+    class="dog-card h-100"
+    role="button"
+    tabindex="0"
+    @click="$emit('open-details', dog)"
+    @keydown.enter.prevent="$emit('open-details', dog)"
+    @keydown.space.prevent="$emit('open-details', dog)"
+  >
     <div class="dog-image-wrap">
       <img :src="dog.image" :alt="dog.name" class="dog-image" />
 
       <button
         class="favorite-btn"
         :class="{ active: isFavorite }"
-        @click="$emit('toggle-favorite', dog.id)"
+        @click.stop="$emit('toggle-favorite', dog.id)"
         type="button"
       >
         <i class="bi" :class="isFavorite ? 'bi-heart-fill' : 'bi-heart'"></i>
@@ -16,7 +23,6 @@
     <div class="dog-content">
       <div class="dog-head">
         <h3>{{ dog.name }}</h3>
-        <p class="price">${{ dog.price }}</p>
       </div>
 
       <p class="breed">{{ dog.breed }}</p>
@@ -27,10 +33,10 @@
       </p>
 
       <div v-if="canManage" class="manage-actions mt-3">
-        <button class="btn btn-sm btn-outline-warning" @click="$emit('edit', dog)">
+        <button class="btn btn-sm btn-outline-warning" @click.stop="$emit('edit', dog)">
           Edit
         </button>
-        <button class="btn btn-sm btn-outline-danger" @click="$emit('delete', dog.id)">
+        <button class="btn btn-sm btn-outline-danger" @click.stop="$emit('delete', dog.id)">
           Delete
         </button>
       </div>
@@ -55,7 +61,7 @@ export default {
       default: false,
     },
   },
-  emits: ["toggle-favorite", "edit", "delete"],
+  emits: ["toggle-favorite", "edit", "delete", "open-details"],
 };
 </script>
 
@@ -66,6 +72,7 @@ export default {
   border-radius: 14px;
   overflow: hidden;
   box-shadow: 0 8px 18px rgba(16, 24, 40, 0.06);
+  cursor: pointer;
 }
 
 .dog-image-wrap {
@@ -111,14 +118,6 @@ export default {
   font-size: 1.45rem;
 }
 
-.price {
-  margin: 0;
-  color: #ff6a00;
-  font-size: 1.95rem;
-  line-height: 1;
-  font-weight: 500;
-}
-
 .breed {
   margin: 8px 0 10px;
   font-size: 1.03rem;
@@ -149,8 +148,5 @@ export default {
     height: 220px;
   }
 
-  .price {
-    font-size: 1.7rem;
-  }
 }
 </style>

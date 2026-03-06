@@ -46,7 +46,7 @@ class UserPolicy
         if ($user->id !== $model->id) {
             // Ha nem önmódosítás, és nem adminról van szó (az adminra vonatkozik a before() metódus), 
             // megtagadjuk. De a before() miatt ez a rész főleg a nem-adminokra érvényes.
-            if ($user->role !== 1) {
+            if ($user->role !== User::ROLE_ADMIN) {
                 //vissza: false
                 return Response::deny('Csak a saját profilodat módosíthatod.');
             }
@@ -54,7 +54,7 @@ class UserPolicy
 
         // 3. ADMIN SPECIÁLIS SZABÁLY: Megnézzük, próbál-e a user a saját 'role' mezőjén módosítani.
         // Ezt az ellenőrzést csak akkor végezzük el, ha valóban az admin magát módosítja.
-        if ($user->role === 1 && $user->id === $model->id) {
+        if ($user->role === User::ROLE_ADMIN && $user->id === $model->id) {
 
             // Ha az admin megpróbálja a bemeneti adatokkal megváltoztatni a role mezőt:
             $request = request();
@@ -72,7 +72,7 @@ class UserPolicy
     {
 
         // Amin  aját 'role' mezőjét nem módosíthatja.
-        if ($user->role === 1 && $user->id === $model->id) {
+        if ($user->role === User::ROLE_ADMIN && $user->id === $model->id) {
 
             // Ha az admin megpróbálja a bemeneti adatokkal megváltoztatni a role mezőt:
             $request = request();
@@ -93,7 +93,7 @@ class UserPolicy
     {
         // Csak akkor engedélyezzük a törlést, ha a bejelentkezett felhasználó azonos a törlendővel.
 
-        return $user->id === $model->id && $user->role > 1
+        return $user->id === $model->id && $user->role !== User::ROLE_ADMIN
             ? Response::allow()
             : Response::deny('Mehiúsult a delete: Csak a saját profilodat törölheted csak, vagy redszergazda vagy.');
     }

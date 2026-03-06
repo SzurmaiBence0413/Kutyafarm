@@ -1,55 +1,41 @@
 import { defineStore } from "pinia";
-// import { useToastStore } from "@/stores/toastStore";
 import service from "@/api/userLoginLogoutService";
 import { useToastStore } from "./toastStore";
 
 export const useUserLoginLogoutStore = defineStore("userLoginLogout", {
-  //Ezek a változók
   state: () => ({
     item: JSON.parse(localStorage.getItem("user_data")) || null,
     loading: false,
     error: null,
-    rolNames: ["Admin", "Tanár", "Diák"],
+    rolNames: ["Admin", "Tulaj", "Orokbefogado"],
   }),
-  //valamilyen formában visszaadja
+
   getters: {
     token() {
-      if (!this.item) {
-        return null;
-      }
-      return this.item.token;
+      return this.item ? this.item.token : null;
     },
     role() {
-      if (!this.item) {
-        return null;
-      }
-      return this.item.role;
+      return this.item ? this.item.role : null;
     },
     userName() {
-      if (!this.item) {
-        return null;
-      }
-      return this.item.name;
+      return this.item ? this.item.name : null;
     },
     userNameWithRole() {
-      if (!this.item) {
-        return null;
-      }
-      const userInfo = `${this.item.name}: ${this.rolNames[this.item.role - 1]}`;
-      return userInfo;
+      if (!this.item) return null;
+      return `${this.item.name}: ${this.rolNames[this.item.role - 1]}`;
     },
     isLoggedIn() {
-      return this.item != null ? true : false;
+      return this.item !== null;
     },
   },
-  //csinál vele valamit
+
   actions: {
     canAccess(requiredRoles) {
-      // Itt a 'this' kulcsszóval éred el a state-et
       if (!requiredRoles || requiredRoles.length === 0) return true;
       if (!this.isLoggedIn) return false;
       return requiredRoles.includes(this.role);
     },
+
     async login(data) {
       try {
         this.loading = true;
@@ -57,40 +43,50 @@ export const useUserLoginLogoutStore = defineStore("userLoginLogout", {
         const response = await service.login(data);
         this.item = response.data;
         localStorage.setItem("user_data", JSON.stringify(response.data));
-        // const toastStore = useToastStore();
-        // toastStore.messages.push("Sikeres bejelentkezés");
-        // toastStore.show("Success");
         return true;
       } catch (err) {
         this.error = err;
         throw err;
-        return false;
       } finally {
         this.loading = false;
       }
     },
+
+    async register(data) {
+      try {
+        this.loading = true;
+        this.error = null;
+        await service.register(data);
+        return true;
+      } catch (err) {
+        this.error = err;
+        throw err;
+      } finally {
+        this.loading = false;
+      }
+    },
+
     async logout() {
       try {
         this.error = null;
         this.loading = true;
-        const response = await service.logout();
+        await service.logout();
         this.item = null;
-        // Törlés localStorage-ból
         localStorage.removeItem("user_data");
-        const toastStore = useToastStore();
-        toastStore.messages.push("Sikeres kijelenkezés");
-        toastStore.show("Success");
 
+        const toastStore = useToastStore();
+        toastStore.messages.push("Sikeres kijelentkezes");
+        toastStore.show("Success");
         return true;
       } catch (err) {
         this.error = err;
         this.item = null;
         throw err;
-        return false;
       } finally {
         this.loading = false;
       }
     },
+
     async getMeRefresh() {
       try {
         this.error = null;
@@ -102,7 +98,6 @@ export const useUserLoginLogoutStore = defineStore("userLoginLogout", {
       } catch (err) {
         this.error = err;
         throw err;
-        return false;
       } finally {
         this.loading = false;
       }

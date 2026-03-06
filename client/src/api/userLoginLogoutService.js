@@ -7,6 +7,10 @@ export default {
   login(data) {
     return apiClient.post(`${route}/login`, data);
   },
+  //Register user
+  register(data) {
+    return apiClient.post(`${route}`, data);
+  },
   //Logout user
   logout() {
     return apiClient.post(`${route}/logout`, null);

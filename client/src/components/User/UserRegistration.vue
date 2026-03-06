@@ -1,95 +1,73 @@
 <template>
-  <div class="d-flex justify-content-center my-4">
-    <div class="card" style="width: 26rem">
-      <div class="card-header text-bg-primary">Regisztráció</div>
-      <div class="card-body">
-        <form
-          @submit.prevent="handleSubmit"
-          :class="{ 'was-validated': validated }"
-          novalidate
-        >
-          <!-- User név -->
-          <div class="mb-3">
-            <label for="userName" class="form-label">User neved:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="userName"
-              v-model="userName"
-              @input="clearError('name')"
-             
-              required
-            />
-            <div v-if="!serverErrors.name" class="invalid-feedback">
-              A user név kötelező, vagy 2-nél hosszabb kell legyen
-            </div>
-            <div v-if="serverErrors.name" class="invalid-feedback d-block">
-              {{ serverErrors.name[0] }}
-            </div>
-          </div>
-          <!-- Email -->
-          <div class="mb-3">
-            <label for="email" class="form-label">Email címed:</label>
-            <input
-              type="email"
-              class="form-control"
-              id="email"
-              v-model="email"
-               @input="clearError('email')"
-              required
-            />
-            <div v-if="!serverErrors.email" class="invalid-feedback">
-              A email kötelező, vagy nem szabályos
-            </div>
-            <div v-if="serverErrors.email" class="invalid-feedback d-block">
-              {{ serverErrors.email[0] }}
-            </div>
-          </div>
-          <!-- Password1 -->
-          <PasswordField
-            class="mb-3"
-            ref="pass1Comp"
-            v-model="password"
-            :label="'Jelszavad'"
-            :inputRef="'firstInput'"
-            :label-id="'password'"
-            :serverErrors="serverErrors"
-          />
-          <!-- Password2 -->
-          <PasswordField
-            ref="pass2Comp"
-            v-model="confirmPassword"
-            :label="'Jelszavad mégegyszer'"
-            :inputRef="'confirmInput'"
-            :label-id="'confirmPassword'"
-            :passwordErrorMessage="passwordErrorMessage"
-            :serverErrors="serverErrors"
-          />
-          <!-- Regisztrálás -->
-          <button type="submit" class="btn btn-success">Regisztrálás</button>
-          <!-- Mégse -->
-          <button
-            type="button"
-            class="btn btn-primary ms-2"
-            @click="this.$router.push('/login')"
-          >
-            Mégsem
-          </button>
-        </form>
-        <ToastContainer />
+  <form @submit.prevent="handleSubmit" :class="{ 'was-validated': validated }" novalidate>
+    <div class="mb-3">
+      <label for="userName" class="form-label">User Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="userName"
+        v-model.trim="userName"
+        @input="clearError('name')"
+        required
+      />
+      <div v-if="!serverErrors.name" class="invalid-feedback">
+        User name is required.
+      </div>
+      <div v-if="serverErrors.name" class="invalid-feedback d-block">
+        {{ serverErrors.name[0] }}
       </div>
     </div>
-  </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        v-model.trim="email"
+        @input="clearError('email')"
+        required
+      />
+      <div v-if="!serverErrors.email" class="invalid-feedback">Please enter a valid email.</div>
+      <div v-if="serverErrors.email" class="invalid-feedback d-block">
+        {{ serverErrors.email[0] }}
+      </div>
+    </div>
+
+    <PasswordField
+      class="mb-3"
+      ref="pass1Comp"
+      v-model="password"
+      :label="'Password'"
+      :inputRef="'firstInput'"
+      :label-id="'password'"
+      :serverErrors="serverErrors"
+    />
+
+    <PasswordField
+      ref="pass2Comp"
+      v-model="confirmPassword"
+      :label="'Confirm Password'"
+      :inputRef="'confirmInput'"
+      :label-id="'confirmPassword'"
+      :passwordErrorMessage="passwordErrorMessage"
+      :serverErrors="serverErrors"
+    />
+
+    <div class="d-flex gap-2 flex-wrap mt-3">
+      <button type="submit" class="btn submit-btn">Registration</button>
+      <button type="button" class="btn switch-btn" @click="this.$router.push('/login')">Cancel</button>
+    </div>
+  </form>
 </template>
 
 <script>
-import ToastContainer from "../Message/ToastContanier.vue";
 import PasswordField from "./PasswordField.vue";
+
 export default {
   name: "UserRegistration",
   components: {
     PasswordField,
-    ToastContainer,
   },
   data() {
     return {
@@ -102,19 +80,15 @@ export default {
       serverErrors: {},
     };
   },
-
   methods: {
     validatePasswords() {
       const comp2 = this.$refs.pass2Comp;
       const input2 = comp2?.$refs[comp2.inputRef];
 
       if (this.password !== this.confirmPassword) {
-        // Ha nem egyeznek, hibát állítunk be (ezzel invalid lesz)
-        input2.setCustomValidity("A jelszavak nem egyeznek!");
-        //Ez a hibaüzenetet jelenítjük meg
-        this.passwordErrorMessage = "A jelszavak nem egyeznek!";
+        input2.setCustomValidity("Passwords do not match.");
+        this.passwordErrorMessage = "Passwords do not match.";
       } else {
-        // Ha egyeznek, töröljük a hibát (ezzel valid lesz)
         input2.setCustomValidity("");
         this.passwordErrorMessage = "";
       }
@@ -122,40 +96,28 @@ export default {
     handleSubmit(event) {
       this.validatePasswords();
       const form = event.target;
-      //Bekapcsolja a bootstrap hiba színező logikáját
       this.validated = true;
 
-      if (form.checkValidity() === false) {
-        console.log("Hiba:");
-      } else {
-        console.log("Sikeres validáció!");
-        //user létrehozás
-        const data = {
-          name: this.userName,
-          email: this.email,
-          password: this.password,
-        };
-        this.$emit("createUser", 
-        {
-          data: data,
-          done: (success) => {
-            if (success) {
-              this.$router.push('/login');
-            }else{
-              console.log("Server oldali hiba, űrlap marad");
-            }
+      if (form.checkValidity() === false) return;
+
+      const data = {
+        name: this.userName,
+        email: this.email,
+        password: this.password,
+      };
+
+      this.$emit("createUser", {
+        data,
+        done: (success) => {
+          if (success) {
+            this.$router.push("/login");
           }
-        } 
-      );
-        
-      }
+        },
+      });
     },
-    //422-es hiba kezelés
-    // View hívja, ha 422-es hiba van
     setServerErrors(errors) {
       this.serverErrors = errors;
     },
-    //Mező (field) eltüntetése a serverErrors objektumból
     clearError(field) {
       if (this.serverErrors[field]) {
         delete this.serverErrors[field];
@@ -165,4 +127,43 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+:deep(.form-label) {
+  color: #f2f5f3;
+}
+
+:deep(.form-control) {
+  border-radius: 0;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.86);
+}
+
+:deep(.input-group .btn) {
+  border-radius: 0;
+}
+
+.submit-btn,
+.switch-btn {
+  min-width: 140px;
+  border-radius: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.submit-btn {
+  background: #19b6e5;
+  border-color: #19b6e5;
+  color: #fff;
+}
+
+.switch-btn {
+  background: transparent;
+  border: 1px solid #19b6e5;
+  color: #dff8ff;
+}
+
+.switch-btn:hover {
+  background: rgba(25, 182, 229, 0.16);
+  color: #fff;
+}
+</style>

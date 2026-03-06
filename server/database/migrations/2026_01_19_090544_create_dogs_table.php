@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('breedId')->nullable()->constrained('breeds')->onDelete('restrict');
             $table->string('dogName');
-            $table->foreignId('userId')->nullable()->constrained('breeds')->onDelete('restrict');
+            $table->foreignId('userId')->nullable()->constrained('users')->onDelete('restrict');
             $table->date('dateOfBirth');
             $table->string('chipNumber', 15);
             $table->boolean('gender');

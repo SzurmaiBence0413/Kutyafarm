@@ -22,24 +22,29 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'email' => 'required|email',
-            'password' => 'required',
-
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:3',
+            'role' => 'prohibited',
         ];
     }
 
-    public function messages()
-{
-    return [
-        'name.required' => 'A név megadása kötelező.',
-        'name.string'   => 'A név csak szöveg lehet.',
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'A név megadása kötelező.',
+            'name.string' => 'A név csak szöveg lehet.',
+            'name.max' => 'A név maximum 255 karakter lehet.',
 
-        'email.required' => 'Az email cím megadása kötelező.',
-        'email.email'    => 'Az email cím formátuma nem megfelelő.',
+            'email.required' => 'Az email cím megadása kötelező.',
+            'email.email' => 'Az email cím formátuma nem megfelelő.',
+            'email.unique' => 'Ez az email cím már használatban van.',
 
-        'password.required' => 'A jelszó megadása kötelező.',
-    ];
-}
+            'password.required' => 'A jelszó megadása kötelező.',
+            'password.string' => 'A jelszó formátuma érvénytelen.',
+            'password.min' => 'A jelszónak legalább 3 karakterből kell állnia.',
 
+            'role.prohibited' => 'A szerepkört nem lehet megadni regisztrációkor.',
+        ];
+    }
 }

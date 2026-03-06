@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,8 +9,11 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasApiTokens, HasFactory, Notifiable;
+
+    public const ROLE_ADMIN = 1;
+    public const ROLE_OWNER = 2;
+    public const ROLE_ADOPTER = 3;
 
     /**
      * The attributes that are mass assignable.
@@ -48,13 +50,22 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'role' => 'integer',
         ];
     }
 
     public function isAdmin(): bool
     {
-        // Feltételezve, hogy a 'role' mező tárolja a szerepkört,
-        // és '1' az adminisztrátori szerep száma.
-        return $this->role === 1; 
+        return $this->role === self::ROLE_ADMIN;
+    }
+
+    public function isOwner(): bool
+    {
+        return $this->role === self::ROLE_OWNER;
+    }
+
+    public function isAdopter(): bool
+    {
+        return $this->role === self::ROLE_ADOPTER;
     }
 }

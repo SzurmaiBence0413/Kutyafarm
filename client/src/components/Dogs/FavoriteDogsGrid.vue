@@ -10,6 +10,7 @@
         :isFavorite="isFavorite(dog.id)"
         :canManage="false"
         @toggle-favorite="$emit('toggle-favorite', $event)"
+        @open-details="$emit('open-details', $event)"
       />
     </div>
   </div>
@@ -33,7 +34,6 @@ export default {
       required: true,
     },
   },
-  emits: ["toggle-favorite"],
+  emits: ["toggle-favorite", "open-details"],
 };
 </script>
-

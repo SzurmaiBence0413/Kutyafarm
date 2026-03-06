@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -13,24 +12,21 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        //
         User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@example.com',
             'password' => '123',
-            'role' => 1
+            'role' => User::ROLE_ADMIN,
         ]);
-        User::factory()->create([
-            'name' => 'Raktáros',
-            'email' => 'raktaros@example.com',
-            'password' => '123',
-            'role' => 2
-        ]);
-        User::factory()->create([
-            'name' => 'Vásárló 1',
-            'email' => 'vasarlo1@example.com',
-            'password' => '123',
-            'role' => 3
-        ]);
+
+        // 30 uj user alap szerepkorrel (role = 3, orokbefogado), Faker nevekkel
+        for ($i = 1; $i <= 30; $i++) {
+            User::factory()->create([
+                'name' => fake()->name(),
+                'email' => fake()->unique()->safeEmail(),
+                'password' => '123',
+                'role' => User::ROLE_ADOPTER,
+            ]);
+        }
     }
 }
