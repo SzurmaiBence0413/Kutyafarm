@@ -3,7 +3,7 @@ import HomeView from "@/views/HomeView.vue";
 import { useUserLoginLogoutStore } from "@/stores/userLoginLogoutStore";
 import { useToastStore } from "@/stores/toastStore";
 
-//Azt nézi meg, hogy be van-e valaki jelentkezve
+//Azt nézi meg, hogy be van-e valaki jelentkezv
 function checkIfNotLogged() {
   const storeAuth = useUserLoginLogoutStore();
   if (!storeAuth.isLoggedIn) {
