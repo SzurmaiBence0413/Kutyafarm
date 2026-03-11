@@ -160,6 +160,7 @@ class DogFactory extends Factory
         return [
             'breedId' => $breedId,
             'dogName' => $dogName,
+            'description' => fake()->sentences(fake()->numberBetween(2, 3), true),
             'userId' => $userId,
             'dateOfBirth' => fake()->dateTimeBetween('2010-01-01', 'now'),
             'chipNumber' => fake()->unique()->numerify(str_repeat('#', 15)),

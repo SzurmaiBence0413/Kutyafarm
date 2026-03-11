@@ -24,6 +24,7 @@ class StoreDogRequest extends FormRequest
         return [
             'breedId' => 'required|integer|exists:breeds,id',  // breedId nem kötelező, ha megadva van, akkor validálja
             'dogName' => 'required|string|max:255',
+            'description' => 'nullable|string|max:1000',
             'userId' => 'required|integer|exists:users,id',
             'dateOfBirth' => 'required|date',
             'chipNumber' => 'required|string|max:15|unique:dogs,chipNumber',
@@ -44,6 +45,9 @@ class StoreDogRequest extends FormRequest
         'dogName.required' => 'A kutya nevének megadása kötelező.',
         'dogName.string'   => 'A kutya neve csak szöveg lehet.',
         'dogName.max'      => 'A kutya neve legfeljebb 255 karakter hosszú lehet.',
+
+        'description.string' => 'A leiras csak szoveg lehet.',
+        'description.max'    => 'A leiras legfeljebb 1000 karakter hosszu lehet.',
 
         'userId.required'  => 'A gazda megadása kötelező.',
         'userId.integer'   => 'A gazda azonosítója csak egész szám lehet.',

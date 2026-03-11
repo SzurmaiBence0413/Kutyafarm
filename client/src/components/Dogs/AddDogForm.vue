@@ -14,6 +14,17 @@
           <input v-model.trim="form.dogName" type="text" class="form-control" required />
         </div>
 
+        <div v-if="mode === 'create'" class="col-12 col-md-6">
+          <label class="form-label">Image URL (optional)</label>
+          <input
+            v-model.trim="form.imageUrl"
+            type="url"
+            maxlength="2048"
+            class="form-control"
+            placeholder="https://example.com/dog.jpg"
+          />
+        </div>
+
         <div class="col-12 col-md-6">
           <label class="form-label">Chip Number</label>
           <input
@@ -113,30 +124,32 @@ export default {
   emits: ["submit", "close"],
   data() {
     return {
-      form: {
-        dogName: "",
-        chipNumber: "",
-        breedId: "",
-        colorId: "",
-        dateOfBirth: "",
-        weight: "",
-        gender: "1",
-        teeth: "1",
-        userId: "",
-      },
-    };
-  },
+        form: {
+          dogName: "",
+          imageUrl: "",
+          chipNumber: "",
+          breedId: "",
+          colorId: "",
+          dateOfBirth: "",
+          weight: "",
+          gender: "1",
+          teeth: "1",
+          userId: "",
+        },
+      };
+    },
   watch: {
     initialDog: {
       immediate: true,
-      handler(value) {
-        if (!value) return;
-        this.form = {
-          dogName: value.dogName ?? value.name ?? "",
-          chipNumber: value.chipNumber ?? "",
-          breedId: String(value.breedId ?? ""),
-          colorId: String(value.colorId ?? ""),
-          dateOfBirth: value.dateOfBirth ?? "",
+        handler(value) {
+          if (!value) return;
+          this.form = {
+            dogName: value.dogName ?? value.name ?? "",
+            imageUrl: "",
+            chipNumber: value.chipNumber ?? "",
+            breedId: String(value.breedId ?? ""),
+            colorId: String(value.colorId ?? ""),
+            dateOfBirth: value.dateOfBirth ?? "",
           weight: value.weight ?? "",
           gender: String(value.gender ?? "1"),
           teeth: String(value.teeth ?? "1"),

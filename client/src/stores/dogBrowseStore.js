@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import service from "@/api/dogBrowseService";
 import { useUserLoginLogoutStore } from "@/stores/userLoginLogoutStore";
+import { useToastStore } from "@/stores/toastStore";
 
 const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=900&q=80";
 
@@ -145,7 +146,7 @@ export const useDogBrowseStore = defineStore("dogBrowse", {
             location: "Budapest, Hungary",
             age,
             price: generatePrice(dog.id, dog.weight),
-            description: buildDescription(dog, breedName, age),
+            description: dog.description || buildDescription(dog, breedName, age),
           };
         });
       } catch (error) {
@@ -161,6 +162,7 @@ export const useDogBrowseStore = defineStore("dogBrowse", {
         throw new Error("You must be logged in.");
       }
 
+      const imageUrl = String(formData?.imageUrl ?? "").trim();
       this.formLoading = true;
       this.error = null;
       try {
@@ -184,15 +186,17 @@ export const useDogBrowseStore = defineStore("dogBrowse", {
 
         if (newDogId) {
           try {
-            const imageUrl = await service.getRandomDogImage();
-            if (imageUrl) {
-              await service.createPhoto({
-                dogId: Number(newDogId),
-                imgUrl: imageUrl,
-              });
+            const finalUrl = imageUrl || (await service.getRandomDogImage());
+            if (finalUrl) {
+              await service.createPhoto({ dogId: Number(newDogId), imgUrl: finalUrl });
             }
           } catch (photoError) {
-            // Keep dog creation successful even if photo generation fails.
+            if (imageUrl) {
+              useToastStore().messages.push(
+                "A kep linket nem sikerult elmenteni. Ellenorizd, hogy ervenyes (http/https) URL, es probalj rovidebb/kozvetlen kep linket."
+              );
+              useToastStore().show("Error");
+            }
           }
         }
 

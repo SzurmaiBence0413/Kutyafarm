@@ -27,8 +27,9 @@ class UpdateDogRequest extends FormRequest
 
        return [
     'breedId'     => 'sometimes|required|integer|exists:breeds,id',
-    'dogName'     => 'sometimes|required|string|max:255',
-    'userId'      => 'sometimes|required|integer|exists:users,id',
+     'dogName'     => 'sometimes|required|string|max:255',
+     'description' => 'sometimes|nullable|string|max:1000',
+     'userId'      => 'sometimes|required|integer|exists:users,id',
     'dateOfBirth' => 'sometimes|required|date',
     'chipNumber'  => [
         'sometimes',
