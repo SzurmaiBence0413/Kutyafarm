@@ -4,7 +4,18 @@
       <h3 class="vaccine-name mb-0">
         <i class="bi bi-capsule-pill me-1"></i>{{ card.name }}
       </h3>
-      <span class="badge">{{ card.badge }}</span>
+      <div class="d-flex align-items-center gap-2">
+        <span class="badge">{{ card.badge }}</span>
+        <button
+          v-if="canDelete"
+          type="button"
+          class="btn btn-outline-danger btn-sm"
+          title="Delete"
+          @click="onDelete"
+        >
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
     </div>
 
     <p class="desc mt-3 mb-3">{{ card.description }}</p>
@@ -29,10 +40,22 @@
 <script>
 export default {
   name: "VaccinationCard",
+  emits: ["delete"],
   props: {
     card: {
       type: Object,
       required: true,
+    },
+    canDelete: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  methods: {
+    onDelete() {
+      const ok = window.confirm(`Delete "${this.card?.name}"?`);
+      if (!ok) return;
+      this.$emit("delete", this.card);
     },
   },
 };

@@ -2,6 +2,7 @@
   <section class="vaccination-guide-view">
     <VaccinationHero />
     <VaccinationNotice />
+    <VaccinationAdminForm />
 
     <div class="container mb-4">
       <div class="tag-row">
@@ -23,7 +24,11 @@
 
       <div v-else class="row g-3">
         <div class="col-12 col-md-6 col-lg-4" v-for="card in cards" :key="card.id">
-          <VaccinationCard :card="card" />
+          <VaccinationCard
+            :card="card"
+            :canDelete="isAdmin && Number.isFinite(Number(card.id))"
+            @delete="onDeleteCard"
+          />
         </div>
       </div>
     </div>
@@ -36,8 +41,11 @@
 <script>
 import { mapActions, mapState } from "pinia";
 import { useVaccinationGuideStore } from "@/stores/vaccinationGuideStore";
+import { useUserLoginLogoutStore } from "@/stores/userLoginLogoutStore";
+import { useToastStore } from "@/stores/toastStore";
 import VaccinationHero from "@/components/Vaccination/VaccinationHero.vue";
 import VaccinationNotice from "@/components/Vaccination/VaccinationNotice.vue";
+import VaccinationAdminForm from "@/components/Vaccination/VaccinationAdminForm.vue";
 import VaccinationCard from "@/components/Vaccination/VaccinationCard.vue";
 import VaccinationTips from "@/components/Vaccination/VaccinationTips.vue";
 import VaccinationCTA from "@/components/Vaccination/VaccinationCTA.vue";
@@ -47,15 +55,40 @@ export default {
   components: {
     VaccinationHero,
     VaccinationNotice,
+    VaccinationAdminForm,
     VaccinationCard,
     VaccinationTips,
     VaccinationCTA,
   },
   computed: {
     ...mapState(useVaccinationGuideStore, ["cards", "loading", "error"]),
+    ...mapState(useUserLoginLogoutStore, ["isLoggedIn"]),
+    ...mapState(useUserLoginLogoutStore, { role: "role" }),
+    isAdmin() {
+      return this.isLoggedIn && this.role === 1;
+    },
   },
   methods: {
-    ...mapActions(useVaccinationGuideStore, ["fetchGuideCards"]),
+    ...mapActions(useVaccinationGuideStore, ["fetchGuideCards", "deleteMedicine"]),
+    async onDeleteCard(card) {
+      const id = Number(card?.id);
+      if (!Number.isFinite(id)) {
+        useToastStore().messages.push("Cannot delete: missing ID.");
+        useToastStore().show("Error");
+        return;
+      }
+      try {
+        await this.deleteMedicine(id);
+        useToastStore().messages.push("Medicine deleted.");
+        useToastStore().show("Success");
+      } catch (error) {
+        // Axios interceptor shows the toast; keep a generic fallback.
+        if (!error?.response) {
+          useToastStore().messages.push("Could not delete medicine.");
+          useToastStore().show("Error");
+        }
+      }
+    },
   },
   async mounted() {
     await this.fetchGuideCards();

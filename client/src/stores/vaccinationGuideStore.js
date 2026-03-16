@@ -21,6 +21,8 @@ export const useVaccinationGuideStore = defineStore("vaccinationGuide", {
     cards: [],
     loading: false,
     error: null,
+    saving: false,
+    savingErrors: null,
   }),
   actions: {
     async fetchGuideCards() {
@@ -38,12 +40,42 @@ export const useVaccinationGuideStore = defineStore("vaccinationGuide", {
               return a.displayOrder - b.displayOrder;
             }
             return a.name.localeCompare(b.name);
-          })
-          .slice(0, 6);
+          });
       } catch (error) {
         this.error = error;
       } finally {
         this.loading = false;
+      }
+    },
+
+    async createMedicine(payload) {
+      this.saving = true;
+      this.savingErrors = null;
+
+      try {
+        const response = await service.createMedicine(payload);
+        await this.fetchGuideCards();
+        return response?.data ?? null;
+      } catch (error) {
+        this.savingErrors = error?.response?.data?.errors ?? null;
+        throw error;
+      } finally {
+        this.saving = false;
+      }
+    },
+
+    async deleteMedicine(id) {
+      this.saving = true;
+      this.savingErrors = null;
+
+      try {
+        const response = await service.deleteMedicine(id);
+        await this.fetchGuideCards();
+        return response?.data ?? null;
+      } catch (error) {
+        throw error;
+      } finally {
+        this.saving = false;
       }
     },
   },
