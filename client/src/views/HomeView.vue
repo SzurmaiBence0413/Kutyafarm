@@ -2,18 +2,18 @@
   <div>
     <!-- Hero Section -->
     <Hero/>
-    <Carousel/>
+    <AutoDogCarousel />
   
   </div>
 </template>
 
 <script>
 import Hero from '../components/Layout/Hero.vue'; 
-import Carousel from '@/components/Layout/Carousel.vue';
+import AutoDogCarousel from "@/components/Layout/AutoDogCarousel.vue";
 export default {
   components: {
     Hero,
-    Carousel  
+    AutoDogCarousel,
   }
 };
 </script>
