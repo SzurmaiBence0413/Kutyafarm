@@ -91,28 +91,7 @@ const router = createRouter({
         //     roles: [1],
         //   },
         // },
-        {
-          path: "student",
-          name: "student",
-          component: () => import("@/views/StudentView.vue"),
-          beforeEnter: [checkIfNotLogged],
-          meta: {
-            title: (route) => "Tanuló",
-            breadcrumb: "Tanuló",
-            roles: [1, 2],
-          },
-        },
-        {
-          path: "plaingsport",
-          name: "plaingsport",
-          component: () => import("@/views/PlayngSportView.vue"),
-          beforeEnter: [checkIfNotLogged],
-          meta: {
-            title: (route) => "Sportolás",
-            breadcrumb: "Sportolás",
-            roles: [1, 2],
-          },
-        },
+     
         {
           path: "users",
           name: "users",

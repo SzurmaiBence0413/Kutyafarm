@@ -30,7 +30,30 @@ class UserController extends Controller
         $user = User::where('email', $email)->first();
 
         //Stimmel-e az email és a jelszó?
-        if (!$user || !Hash::check($password, $password ? $user->password : '')) {
+        if (!$user) {
+            return response()->json([
+                'message' => 'invalid email or password'
+            ], 401);
+        }
+
+        $storedPassword = (string) $user->password;
+        $passwordInfo = password_get_info($storedPassword);
+        $passwordMatches = false;
+
+        if (($passwordInfo['algo'] ?? 0) !== 0) {
+            $passwordMatches = Hash::check($password, $storedPassword);
+        }
+
+        if (
+            !$passwordMatches &&
+            hash_equals($storedPassword, (string) $password)
+        ) {
+            $passwordMatches = true;
+            $user->password = $password;
+            $user->save();
+        }
+
+        if (!$passwordMatches) {
             return response()->json([
                 'message' => 'invalid email or password'
             ], 401);

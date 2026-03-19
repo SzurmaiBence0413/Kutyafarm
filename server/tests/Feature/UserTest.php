@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class UserTest extends TestCase
@@ -62,5 +63,22 @@ class UserTest extends TestCase
         ])->getJson('/api/users')->assertStatus(200);
 
         $this->logout($token)->assertStatus(200);
+    }
+
+    public function test_login_accepts_legacy_plain_text_password_and_rehashes_it(): void
+    {
+        $userId = DB::table('users')->insertGetId([
+            'name' => 'Legacy User',
+            'email' => 'legacy@example.com',
+            'password' => '123',
+            'role' => User::ROLE_ADOPTER,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $loginResponse = $this->login('legacy@example.com', '123');
+        $loginResponse->assertStatus(200);
+
+        $this->assertNotSame('123', User::findOrFail($userId)->password);
     }
 }

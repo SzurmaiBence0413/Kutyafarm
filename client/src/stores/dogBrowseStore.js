@@ -95,24 +95,12 @@ export const useDogBrowseStore = defineStore("dogBrowse", {
         this.breeds = breeds;
         this.colors = colors;
 
-        let users = [];
-        try {
-          const usersResponse = await service.getUsers();
-          users = usersResponse?.data ?? [];
-        } catch (usersError) {
-          users = [];
-        }
-
         const breedMap = Object.fromEntries(
           breeds.map((breed) => [breed.id, breed.breed])
         );
 
         const colorMap = Object.fromEntries(
           colors.map((color) => [color.id, color.colorName ?? color.color ?? "Unknown Color"])
-        );
-
-        const userMap = Object.fromEntries(
-          users.map((user) => [user.id, user.name ?? user.email ?? `User #${user.id}`])
         );
 
         const photoMap = {};
@@ -133,7 +121,7 @@ export const useDogBrowseStore = defineStore("dogBrowse", {
             breedId: dog.breedId,
             breed: breedName,
             userId: dog.userId,
-            ownerName: userMap[dog.userId] || `User #${dog.userId}`,
+            ownerName: dog.userId ? `User #${dog.userId}` : "-",
             dateOfBirth: dog.dateOfBirth,
             chipNumber: dog.chipNumber,
             gender: Number(dog.gender),

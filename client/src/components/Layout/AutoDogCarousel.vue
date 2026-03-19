@@ -4,7 +4,7 @@
     ref="carouselEl"
     class="carousel slide mt-3"
     data-bs-ride="carousel"
-    data-bs-interval="3200"
+    data-bs-interval="35000"
     data-bs-pause="false"
   >
     <div class="carousel-inner">
@@ -166,7 +166,7 @@ export default {
 
       this.destroyCarousel();
       this.carouselInstance = new BootstrapCarousel(this.$refs.carouselEl, {
-        interval: 3200,
+        interval: 3500,
         ride: "carousel",
         pause: false,
         wrap: true,
