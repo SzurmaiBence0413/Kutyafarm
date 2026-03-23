@@ -45,6 +45,7 @@ const router = createRouter({
       path: "/favorites",
       name: "favorites",
       component: () => import("@/views/FavoritesView.vue"),
+      beforeEnter: [checkIfNotLogged],
       meta: {
         title: (route) => "Favorites",
         breadcrumb: "Favorites",

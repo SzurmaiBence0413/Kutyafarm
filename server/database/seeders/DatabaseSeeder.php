@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
 
         //Mielőtt seedelünk, minden táblát töröljünk le.
         DB::statement('DELETE FROM vaccinations');
+        DB::statement('DELETE FROM favourites');
         DB::statement('DELETE FROM photos');
         DB::statement('DELETE FROM dogs');
         DB::statement('DELETE FROM medicines');

@@ -33,6 +33,14 @@ class ForeignKeyConstraintsTest extends TestCase
         $this->assertSame('medicines.id', $foreignKeys['medicineId'] ?? null);
     }
 
+    public function test_favourites_foreign_keys_are_defined(): void
+    {
+        $foreignKeys = $this->getForeignKeysForTable('favourites');
+
+        $this->assertSame('users.id', $foreignKeys['userId'] ?? null);
+        $this->assertSame('dogs.id', $foreignKeys['dogId'] ?? null);
+    }
+
     private function getForeignKeysForTable(string $table): array
     {
         $driver = DB::connection()->getDriverName();

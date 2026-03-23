@@ -22,6 +22,7 @@
           v-else
           :dogs="favoriteDogs"
           :isFavorite="isFavorite"
+          :showFavoriteButton="isLoggedIn"
           @toggle-favorite="toggleFavorite"
           @open-details="openDetailsModal"
         />
@@ -40,6 +41,7 @@
 import { mapActions, mapState } from "pinia";
 import { useDogBrowseStore } from "@/stores/dogBrowseStore";
 import { useFavoritesStore } from "@/stores/favoritesStore";
+import { useUserLoginLogoutStore } from "@/stores/userLoginLogoutStore";
 import FavoriteDogsGrid from "@/components/Dogs/FavoriteDogsGrid.vue";
 import DogDetailsModal from "@/components/Dogs/DogDetailsModal.vue";
 
@@ -58,6 +60,7 @@ export default {
   computed: {
     ...mapState(useDogBrowseStore, ["dogs", "loading", "error"]),
     ...mapState(useFavoritesStore, ["favoriteIds"]),
+    ...mapState(useUserLoginLogoutStore, ["isLoggedIn"]),
     favoriteDogs() {
       const favorites = new Set(this.favoriteIds);
       return this.dogs.filter((dog) => favorites.has(dog.id));
@@ -76,7 +79,7 @@ export default {
     },
   },
   async mounted() {
-    this.initFavorites();
+    await this.initFavorites();
     await this.fetchDogs();
   },
 };

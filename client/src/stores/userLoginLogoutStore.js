@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import service from "@/api/userLoginLogoutService";
 import { useToastStore } from "./toastStore";
+import { useFavoritesStore } from "./favoritesStore";
 
 export const useUserLoginLogoutStore = defineStore("userLoginLogout", {
   state: () => ({
@@ -43,6 +44,7 @@ export const useUserLoginLogoutStore = defineStore("userLoginLogout", {
         const response = await service.login(data);
         this.item = response.data;
         localStorage.setItem("user_data", JSON.stringify(response.data));
+        useFavoritesStore().resetFavorites();
         return true;
       } catch (err) {
         this.error = err;
@@ -73,6 +75,7 @@ export const useUserLoginLogoutStore = defineStore("userLoginLogout", {
         await service.logout();
         this.item = null;
         localStorage.removeItem("user_data");
+        useFavoritesStore().resetFavorites();
 
         const toastStore = useToastStore();
         toastStore.messages.push("Sikeres kijelentkezes");
@@ -81,6 +84,7 @@ export const useUserLoginLogoutStore = defineStore("userLoginLogout", {
       } catch (err) {
         this.error = err;
         this.item = null;
+        useFavoritesStore().resetFavorites();
         throw err;
       } finally {
         this.loading = false;

@@ -9,6 +9,7 @@
         :dog="dog"
         :isFavorite="isFavorite(dog.id)"
         :canManage="false"
+        :showFavoriteButton="showFavoriteButton"
         @toggle-favorite="$emit('toggle-favorite', $event)"
         @open-details="$emit('open-details', $event)"
       />
@@ -32,6 +33,10 @@ export default {
     isFavorite: {
       type: Function,
       required: true,
+    },
+    showFavoriteButton: {
+      type: Boolean,
+      default: true,
     },
   },
   emits: ["toggle-favorite", "open-details"],

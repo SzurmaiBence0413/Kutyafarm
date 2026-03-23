@@ -76,6 +76,7 @@
               :dog="dog"
               :isFavorite="isFavorite(dog.id)"
               :canManage="canCreateDog"
+              :showFavoriteButton="isLoggedIn"
               @toggle-favorite="toggleFavorite"
               @edit="openEditForm"
               @delete="openDeleteModal"
@@ -209,7 +210,7 @@ export default {
   },
 
   async mounted() {
-    this.initFavorites();
+    await this.initFavorites();
     await this.fetchDogs();
   },
 };

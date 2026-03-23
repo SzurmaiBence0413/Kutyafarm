@@ -3,6 +3,7 @@
 use App\Http\Controllers\BreedController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\DogController;
+use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PhotoeController;
@@ -68,6 +69,15 @@ Route::delete('dogs/{id}', [DogController::class, 'destroy'])
     ->middleware(['auth:sanctum', 'ability:dogs:delete']);
 //endregion
 
+//region Favourites
+Route::get('favourites', [FavouriteController::class, 'index'])
+    ->middleware(['auth:sanctum', 'ability:favourites:get']);
+Route::post('favourites', [FavouriteController::class, 'store'])
+    ->middleware(['auth:sanctum', 'ability:favourites:post']);
+Route::delete('favourites/{dogId}', [FavouriteController::class, 'destroy'])
+    ->middleware(['auth:sanctum', 'ability:favourites:delete']);
+//endregion
+
 //region Breeds
 Route::get('breeds', [BreedController::class, 'index']);
 Route::get('breeds/{id}', [BreedController::class, 'show']);
@@ -123,4 +133,3 @@ Route::patch('vaccinations/{id}', [VaccinationController::class, 'update'])
 Route::delete('vaccinations/{id}', [VaccinationController::class, 'destroy'])
     ->middleware(['auth:sanctum', 'ability:vaccinations:delete']);
 //endregion
-

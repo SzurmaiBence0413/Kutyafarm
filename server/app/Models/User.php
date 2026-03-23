@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Favourite;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -67,5 +68,10 @@ class User extends Authenticatable
     public function isAdopter(): bool
     {
         return $this->role === self::ROLE_ADOPTER;
+    }
+
+    public function favourites()
+    {
+        return $this->hasMany(Favourite::class, 'userId');
     }
 }

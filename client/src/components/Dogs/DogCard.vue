@@ -11,6 +11,7 @@
       <img :src="dog.image" :alt="dog.name" class="dog-image" />
 
       <button
+        v-if="showFavoriteButton"
         class="favorite-btn"
         :class="{ active: isFavorite }"
         @click.stop="$emit('toggle-favorite', dog.id)"
@@ -59,6 +60,10 @@ export default {
     canManage: {
       type: Boolean,
       default: false,
+    },
+    showFavoriteButton: {
+      type: Boolean,
+      default: true,
     },
   },
   emits: ["toggle-favorite", "edit", "delete", "open-details"],

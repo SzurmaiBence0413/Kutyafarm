@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Favourite;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,4 +29,9 @@ class Dog extends Model
         'weight',
         'teeth',
     ];
+
+    public function favourites()
+    {
+        return $this->hasMany(Favourite::class, 'dogId');
+    }
 }

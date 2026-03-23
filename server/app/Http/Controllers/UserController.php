@@ -93,6 +93,9 @@ class UserController extends Controller
                     'dogs:post',
                     'dogs:delete',
                     'dogs:patch',
+                    'favourites:get',
+                    'favourites:post',
+                    'favourites:delete',
                     'photos:post',
                     'photos:delete',
                 
@@ -106,6 +109,9 @@ class UserController extends Controller
                     'usersme:updatePassword',
                     'usersme:get',
                     'dogs:get',
+                    'favourites:get',
+                    'favourites:post',
+                    'favourites:delete',
                     'photos:get',
                 ];
                 break;

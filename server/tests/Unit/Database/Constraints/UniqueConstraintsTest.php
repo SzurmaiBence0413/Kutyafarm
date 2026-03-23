@@ -93,5 +93,54 @@ class UniqueConstraintsTest extends TestCase
         $this->expectException(QueryException::class);
         DB::table('vaccinations')->insert($payload);
     }
-}
 
+    public function test_favourites_composite_key_is_unique(): void
+    {
+        $userId = DB::table('users')->insertGetId([
+            'name' => 'Favourite User',
+            'email' => 'favourite-user@example.com',
+            'password' => 'secret',
+            'role' => 3,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $breedId = DB::table('breeds')->insertGetId([
+            'breed' => 'Favourite Breed',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $colorId = DB::table('colors')->insertGetId([
+            'colorName' => 'White',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $dogId = DB::table('dogs')->insertGetId([
+            'breedId' => $breedId,
+            'dogName' => 'Favourite Dog',
+            'userId' => null,
+            'dateOfBirth' => '2023-01-01',
+            'chipNumber' => '456456456456456',
+            'gender' => 1,
+            'colorId' => $colorId,
+            'weight' => 12.0,
+            'teeth' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $payload = [
+            'userId' => $userId,
+            'dogId' => $dogId,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ];
+
+        DB::table('favourites')->insert($payload);
+
+        $this->expectException(QueryException::class);
+        DB::table('favourites')->insert($payload);
+    }
+}
