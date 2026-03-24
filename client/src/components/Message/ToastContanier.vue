@@ -38,9 +38,21 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1080; /* Hogy biztosan minden felett legyen */
-  min-width: 300px; /* Opcionális: ne legyen túl összenyomva */
-  /* Egyedi, lágyabb árnyék */
+  z-index: 1080;
+  min-width: 420px;
+  max-width: 560px;
+  padding: 20px 24px;
+  font-size: 1.1rem;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3), 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+
+.custom-center-alert h5 {
+  font-size: 1.35rem;
+  margin-bottom: 10px;
+}
+
+.custom-center-alert p {
+  font-size: 1.08rem;
+  line-height: 1.45;
 }
 </style>

@@ -13,7 +13,7 @@ export const useToastStore = defineStore('toast', {
                 // this.messages = this.messages.filter(m => m.id !== id);
                 this.messages = [];
                 this.type = null;
-            }, 3000);
+            }, 5000);
         },
         close(){
             this.messages = [];
