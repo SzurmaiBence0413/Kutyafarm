@@ -7,11 +7,11 @@
       </button>
     </div>
 
-    <form @submit.prevent="submitHandler">
+    <form novalidate @submit.prevent="submitHandler">
       <div class="row g-3">
         <div class="col-12 col-md-6">
           <label class="form-label">Dog Name</label>
-          <input v-model.trim="form.dogName" type="text" class="form-control" required />
+          <input v-model.trim="form.dogName" type="text" class="form-control" />
         </div>
 
         <div v-if="mode === 'create'" class="col-12 col-md-6">
@@ -32,13 +32,12 @@
             type="text"
             maxlength="15"
             class="form-control"
-            required
           />
         </div>
 
         <div class="col-12 col-md-6">
           <label class="form-label">Breed</label>
-          <select v-model="form.breedId" class="form-select" required>
+          <select v-model="form.breedId" class="form-select">
             <option value="" disabled>Select breed</option>
             <option v-for="breed in breeds" :key="breed.id" :value="breed.id">
               {{ breed.breed }}
@@ -48,7 +47,7 @@
 
         <div class="col-12 col-md-6">
           <label class="form-label">Color</label>
-          <select v-model="form.colorId" class="form-select" required>
+          <select v-model="form.colorId" class="form-select">
             <option value="" disabled>Select color</option>
             <option v-for="color in colors" :key="color.id" :value="color.id">
               {{ color.colorName }}
@@ -58,7 +57,7 @@
 
         <div class="col-12 col-md-6">
           <label class="form-label">Date of Birth</label>
-          <input v-model="form.dateOfBirth" type="date" class="form-control" required />
+          <input v-model="form.dateOfBirth" type="date" class="form-control" />
         </div>
 
         <div class="col-12 col-md-6">
@@ -68,7 +67,7 @@
 
         <div class="col-12 col-md-6">
           <label class="form-label">Gender</label>
-          <select v-model="form.gender" class="form-select" required>
+          <select v-model="form.gender" class="form-select">
             <option value="1">Male</option>
             <option value="0">Female</option>
           </select>
@@ -76,7 +75,7 @@
 
         <div class="col-12 col-md-6">
           <label class="form-label">Teeth</label>
-          <select v-model="form.teeth" class="form-select" required>
+          <select v-model="form.teeth" class="form-select">
             <option value="1">Healthy</option>
             <option value="0">Needs care</option>
           </select>

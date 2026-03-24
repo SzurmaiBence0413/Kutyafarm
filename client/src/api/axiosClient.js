@@ -34,6 +34,29 @@ apiClient.interceptors.response.use(
       const isLoginRequest = requestUrl.includes("/users/login");
 
       if (status === 422) {
+        const payload = error.response.data || {};
+        const errors = payload.errors || payload?.data?.errors || null;
+        const messages = [];
+
+        if (errors && typeof errors === "object") {
+          for (const value of Object.values(errors)) {
+            if (Array.isArray(value)) {
+              messages.push(...value.map((item) => String(item)));
+            } else if (value !== null && value !== undefined) {
+              messages.push(String(value));
+            }
+          }
+        }
+
+        if (!messages.length && payload.message) {
+          messages.push(String(payload.message));
+        }
+
+        const unique = Array.from(new Set(messages.map((item) => item.trim()).filter(Boolean)));
+        if (unique.length) {
+          toastStore.messages.push(...unique);
+          toastStore.show("Error");
+        }
         return Promise.reject(error);
       }
 

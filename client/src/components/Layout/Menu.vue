@@ -36,6 +36,9 @@
               <RouterLink class="nav-link" to="/dogs">Browse Dogs</RouterLink>
             </li>
             <li class="nav-item">
+              <RouterLink v-if="isLoggedIn" class="nav-link" to="/adoptions">Adoptions</RouterLink>
+            </li>
+            <li class="nav-item">
               <RouterLink v-if="isLoggedIn" class="nav-link" to="/favorites">Favorites</RouterLink>
             </li>
             <li class="nav-item">

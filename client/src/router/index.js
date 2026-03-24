@@ -42,6 +42,17 @@ const router = createRouter({
       },
     },
     {
+      path: "/adoptions",
+      name: "adoptions",
+      component: () => import("@/views/AdoptionsView.vue"),
+      beforeEnter: [checkIfNotLogged],
+      meta: {
+        title: (route) => "Adoptions",
+        breadcrumb: "Adoptions",
+        roles: [1, 2],
+      },
+    },
+    {
       path: "/favorites",
       name: "favorites",
       component: () => import("@/views/FavoritesView.vue"),
@@ -67,7 +78,7 @@ const router = createRouter({
       meta: {
         breadcrumb: "Adatok",
         disabled: true,
-        roles: [1, 2],
+        roles: [1],
       },
       children: [
         {

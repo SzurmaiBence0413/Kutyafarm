@@ -35,6 +35,14 @@
             </div>
 
             <div class="modal-footer">
+              <button
+                v-if="canAdopt"
+                type="button"
+                class="btn btn-warning text-white me-auto"
+                @click="$emit('adopt', dog)"
+              >
+                Adopt
+              </button>
               <button type="button" class="btn btn-secondary" @click="$emit('close')">Close</button>
             </div>
           </div>
@@ -57,8 +65,12 @@ export default {
       type: Object,
       default: null,
     },
+    canAdopt: {
+      type: Boolean,
+      default: false,
+    },
   },
-  emits: ["close"],
+  emits: ["close", "adopt"],
   computed: {
     genderLabel() {
       if (!this.dog) return "Unknown";

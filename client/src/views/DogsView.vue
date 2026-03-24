@@ -45,6 +45,18 @@
         :isOpen="isDetailsModalOpen"
         :dog="selectedDog"
         @close="closeDetailsModal"
+        :canAdopt="canAdopt"
+        @adopt="openAdoptModal"
+      />
+
+      <DogAdoptModal
+        :isOpen="adoptModalOpen"
+        :title="adoptModalTitle"
+        :dog="adoptModalDog"
+        :initialUser="currentUser"
+        :loading="adoptLoading"
+        @close="closeAdoptModal"
+        @submit="submitAdoptHandler"
       />
 
       <DogBrowseFilters
@@ -102,6 +114,10 @@ import AddDogForm from "@/components/Dogs/AddDogForm.vue";
 import DogDeleteConfirmModal from "@/components/Dogs/DogDeleteConfirmModal.vue";
 import DogEditModal from "@/components/Dogs/DogEditModal.vue";
 import DogDetailsModal from "@/components/Dogs/DogDetailsModal.vue";
+import DogAdoptModal from "@/components/Dogs/DogAdoptModal.vue";
+import { useDogAdoptModalStore } from "@/stores/dogAdoptModalStore";
+import { useToastStore } from "@/stores/toastStore";
+import adoptionService from "@/api/adoptionService";
 
 export default {
   name: "DogsView",
@@ -112,12 +128,14 @@ export default {
     DogDeleteConfirmModal,
     DogEditModal,
     DogDetailsModal,
+    DogAdoptModal,
   },
   data() {
     return {
       isAddFormOpen: false,
       isDetailsModalOpen: false,
       selectedDog: null,
+      adoptLoading: false,
     };
   },
 
@@ -133,7 +151,8 @@ export default {
       "colors",
       "filteredDogs",
     ]),
-    ...mapState(useUserLoginLogoutStore, ["isLoggedIn", "role"]),
+    ...mapState(useUserLoginLogoutStore, ["isLoggedIn", "role", "userName"]),
+    ...mapState(useUserLoginLogoutStore, { userLoginItem: "item" }),
     ...mapState(useDogDeleteModalStore, {
       deleteModalOpen: "isOpen",
       deleteModalTitle: "title",
@@ -146,8 +165,23 @@ export default {
       editModalTitle: "title",
       editModalDog: "dog",
     }),
+    ...mapState(useDogAdoptModalStore, {
+      adoptModalOpen: "isOpen",
+      adoptModalTitle: "title",
+      adoptModalDog: "dog",
+    }),
     canCreateDog() {
-      return this.isLoggedIn && [1, 2].includes(this.role);
+      return this.isLoggedIn && this.role === 1;
+    },
+    canAdopt() {
+      return this.isLoggedIn && this.role === 2;
+    },
+    currentUser() {
+      if (!this.isLoggedIn) return null;
+      return {
+        name: this.userName || "",
+        email: this.userLoginItem?.email || "",
+      };
     },
   },
 
@@ -168,6 +202,10 @@ export default {
     ...mapActions(useDogEditModalStore, {
       openEditState: "open",
       closeEditModal: "close",
+    }),
+    ...mapActions(useDogAdoptModalStore, {
+      openAdoptState: "open",
+      closeAdoptModal: "close",
     }),
     async createDogHandler(formData) {
       try {
@@ -206,6 +244,33 @@ export default {
     closeDetailsModal() {
       this.isDetailsModalOpen = false;
       this.selectedDog = null;
+    },
+    openAdoptModal(dog) {
+      this.openAdoptState(dog || this.selectedDog);
+      this.isDetailsModalOpen = false;
+    },
+    async submitAdoptHandler(payload) {
+      if (!payload?.dogId) return;
+      this.adoptLoading = true;
+      try {
+        await adoptionService.createAdoptionRequest({
+          dogId: payload.dogId,
+          fullName: payload.fullName,
+          email: payload.email,
+          phone: payload.phone,
+          city: payload.city,
+          message: payload.message,
+        });
+
+        const dogName = payload?.dogName ? `"${payload.dogName}"` : "this dog";
+        const toast = useToastStore();
+        toast.messages.push(`Adoption request sent for ${dogName}.`);
+        toast.show("Success");
+        this.closeAdoptModal();
+      } catch (error) {
+      } finally {
+        this.adoptLoading = false;
+      }
     },
   },
 
