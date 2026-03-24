@@ -36,7 +36,6 @@ class UpdateUserRequest extends FormRequest
             'password' => 'sometimes|nullable|string|min:8',
             'role' => 'sometimes|nullable|integer|in:' . implode(',', [
                 User::ROLE_ADMIN,
-                User::ROLE_OWNER,
                 User::ROLE_ADOPTER,
             ]),
         ];
@@ -45,17 +44,17 @@ class UpdateUserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.string' => 'A név csak szöveges formátumú lehet.',
-            'name.max' => 'A név nem lehet hosszabb 255 karakternél.',
+            'name.string' => 'Name must be a string.',
+            'name.max' => 'Name may not be greater than 255 characters.',
 
-            'email.email' => 'Kérlek, érvényes e-mail címet adj meg.',
-            'email.unique' => 'Ez az e-mail cím már használatban van.',
+            'email.email' => 'Please provide a valid email address.',
+            'email.unique' => 'This email address is already in use.',
 
-            'password.string' => 'A jelszó formátuma érvénytelen.',
-            'password.min' => 'A jelszónak legalább 8 karakterből kell állnia.',
+            'password.string' => 'Password must be a string.',
+            'password.min' => 'Password must be at least 8 characters.',
 
-            'role.integer' => 'A szerepkör csak szám lehet.',
-            'role.in' => 'A szerepkör csak 1 (admin), 2 (tulaj) vagy 3 (örökbefogadó) lehet.',
+            'role.integer' => 'Role must be a number.',
+            'role.in' => 'Role must be either 1 (admin) or 2 (adopter).',
         ];
     }
 }

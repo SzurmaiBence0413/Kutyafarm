@@ -33,10 +33,10 @@ class UpdateBreedRequest extends FormRequest
 public function messages(): array
 {
     return [
-        'breed.required' => 'A fajta megnevezése kötelező, ha módosítani kívánod!',
-        'breed.string'   => 'A fajta nevének szöveges formátumúnak kell lennie!',
-        'breed.max'      => 'A fajta neve nem lehet hosszabb 50 karakternél!',
-        'breed.unique'   => 'Ez a fajta már szerepel az adatbázisunkban!',
+        'breed.required' => 'Breed is required when updating.',
+        'breed.string'   => 'Breed must be a string.',
+        'breed.max'      => 'Breed may not be greater than 50 characters.',
+        'breed.unique'   => 'This breed already exists.',
     ];
 }
 

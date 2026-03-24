@@ -47,43 +47,43 @@ public function messages()
 {
     return [
         // Fajták (breedId)
-        'breedId.required'  => 'A fajta megadása kötelező, ha módosítani kívánod.',
-        'breedId.integer'   => 'A fajta azonosítója csak szám lehet.',
-        'breedId.exists'    => 'A kiválasztott fajta nem szerepel a rendszerben.',
+        'breedId.required'  => 'Breed is required when updating.',
+        'breedId.integer'   => 'Breed ID must be an integer.',
+        'breedId.exists'    => 'The selected breed does not exist.',
 
         // Név (dogName)
-        'dogName.required'  => 'A kutya nevét nem hagyhatod üresen.',
-        'dogName.string'    => 'A névnek szöveges formátumúnak kell lennie.',
-        'dogName.max'       => 'A név nem lehet hosszabb 255 karakternél.',
+        'dogName.required'  => 'Dog name is required.',
+        'dogName.string'    => 'Dog name must be a string.',
+        'dogName.max'       => 'Dog name may not be greater than 255 characters.',
 
         // Gazdi (userId)
-        'userId.required'   => 'A tulajdonos azonosítóját kötelező megadni.',
-        'userId.integer'    => 'A tulajdonos azonosítója csak szám lehet.',
-        'userId.exists'     => 'A megadott felhasználó nem található.',
+        'userId.required'   => 'Owner is required.',
+        'userId.integer'    => 'Owner ID must be an integer.',
+        'userId.exists'     => 'The selected owner does not exist.',
 
         // Születési idő (dateOfBirth)
-        'dateOfBirth.required' => 'A születési dátumot meg kell adnod.',
-        'dateOfBirth.date'     => 'Kérlek, érvényes dátum formátumot használj.',
+        'dateOfBirth.required' => 'Date of birth is required.',
+        'dateOfBirth.date'     => 'Date of birth must be a valid date.',
 
         // Chip szám (chipNumber)
-        'chipNumber.required' => 'A chip számot kötelező kitölteni.',
-        'chipNumber.unique'   => 'Ez a chip szám már foglalt, egy másik kutyához tartozik.',
+        'chipNumber.required' => 'Chip number is required.',
+        'chipNumber.unique'   => 'This chip number is already taken.',
 
         // Nem (gender)
-        'gender.required'   => 'A kutya nemét kötelező megadni.',
-        'gender.boolean'    => 'A nem mező értéke érvénytelen.',
+        'gender.required'   => 'Gender is required.',
+        'gender.boolean'    => 'Gender must be true or false.',
 
         // Szín (colorId)
-        'colorId.required'  => 'A szín megadása kötelező.',
-        'colorId.integer'   => 'A szín azonosítója csak szám lehet.',
-        'colorId.exists'    => 'A kiválasztott szín nem létezik.',
+        'colorId.required'  => 'Color is required.',
+        'colorId.integer'   => 'Color ID must be an integer.',
+        'colorId.exists'    => 'The selected color does not exist.',
 
         // Súly (weight)
-        'weight.numeric'    => 'A súlyhoz csak számot írhatsz (pl. 12.5).',
+        'weight.numeric'    => 'Weight must be a number.',
 
         // Fogazat (teeth)
-        'teeth.required'    => 'A fogazat állapotát kötelező megadni.',
-        'teeth.boolean'     => 'A fogazat mező értéke érvénytelen.',
+        'teeth.required'    => 'Teeth is required.',
+        'teeth.boolean'     => 'Teeth must be true or false.',
     ];
 }
 }

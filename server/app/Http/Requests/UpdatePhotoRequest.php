@@ -33,10 +33,10 @@ public function rules(): array
 public function messages(): array
 {
     return [
-        'imgUrl.required' => 'A kép URL címének megadása kötelező!',
-        'imgUrl.url'      => 'Kérlek, érvényes internetes címet (URL) adj meg!',
-        'imgUrl.max'      => 'A kép címe nem lehet hosszabb 255 karakternél!',
-        'imgUrl.unique'   => 'Ez a kép URL már szerepel az adatbázisban!',
+        'imgUrl.required' => 'Image URL is required when updating.',
+        'imgUrl.url'      => 'Please provide a valid URL.',
+        'imgUrl.max'      => 'Image URL may not be greater than 255 characters.',
+        'imgUrl.unique'   => 'This image URL is already taken.',
     ];
 }
 }

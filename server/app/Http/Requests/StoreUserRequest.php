@@ -32,19 +32,19 @@ class StoreUserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'A név megadása kötelező.',
-            'name.string' => 'A név csak szöveg lehet.',
-            'name.max' => 'A név maximum 255 karakter lehet.',
+            'name.required' => 'Name is required.',
+            'name.string' => 'Name must be a string.',
+            'name.max' => 'Name may not be greater than 255 characters.',
 
-            'email.required' => 'Az email cím megadása kötelező.',
-            'email.email' => 'Az email cím formátuma nem megfelelő.',
-            'email.unique' => 'Ez az email cím már használatban van.',
+            'email.required' => 'Email address is required.',
+            'email.email' => 'Please provide a valid email address.',
+            'email.unique' => 'This email address is already in use.',
 
-            'password.required' => 'A jelszó megadása kötelező.',
-            'password.string' => 'A jelszó formátuma érvénytelen.',
-            'password.min' => 'A jelszónak legalább 3 karakterből kell állnia.',
+            'password.required' => 'Password is required.',
+            'password.string' => 'Password must be a string.',
+            'password.min' => 'Password must be at least 3 characters.',
 
-            'role.prohibited' => 'A szerepkört nem lehet megadni regisztrációkor.',
+            'role.prohibited' => 'Role cannot be set during registration.',
         ];
     }
 }

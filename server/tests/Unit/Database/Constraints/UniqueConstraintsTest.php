@@ -100,7 +100,7 @@ class UniqueConstraintsTest extends TestCase
             'name' => 'Favourite User',
             'email' => 'favourite-user@example.com',
             'password' => 'secret',
-            'role' => 3,
+            'role' => 2,
             'created_at' => now(),
             'updated_at' => now(),
         ]);

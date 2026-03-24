@@ -22,15 +22,9 @@ class DogFactory extends Factory
 
     public function definition(): array
     {
-        $user = User::where('role', User::ROLE_OWNER)
+        $user = User::where('role', User::ROLE_ADMIN)
             ->inRandomOrder()
             ->first();
-
-        if (!$user) {
-            $user = User::where('role', User::ROLE_ADOPTER)
-                ->inRandomOrder()
-                ->first();
-        }
 
         if (!$user) {
             $user = User::inRandomOrder()->first();

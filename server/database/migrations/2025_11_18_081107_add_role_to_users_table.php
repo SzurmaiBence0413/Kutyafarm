@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             // role mező hozzáadása: integer, alapértelmezett értéke 3
-            $table->integer('role')->default(3)->after('email');
+            $table->integer('role')->default(2)->after('email');
         });
     }
 

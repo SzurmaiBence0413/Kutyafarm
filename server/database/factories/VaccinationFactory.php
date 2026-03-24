@@ -29,7 +29,7 @@ class VaccinationFactory extends Factory
         return [
             'dogId' => $dogId,
             'medicineId' => $medicineId,
-            'timeOfVaccination' => fake()->dateTimeBetween('2010-01-01', 'now'),
+            'timeOfVaccination' => fake()->dateTimeBetween('2010-01-01', 'now')->format('Y-m-d'),
             'vaccinationPrice' => fake()->numberBetween(3000, 25000)
         ];
     }

@@ -30,10 +30,10 @@ class StoreBreedRequest extends FormRequest
 public function messages()
 {
     return [
-        'breed.required' => 'A fajta megadása kötelező.',
-        'breed.string'   => 'A fajta csak szöveg lehet.',
-        'breed.max'      => 'A fajta legfeljebb 50 karakter hosszú lehet.',
-        'breed.unique'   => 'Ez a fajta már létezik az adatbázisban.',
+        'breed.required' => 'Breed is required.',
+        'breed.string'   => 'Breed must be a string.',
+        'breed.max'      => 'Breed may not be greater than 50 characters.',
+        'breed.unique'   => 'This breed already exists.',
     ];
 }
 

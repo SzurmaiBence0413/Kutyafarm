@@ -33,10 +33,10 @@ class UpdateColorRequest extends FormRequest
     public function messages()
 {
     return [
-        'colorName.required' => 'A szín nevének megadása kötelező módosításkor is!',
-        'colorName.string'   => 'A szín neve csak szöveges formátumú lehet!',
-        'colorName.max'      => 'A szín neve túl hosszú, maximum 50 karakter engedélyezett!',
-        'colorName.unique'   => 'Ez a színnév már foglalt, kérlek válassz másikat!',
+        'colorName.required' => 'Color name is required when updating.',
+        'colorName.string'   => 'Color name must be a string.',
+        'colorName.max'      => 'Color name may not be greater than 50 characters.',
+        'colorName.unique'   => 'This color name is already taken.',
     ];
 }
 

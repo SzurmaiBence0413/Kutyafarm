@@ -35,43 +35,43 @@ class StoreDogRequest extends FormRequest
         ];
     }
 
-    public function messages()
+public function messages()
 {
     return [
-        'breedId.required' => 'A fajta megadása kötelező.',
-        'breedId.integer'  => 'A fajta azonosítója csak egész szám lehet.',
-        'breedId.exists'   => 'A megadott fajta nem létezik.',
+        'breedId.required' => 'Breed is required.',
+        'breedId.integer'  => 'Breed ID must be an integer.',
+        'breedId.exists'   => 'The selected breed does not exist.',
 
-        'dogName.required' => 'A kutya nevének megadása kötelező.',
-        'dogName.string'   => 'A kutya neve csak szöveg lehet.',
-        'dogName.max'      => 'A kutya neve legfeljebb 255 karakter hosszú lehet.',
+        'dogName.required' => 'Dog name is required.',
+        'dogName.string'   => 'Dog name must be a string.',
+        'dogName.max'      => 'Dog name may not be greater than 255 characters.',
 
-        'description.string' => 'A leiras csak szoveg lehet.',
-        'description.max'    => 'A leiras legfeljebb 1000 karakter hosszu lehet.',
+        'description.string' => 'Description must be a string.',
+        'description.max'    => 'Description may not be greater than 1000 characters.',
 
-        'userId.required'  => 'A gazda megadása kötelező.',
-        'userId.integer'   => 'A gazda azonosítója csak egész szám lehet.',
-        'userId.exists'    => 'A megadott gazda nem létezik.',
+        'userId.required'  => 'Owner is required.',
+        'userId.integer'   => 'Owner ID must be an integer.',
+        'userId.exists'    => 'The selected owner does not exist.',
 
-        'dateOfBirth.required' => 'A születési dátum megadása kötelező.',
-        'dateOfBirth.date'     => 'A születési dátum nem érvényes dátum.',
+        'dateOfBirth.required' => 'Date of birth is required.',
+        'dateOfBirth.date'     => 'Date of birth must be a valid date.',
 
-        'chipNumber.required' => 'A chip szám megadása kötelező.',
-        'chipNumber.string'   => 'A chip szám csak szöveg lehet.',
-        'chipNumber.max'      => 'A chip szám legfeljebb 15 karakter hosszú lehet.',
-        'chipNumber.unique'   => 'Ez a chip szám már szerepel a rendszerben.',
+        'chipNumber.required' => 'Chip number is required.',
+        'chipNumber.string'   => 'Chip number must be a string.',
+        'chipNumber.max'      => 'Chip number may not be greater than 15 characters.',
+        'chipNumber.unique'   => 'This chip number is already taken.',
 
-        'gender.required' => 'A nem megadása kötelező.',
-        'gender.boolean'  => 'A nem értéke csak igaz vagy hamis lehet.',
+        'gender.required' => 'Gender is required.',
+        'gender.boolean'  => 'Gender must be true or false.',
 
-        'colorId.required' => 'A szín megadása kötelező.',
-        'colorId.integer'  => 'A szín azonosítója csak egész szám lehet.',
-        'colorId.exists'   => 'A megadott szín nem létezik.',
+        'colorId.required' => 'Color is required.',
+        'colorId.integer'  => 'Color ID must be an integer.',
+        'colorId.exists'   => 'The selected color does not exist.',
 
-        'weight.numeric' => 'A súly csak szám lehet.',
+        'weight.numeric' => 'Weight must be a number.',
 
-        'teeth.required' => 'A fogazat megadása kötelező.',
-        'teeth.boolean'  => 'A fogazat értéke csak igaz vagy hamis lehet.',
+        'teeth.required' => 'Teeth is required.',
+        'teeth.boolean'  => 'Teeth must be true or false.',
     ];
 }
 

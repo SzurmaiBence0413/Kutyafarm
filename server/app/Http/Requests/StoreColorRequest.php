@@ -29,10 +29,10 @@ class StoreColorRequest extends FormRequest
 public function messages()
 {
     return [
-        'colorName.required' => 'A szín megadása kötelező.',
-        'colorName.string'   => 'A szín csak szöveg lehet.',
-        'colorName.max'      => 'A szín legfeljebb 50 karakter hosszú lehet.',
-        'colorName.unique'   => 'Ez a szín már létezik az adatbázisban.',
+        'colorName.required' => 'Color is required.',
+        'colorName.string'   => 'Color must be a string.',
+        'colorName.max'      => 'Color may not be greater than 50 characters.',
+        'colorName.unique'   => 'This color already exists.',
     ];
 }
 

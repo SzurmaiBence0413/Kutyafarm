@@ -36,8 +36,8 @@ class StoreMedicineRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'medicineName.required' => 'A gyogyszer neve kotelezo.',
-            'medicineName.unique' => 'Ez a gyogyszer mar letezik.',
+            'medicineName.required' => 'Medicine name is required.',
+            'medicineName.unique' => 'This medicine already exists.',
         ];
     }
 }

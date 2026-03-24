@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BreedController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\AdoptionController;
 use App\Http\Controllers\DogController;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\MedicineController;
@@ -67,6 +68,15 @@ Route::patch('dogs/{id}', [DogController::class, 'update'])
     ->middleware(['auth:sanctum', 'ability:dogs:patch']);
 Route::delete('dogs/{id}', [DogController::class, 'destroy'])
     ->middleware(['auth:sanctum', 'ability:dogs:delete']);
+//endregion
+
+//region Adoptions
+Route::post('adoptions', [AdoptionController::class, 'store'])
+    ->middleware(['auth:sanctum', 'ability:adoptions:post']);
+Route::get('adoptions', [AdoptionController::class, 'index'])
+    ->middleware(['auth:sanctum', 'ability:adoptions:get']);
+Route::patch('adoptions/{id}', [AdoptionController::class, 'updateStatus'])
+    ->middleware(['auth:sanctum', 'ability:adoptions:patch']);
 //endregion
 
 //region Favourites

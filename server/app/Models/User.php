@@ -13,8 +13,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     public const ROLE_ADMIN = 1;
-    public const ROLE_OWNER = 2;
-    public const ROLE_ADOPTER = 3;
+    public const ROLE_ADOPTER = 2;
 
     /**
      * The attributes that are mass assignable.
@@ -58,11 +57,6 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->role === self::ROLE_ADMIN;
-    }
-
-    public function isOwner(): bool
-    {
-        return $this->role === self::ROLE_OWNER;
     }
 
     public function isAdopter(): bool

@@ -26,14 +26,14 @@ public function messages(): array
 {
     return [
         // Régi jelszó üzenetek
-        'oldpassword.required'         => 'A jelenlegi jelszavadat kötelező megadni a módosításhoz!',
-        'oldpassword.current_password' => 'A megadott jelenlegi jelszó nem egyezik a nálunk tárolttal!',
+        'oldpassword.required'         => 'Current password is required.',
+        'oldpassword.current_password' => 'The current password is incorrect.',
 
         // Új jelszó üzenetek
-        'newpassword.required'         => 'Kérlek, adj meg egy új jelszót!',
-        'newpassword.string'           => 'Az új jelszónak szövegesnek kell lennie!',
-        'newpassword.min'              => 'Az új jelszónak legalább 3 karakter hosszúnak kell lennie!',
-        'newpassword.confirmed'        => 'Az új jelszó és a megerősítése nem egyezik!',
+        'newpassword.required'         => 'New password is required.',
+        'newpassword.string'           => 'New password must be a string.',
+        'newpassword.min'              => 'New password must be at least 3 characters.',
+        'newpassword.confirmed'        => 'New password confirmation does not match.',
     ];
 }
 }
