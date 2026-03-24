@@ -34,4 +34,9 @@ class Dog extends Model
     {
         return $this->hasMany(Favourite::class, 'dogId');
     }
+
+    public function adoptionRequests()
+    {
+        return $this->hasMany(AdoptionRequest::class, 'dogId');
+    }
 }

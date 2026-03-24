@@ -83,26 +83,8 @@ class UserController extends Controller
                 //Admin
                 $abilities = ['*'];
                 break;
-            case User::ROLE_OWNER:
+            case User::ROLE_ADOPTER:
                 //Hirdető
-                $abilities = [
-                    'usersme:delete',
-                    'usersme:patch',
-                    'usersme:updatePassword',
-                    'usersme:get',
-                    'dogs:post',
-                    'dogs:delete',
-                    'dogs:patch',
-                    'favourites:get',
-                    'favourites:post',
-                    'favourites:delete',
-                    'photos:post',
-                    'photos:delete',
-                
-                ];
-                break;
-            default:
-                //Látogató
                 $abilities = [
                     'usersme:delete',
                     'usersme:patch',
@@ -113,7 +95,14 @@ class UserController extends Controller
                     'favourites:post',
                     'favourites:delete',
                     'photos:get',
+                    'adoptions:post',
+                    'adoptions:get',
+                 
                 ];
+                break;
+            default:
+                //Látogató
+                $abilities = [];
                 break;
         }
 

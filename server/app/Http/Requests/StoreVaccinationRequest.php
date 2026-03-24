@@ -32,20 +32,20 @@ class StoreVaccinationRequest extends FormRequest
     public function messages()
 {
     return [
-        'dogId.required' => 'A kutya megadása kötelező.',
-        'dogId.integer'  => 'A kutya azonosítója csak egész szám lehet.',
-        'dogId.exists'   => 'A megadott kutya nem létezik.',
+        'dogId.required' => 'Dog is required.',
+        'dogId.integer'  => 'Dog ID must be an integer.',
+        'dogId.exists'   => 'The selected dog does not exist.',
 
-        'medicineId.required' => 'A gyógyszer megadása kötelező.',
-        'medicineId.integer'  => 'A gyógyszer azonosítója csak egész szám lehet.',
-        'medicineId.exists'   => 'A megadott gyógyszer nem létezik.',
+        'medicineId.required' => 'Medicine is required.',
+        'medicineId.integer'  => 'Medicine ID must be an integer.',
+        'medicineId.exists'   => 'The selected medicine does not exist.',
 
-        'timeOfVaccination.required' => 'Az oltás időpontjának megadása kötelező.',
-        'timeOfVaccination.date'     => 'Az oltás időpontja nem érvényes dátum.',
+        'timeOfVaccination.required' => 'Vaccination date is required.',
+        'timeOfVaccination.date'     => 'Vaccination date must be a valid date.',
 
-        'vaccinationPrice.required' => 'Az oltás árának megadása kötelező.',
-        'vaccinationPrice.integer'  => 'Az oltás ára csak egész szám lehet.',
-        'vaccinationPrice.min'      => 'Az oltás ára nem lehet negatív.',
+        'vaccinationPrice.required' => 'Vaccination price is required.',
+        'vaccinationPrice.integer'  => 'Vaccination price must be an integer.',
+        'vaccinationPrice.min'      => 'Vaccination price cannot be negative.',
     ];
 }
 

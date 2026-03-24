@@ -20,7 +20,7 @@ abstract class Controller
         } catch (ValidationException $e) {
             // Validációs hiba (pl. üresen hagyott kötelező mező)
             return response()->json([
-                'message' => 'Validációs hiba történt.',
+                'message' => 'Validation error occurred.',
                 'errors' => $e->errors(), // Itt küldjük vissza, mi volt a baj pontosan
                 'data' => null
             ], 422, options: JSON_UNESCAPED_UNICODE);

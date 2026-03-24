@@ -38,8 +38,8 @@ class UpdateMedicineRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'medicineName.required' => 'A gyogyszer neve kotelezo modositaskor.',
-            'medicineName.unique' => 'Ez a gyogyszernev mar szerepel.',
+            'medicineName.required' => 'Medicine name is required when updating.',
+            'medicineName.unique' => 'This medicine name is already taken.',
         ];
     }
 }

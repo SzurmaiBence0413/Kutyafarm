@@ -1393,7 +1393,7 @@ public function up(): void
 {
     Schema::table('users', function (Blueprint $table) {
         // role mező hozzáadása: integer, alapértelmezett értéke 3
-        $table->integer('role')->default(3)->after('email');
+        $table->integer('role')->default(2)->after('email');
     });
 }
 
@@ -1435,7 +1435,7 @@ public function run(): void
         'name' => 'Vásárló1',
         'email' => 'vasarlo1@example.com',
         'password' => '123',
-        'role' => 3,
+        'role' => 2,
     ]);
 }
 ```
