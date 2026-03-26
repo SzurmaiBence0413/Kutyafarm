@@ -8,7 +8,7 @@ export const useUserLoginLogoutStore = defineStore("userLoginLogout", {
     item: JSON.parse(localStorage.getItem("user_data")) || null,
     loading: false,
     error: null,
-    rolNames: ["Admin", "Orokbefogado"],
+    rolNames: ["Admin", "Adopter"],
   }),
 
   getters: {

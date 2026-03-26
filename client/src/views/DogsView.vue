@@ -87,7 +87,7 @@
             <DogCard
               :dog="dog"
               :isFavorite="isFavorite(dog.id)"
-              :canManage="canCreateDog"
+              :canManage="canManageDogs"
               :showFavoriteButton="isLoggedIn"
               @toggle-favorite="toggleFavorite"
               @edit="openEditForm"
@@ -171,6 +171,9 @@ export default {
       adoptModalDog: "dog",
     }),
     canCreateDog() {
+      return this.isLoggedIn && (this.role === 1 || this.role === 2);
+    },
+    canManageDogs() {
       return this.isLoggedIn && this.role === 1;
     },
     canAdopt() {

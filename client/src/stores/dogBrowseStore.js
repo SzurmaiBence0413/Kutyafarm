@@ -25,13 +25,6 @@ function yearsFromDate(dateString) {
   return age;
 }
 
-function generatePrice(id, weight) {
-  const base = 900;
-  const weightPart = Number(weight) ? Math.min(Number(weight) * 7, 300) : 0;
-  const idPart = ((id || 1) * 87) % 600;
-  return Math.round(base + weightPart + idPart);
-}
-
 function buildDescription(dog, breedName, age) {
   const genderText = Number(dog.gender) === 1 ? "male" : "female";
   const ageText = age === null ? "young" : `${age}-year-old`;
@@ -48,7 +41,6 @@ export const useDogBrowseStore = defineStore("dogBrowse", {
     error: null,
     searchText: "",
     selectedBreed: "all",
-    favorites: {},
   }),
 
   getters: {
@@ -130,10 +122,8 @@ export const useDogBrowseStore = defineStore("dogBrowse", {
             weight: dog.weight,
             teeth: Number(dog.teeth),
             image: photoMap[dog.id] || FALLBACK_IMAGE,
-            featured: dog.id % 2 === 0,
             location: "Budapest, Hungary",
             age,
-            price: generatePrice(dog.id, dog.weight),
             description: dog.description || buildDescription(dog, breedName, age),
           };
         });
@@ -255,14 +245,6 @@ export const useDogBrowseStore = defineStore("dogBrowse", {
 
     setSelectedBreed(value) {
       this.selectedBreed = value;
-    },
-
-    toggleFavorite(id) {
-      this.favorites[id] = !this.favorites[id];
-    },
-
-    isFavorite(id) {
-      return !!this.favorites[id];
     },
   },
 });

@@ -6,10 +6,16 @@
 
     <div class="container mb-4">
       <div class="tag-row">
-        <span class="tag">Core vaccines</span>
-        <span class="tag">Legally required</span>
-        <span class="tag">Recommended by risk</span>
-        <span class="tag">Based on lifestyle</span>
+        <button
+          v-for="tag in tags"
+          :key="tag.key"
+          type="button"
+          class="tag"
+          :class="{ active: activeTag === tag.key }"
+          @click="onTagClick(tag.key)"
+        >
+          {{ tag.label }}
+        </button>
       </div>
     </div>
 
@@ -23,7 +29,7 @@
       </div>
 
       <div v-else class="row g-3">
-        <div class="col-12 col-md-6 col-lg-4" v-for="card in cards" :key="card.id">
+        <div class="col-12 col-md-6 col-lg-4" v-for="card in filteredCards" :key="card.id">
           <VaccinationCard
             :card="card"
             :canDelete="isAdmin && Number.isFinite(Number(card.id))"
@@ -50,6 +56,30 @@ import VaccinationCard from "@/components/Vaccination/VaccinationCard.vue";
 import VaccinationTips from "@/components/Vaccination/VaccinationTips.vue";
 import VaccinationCTA from "@/components/Vaccination/VaccinationCTA.vue";
 
+function normalize(text) {
+  return String(text || "")
+    .trim()
+    .toLowerCase();
+}
+
+function matchesTag(badge, tagKey) {
+  const value = normalize(badge);
+  if (!value) return false;
+
+  switch (tagKey) {
+    case "core":
+      return value.includes("core");
+    case "required":
+      return value.includes("required") || value.includes("legal") || value.includes("mandatory");
+    case "risk":
+      return value.includes("risk");
+    case "lifestyle":
+      return value.includes("lifestyle");
+    default:
+      return false;
+  }
+}
+
 export default {
   name: "VaccinationGuideView",
   components: {
@@ -60,6 +90,18 @@ export default {
     VaccinationTips,
     VaccinationCTA,
   },
+  data() {
+    return {
+      activeTag: "all",
+      tags: [
+        { key: "all", label: "All" },
+        { key: "core", label: "Core vaccines" },
+        { key: "required", label: "Legally required" },
+        { key: "risk", label: "Recommended by risk" },
+        { key: "lifestyle", label: "Based on lifestyle" },
+      ],
+    };
+  },
   computed: {
     ...mapState(useVaccinationGuideStore, ["cards", "loading", "error"]),
     ...mapState(useUserLoginLogoutStore, ["isLoggedIn"]),
@@ -67,9 +109,16 @@ export default {
     isAdmin() {
       return this.isLoggedIn && this.role === 1;
     },
+    filteredCards() {
+      if (this.activeTag === "all") return this.cards;
+      return this.cards.filter((card) => matchesTag(card?.badge, this.activeTag));
+    },
   },
   methods: {
     ...mapActions(useVaccinationGuideStore, ["fetchGuideCards", "deleteMedicine"]),
+    onTagClick(key) {
+      this.activeTag = this.activeTag === key ? "all" : key;
+    },
     async onDeleteCard(card) {
       const id = Number(card?.id);
       if (!Number.isFinite(id)) {
@@ -116,5 +165,13 @@ export default {
   font-size: 0.8rem;
   font-weight: 700;
   padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+
+.tag.active {
+  background: #ffedd5;
+  border-color: #fdba74;
+  color: #7c2d12;
 }
 </style>

@@ -46,35 +46,17 @@
                 Vaccination Guide
               </RouterLink>
             </li>
-            <!-- <li class="nav-item dropdown" v-if="hasMenuAccess('/adatok')">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Adatok
-              </a>
-              <ul class="dropdown-menu">
-                <li v-if="hasMenuAccess('/adatok/sport')">
-                  <RouterLink class="dropdown-item" to="/adatok/sport"
-                    >Medicines</RouterLink
-                  >
-                </li>
-                <li v-if="hasMenuAccess('/adatok/schoolclass')">
-                  <RouterLink class="dropdown-item" to="/adatok/schoolclass"
-                    >Vaccinations</RouterLink
-                  >
-                </li>
-                <li v-if="hasMenuAccess('/adatok/student')">
-                  <RouterLink class="dropdown-item" to="/adatok/student"
-                    >Users</RouterLink
-                  >
-                </li>
-        
-              </ul>
-            </li> -->
+            <li class="nav-item" v-if="hasMenuAccess('/adatok/breeds')">
+              <RouterLink class="nav-link" to="/adatok/breeds">
+                Breeds
+              </RouterLink>
+            </li>
+            <li class="nav-item" v-if="hasMenuAccess('/adatok/users')">
+              <RouterLink class="nav-link" to="/adatok/users">
+                Users
+              </RouterLink>
+            </li>
+      
             <li class="nav-item">
               <RouterLink class="nav-link" to="/login" v-if="!isLoggedIn">
                 Login

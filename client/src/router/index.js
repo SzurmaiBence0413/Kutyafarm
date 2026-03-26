@@ -115,6 +115,17 @@ const router = createRouter({
             roles: [1],
           },
         },
+        {
+          path: "breeds",
+          name: "breeds-admin",
+          component: () => import("@/views/BreedsAdminView.vue"),
+          beforeEnter: [checkIfNotLogged],
+          meta: {
+            title: (route) => "Breeds",
+            breadcrumb: "Breeds",
+            roles: [1],
+          },
+        },
       ],
     },
     {

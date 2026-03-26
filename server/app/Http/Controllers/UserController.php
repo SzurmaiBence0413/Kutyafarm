@@ -91,6 +91,7 @@ class UserController extends Controller
                     'usersme:updatePassword',
                     'usersme:get',
                     'dogs:get',
+                    'dogs:post',
                     'favourites:get',
                     'favourites:post',
                     'favourites:delete',

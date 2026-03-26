@@ -29,6 +29,14 @@ export default {
     return await apiClient.post("/photos", data);
   },
 
+  async createBreed(data) {
+    return await apiClient.post("/breeds", data);
+  },
+
+  async deleteBreed(id) {
+    return await apiClient.delete(`/breeds/${id}`);
+  },
+
   async deletePhoto(id) {
     return await apiClient.delete(`/photos/${id}`);
   },
