@@ -15,7 +15,7 @@ export const useBreedStore = defineStore("breeds", {
     items: [],
     pagination: new Pagination(),
     selectedPerPage: 10,
-    selectedPerPageList: [10, 30, 50, 100],
+    selectedPerPageList: [10, 25, 50, 100],
     loading: false,
     error: null,
   }),

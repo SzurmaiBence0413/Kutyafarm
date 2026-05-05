@@ -2,12 +2,12 @@ import { defineStore } from 'pinia';
 
 export const useToastStore = defineStore('toast', {
     state: () => ({
-        messages: [], // Itt tároljuk az aktív üzeneteket
+        messages: [], // Itt tároljuk az éppen aktív üzeneteket
         type: null
     }),
     actions: {
         show( type = 'Success') {
-            // 3 másodperc után automatikusan töröljük
+            // 5 másodperc után automatikusan töröljük
             this.type = type;
             setTimeout(() => {
                 // this.messages = this.messages.filter(m => m.id !== id);

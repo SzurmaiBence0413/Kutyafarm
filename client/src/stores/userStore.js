@@ -33,7 +33,7 @@ export const useUserStore = defineStore("user", {
     clearItem() {
       this.item = new Item();
     },
-    // READ - Összes adat lekérése
+    //Összes adat lekérése
 
     async getAllSortSearch(column = "id", direction = null) {
       console.log("sort user");
@@ -80,7 +80,7 @@ export const useUserStore = defineStore("user", {
       }
     },
 
-    // READ - Egy adat lekérése
+    //Egy adat lekérése
     async getById(id) {
       this.loading = true;
       this.error = null;
@@ -98,7 +98,7 @@ export const useUserStore = defineStore("user", {
       }
     },
 
-    // CREATE - Új elem hozzáadása
+    //Új elem hozzáadása
     async create(data) {
       this.loading = true;
       this.error = null;
@@ -122,7 +122,7 @@ export const useUserStore = defineStore("user", {
       }
     },
 
-    // CREATE - Új elem hozzáadása
+    //Új elem hozzáadása
     async createUser(data) {
       this.loading = true;
       this.error = null;
@@ -141,7 +141,7 @@ export const useUserStore = defineStore("user", {
       }
     },
 
-    // 3. UPDATE - Módosítás (Helyi frissítéssel, újraolvasás nélkül)
+    // Módosítás (Helyi frissítéssel, újraolvasás nélkül)
     async update(id, updateData) {
       this.loading = true;
       this.error = null;
@@ -166,7 +166,7 @@ export const useUserStore = defineStore("user", {
       }
     },
 
-    // 4. DELETE - Törlés
+    //Törlés
     async delete(id) {
       this.loading = true;
       this.error = null;
