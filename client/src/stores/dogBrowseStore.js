@@ -141,7 +141,7 @@ export const useDogBrowseStore = defineStore("dogBrowse", {
         throw new Error("You must be logged in.");
       }
 
-      const imageUrl = String(formData?.imageUrl ?? "").trim();
+      const imageFile = formData?.imageFile ?? null;
       this.formLoading = true;
       this.error = null;
       try {
@@ -165,17 +165,17 @@ export const useDogBrowseStore = defineStore("dogBrowse", {
 
         if (newDogId) {
           try {
-            const finalUrl = imageUrl || (await service.getRandomDogImage());
-            if (finalUrl) {
-              await service.createPhoto({ dogId: Number(newDogId), imgUrl: finalUrl });
+            if (imageFile) {
+              const photoPayload = new FormData();
+              photoPayload.append("dogId", String(newDogId));
+              photoPayload.append("image", imageFile);
+              await service.createPhoto(photoPayload);
             }
           } catch (photoError) {
-            if (imageUrl) {
-              useToastStore().messages.push(
-                "A kep linket nem sikerult elmenteni. Ellenorizd, hogy ervenyes (http/https) URL, es probalj rovidebb/kozvetlen kep linket."
-              );
-              useToastStore().show("Error");
-            }
+            useToastStore().messages.push(
+              "A kep feltoltese nem sikerult. Ellenorizd, hogy valos kep fajlt valasztottal."
+            );
+            useToastStore().show("Error");
           }
         }
 

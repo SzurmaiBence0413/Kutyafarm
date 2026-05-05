@@ -19,24 +19,20 @@ class UpdatePhotoRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-public function rules(): array
-{
-    // A route-ból kinyerjük a fotó ID-ját az egyediség vizsgálatához
-    $photoId = $this->route('photo');
+    public function rules(): array
+    {
+        return [
+            'image' => 'sometimes|required|file|image|max:5120',
+        ];
+    }
 
-    return [
-        // Kép URL validáció sometimes-szal
-        'imgUrl' => 'sometimes|required|url|max:255|unique:photos,imgUrl,' . $photoId,
-    ];
-}
-
-public function messages(): array
-{
-    return [
-        'imgUrl.required' => 'Image URL is required when updating.',
-        'imgUrl.url'      => 'Please provide a valid URL.',
-        'imgUrl.max'      => 'Image URL may not be greater than 255 characters.',
-        'imgUrl.unique'   => 'This image URL is already taken.',
-    ];
-}
+    public function messages(): array
+    {
+        return [
+            'image.required' => 'Image file is required when updating.',
+            'image.file'     => 'Image must be a file.',
+            'image.image'    => 'Please upload a valid image file.',
+            'image.max'      => 'Image may not be greater than 5MB.',
+        ];
+    }
 }

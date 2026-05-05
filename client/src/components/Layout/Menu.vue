@@ -51,6 +51,11 @@
                 Breeds
               </RouterLink>
             </li>
+            <li class="nav-item" v-if="hasMenuAccess('/adatok/colors')">
+              <RouterLink class="nav-link" to="/adatok/colors">
+                Colors
+              </RouterLink>
+            </li>
             <li class="nav-item" v-if="hasMenuAccess('/adatok/users')">
               <RouterLink class="nav-link" to="/adatok/users">
                 Users

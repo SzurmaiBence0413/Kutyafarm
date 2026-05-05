@@ -22,22 +22,23 @@ class StorePhotoRequest extends FormRequest
     public function rules(): array
     {
          return [
-            'dogId' => 'required|integer|exists:dogs,id', // A kutyának léteznie kell
-            'imgUrl' => 'required|url|max:2048', // Az imgUrl szükséges és valid URL kell hogy legyen
+            'dogId' => 'required|integer|exists:dogs,id', // A kutyanak leteznie kell
+            'image' => 'required|file|image|max:5120', // Max 5MB
         ];
     }
 
     public function messages()
-{
-    return [
-        'dogId.required' => 'Dog is required.',
-        'dogId.integer'  => 'Dog ID must be an integer.',
-        'dogId.exists'   => 'The selected dog does not exist.',
+    {
+        return [
+            'dogId.required' => 'Dog is required.',
+            'dogId.integer'  => 'Dog ID must be an integer.',
+            'dogId.exists'   => 'The selected dog does not exist.',
 
-        'imgUrl.required' => 'Image URL is required.',
-        'imgUrl.url'      => 'Please provide a valid URL.',
-        'imgUrl.max'      => 'Image URL may not be greater than 2048 characters.',
-    ];
-}
+            'image.required' => 'Image file is required.',
+            'image.file'     => 'Image must be a file.',
+            'image.image'    => 'Please upload a valid image file.',
+            'image.max'      => 'Image may not be greater than 5MB.',
+        ];
+    }
 
 }

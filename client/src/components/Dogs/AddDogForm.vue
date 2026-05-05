@@ -15,13 +15,12 @@
         </div>
 
         <div v-if="mode === 'create'" class="col-12 col-md-6">
-          <label class="form-label">Image URL (optional)</label>
+          <label class="form-label">Dog Image (optional)</label>
           <input
-            v-model.trim="form.imageUrl"
-            type="url"
-            maxlength="2048"
+            type="file"
             class="form-control"
-            placeholder="https://example.com/dog.jpg"
+            accept="image/*"
+            @change="onFileChange"
           />
         </div>
 
@@ -125,7 +124,7 @@ export default {
     return {
         form: {
           dogName: "",
-          imageUrl: "",
+          imageFile: null,
           chipNumber: "",
           breedId: "",
           colorId: "",
@@ -144,7 +143,7 @@ export default {
           if (!value) return;
           this.form = {
             dogName: value.dogName ?? value.name ?? "",
-            imageUrl: "",
+            imageFile: null,
             chipNumber: value.chipNumber ?? "",
             breedId: String(value.breedId ?? ""),
             colorId: String(value.colorId ?? ""),
@@ -158,6 +157,10 @@ export default {
     },
   },
   methods: {
+    onFileChange(event) {
+      const file = event?.target?.files?.[0] ?? null;
+      this.form.imageFile = file;
+    },
     submitHandler() {
       this.$emit("submit", { ...this.form });
     },

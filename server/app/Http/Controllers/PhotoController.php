@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Photo as CurrentModel;
 use App\Http\Requests\StorePhotoRequest as StoreCurrentModelRequest;
-use App\Http\Requests\StorePhotoRequest as UpdateCurrentModelRequest;
+use App\Http\Requests\UpdatePhotoRequest as UpdateCurrentModelRequest;
 
 
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Storage;
 
 class PhotoController extends Controller
 {
@@ -30,7 +31,13 @@ class PhotoController extends Controller
     {
         return $this->apiResponse(
             function () use ($request) {
-                return CurrentModel::create($request->validated());
+                $path = $request->file('image')->store('photos', 'public');
+                $imgUrl = url(Storage::url($path));
+
+                return CurrentModel::create([
+                    'dogId' => $request->input('dogId'),
+                    'imgUrl' => $imgUrl,
+                ]);
             }
         );
     }
@@ -52,7 +59,12 @@ class PhotoController extends Controller
     {
         return $this->apiResponse(function () use ($request, $id) {
             $row = CurrentModel::findOrFail($id);
-            $row->update($request->validated());
+            if ($request->hasFile('image')) {
+                $this->deleteStoredImageIfLocal($row->imgUrl);
+                $path = $request->file('image')->store('photos', 'public');
+                $row->imgUrl = url(Storage::url($path));
+            }
+            $row->save();
             return $row;
         });
     }
@@ -63,8 +75,30 @@ class PhotoController extends Controller
     public function destroy(int $id)
     {
         return $this->apiResponse(function () use ($id) {
-            CurrentModel::findOrFail($id)->delete();
+            $row = CurrentModel::findOrFail($id);
+            $this->deleteStoredImageIfLocal($row->imgUrl);
+            $row->delete();
             return ['id' => $id];
         });
+    }
+
+    private function deleteStoredImageIfLocal(?string $imgUrl): void
+    {
+        if (!$imgUrl) {
+            return;
+        }
+
+        $parsed = parse_url($imgUrl);
+        $path = $parsed['path'] ?? '';
+        $marker = '/storage/';
+        $pos = strpos($path, $marker);
+        if ($pos === false) {
+            return;
+        }
+
+        $relative = ltrim(substr($path, $pos + strlen($marker)), '/');
+        if ($relative !== '' && Storage::disk('public')->exists($relative)) {
+            Storage::disk('public')->delete($relative);
+        }
     }
 }

@@ -2,7 +2,6 @@
   <section class="auth-hero">
     <div class="overlay"></div>
     <div class="container py-5 position-relative">
-      <h1 class="title text-center">{{ title }}</h1>
       <div class="panel ms-auto me-auto">
         <h2 class="panel-title">{{ subtitle }}</h2>
         <slot />
@@ -15,13 +14,9 @@
 export default {
   name: "AuthPetLayout",
   props: {
-    title: {
-      type: String,
-      default: "Pet Adoption Form",
-    },
     subtitle: {
       type: String,
-      default: "Do You Like Pets",
+      default: "Login",
     },
   },
 };

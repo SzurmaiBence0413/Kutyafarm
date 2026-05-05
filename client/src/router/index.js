@@ -82,29 +82,6 @@ const router = createRouter({
       },
       children: [
         {
-          path: "sport",
-          name: "sport",
-          component: () => import("@/views/SportView.vue"),
-          beforeEnter: [checkIfNotLogged],
-          meta: {
-            title: (route) => "Sport",
-            breadcrumb: "Sport",
-            roles: [1],
-          },
-        },
-        // {
-        //   path: "schoolclass",
-        //   name: "schoolclass",
-        //   component: () => import("@/views/SchoolClasssView.vue"),
-        //   beforeEnter: [checkIfNotLogged],
-        //   meta: {
-        //     title: (route) => "Osztály",
-        //     breadcrumb: "Osztály",
-        //     roles: [1],
-        //   },
-        // },
-     
-        {
           path: "users",
           name: "users",
           component: () => import("@/views/UsersView.vue"),
@@ -123,6 +100,17 @@ const router = createRouter({
           meta: {
             title: (route) => "Breeds",
             breadcrumb: "Breeds",
+            roles: [1],
+          },
+        },
+        {
+          path: "colors",
+          name: "colors-admin",
+          component: () => import("@/views/ColorsAdminView.vue"),
+          beforeEnter: [checkIfNotLogged],
+          meta: {
+            title: (route) => "Colors",
+            breadcrumb: "Colors",
             roles: [1],
           },
         },
@@ -179,7 +167,7 @@ router.beforeEach((to, from, next) => {
       // Ha nincs belépve, küldjük a loginra
       next({ path: "/login" });
     } else {
-      // Ha be van lépve, de ehhez nincs joga (pl. diák admin oldalra téved)
+      // Ha be van lépve, de ehhez nincs joga (pl. örökbefogadó admin oldalra téved)
       // Küldjük a főoldalra vagy egy "Nincs jogosultság" oldalra
       //alert("Nincs jogosultságod az oldal megtekintéséhez!");
       useToastStore().messages.push("Ehhez az oldalhoz nincs jogod!");

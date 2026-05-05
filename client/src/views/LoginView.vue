@@ -1,5 +1,5 @@
 <template>
-  <AuthPetLayout title="Pet Adoption Form" subtitle="Login">
+  <AuthPetLayout  subtitle="Login">
     <UserLogin @logIn="loginHandler" />
   </AuthPetLayout>
 </template>
