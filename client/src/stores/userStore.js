@@ -6,7 +6,7 @@ import service from "@/api/userService";
 
 //változtatás
 class Item {
-  constructor(id = 0, name = "", email = "", role = 3) {
+  constructor(id = 0, name = "", email = "", role = 2) {
     this.id = id;
     this.name = name;
     this.email = email;
